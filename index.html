@@ -932,6 +932,93 @@ footer {
 }
 
 /* ================================================
+   CRITICAL FIXES FOR HORIZONTAL SCROLL
+================================================ */
+
+/* Force everything to stay inside */
+html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Prevent any element from exceeding viewport */
+* {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Fix service grid on phones */
+@media (max-width: 768px) {
+    .svc-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    .svc-card {
+        width: 100% !important;
+        min-width: unset !important;
+        padding: 20px !important;
+    }
+    
+    /* Fix stats grid */
+    .stats-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16px !important;
+    }
+    
+    .stat-col {
+        padding: 16px !important;
+        border-right: none !important;
+    }
+    
+    /* Fix Why Us grid */
+    .why-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+    
+    /* Fix process grid */
+    .proc-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+    }
+    
+    /* Fix hero content width */
+    .hero-content {
+        max-width: 100% !important;
+        padding: 0 16px !important;
+    }
+    
+    /* Fix ticker overflow */
+    #ticker {
+        overflow-x: hidden !important;
+    }
+    
+    .ticker-track {
+        animation: tickerScroll 20s linear infinite;
+        gap: 20px;
+    }
+    
+    /* Fix footer grid */
+    .foot-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+    
+    /* Fix modal */
+    .modal-box {
+        width: 95% !important;
+        margin: 16px !important;
+    }
+    
+    .frow {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+}
+
+/* ================================================
    ADDITIONAL RESPONSIVE FIXES (for your phone)
 ================================================ */
 
