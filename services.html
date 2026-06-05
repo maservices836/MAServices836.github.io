@@ -1,0 +1,2373 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MA Services™ - Full list of academic e-solutions: assignments, research, projects, thesis, exams, and more.">
+    <title>MA Services™ | Our Services</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* ================================================
+   PURISTA FONTS (from index.html)
+================================================ */
+@font-face {
+    font-family: 'Purista';
+    src: url('assets/webfonts/purista_thin-webfont.woff2') format('woff2'),
+         url('assets/webfonts/purista_thin-webfont.woff') format('woff'),
+         url('assets/webfonts/Purista Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Purista';
+    src: url('assets/webfonts/purista_light-webfont.woff2') format('woff2'),
+         url('assets/webfonts/purista_light-webfont.woff') format('woff'),
+         url('assets/webfonts/Purista Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Purista';
+    src: url('assets/webfonts/Purista.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Purista';
+    src: url('assets/webfonts/Purista SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Purista';
+    src: url('assets/webfonts/purista_bold-webfont.woff2') format('woff2'),
+         url('assets/webfonts/purista_bold-webfont.woff') format('woff'),
+         url('assets/webfonts/Purista Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ================================================
+   MULTILINGUAL & RTL ENGINE (from index.html)
+================================================ */
+@font-face {
+    font-family: 'Janna LT';
+    src: url('assets/webfonts/Janna_LT_Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+}
+
+/* Language Switcher UI */
+.lang-switcher {
+    display: flex; gap: 10px; margin-left: 20px; align-items: center;
+}
+.lang-orb {
+    width: 28px; height: 28px; border-radius: 50%; overflow: hidden;
+    cursor: pointer; border: 2px solid rgba(255,255,255,0.2);
+    transition: all var(--ease) 0.3s; filter: grayscale(100%);
+}
+.lang-orb:hover, .lang-orb.active {
+    filter: grayscale(0%); border-color: var(--orange); transform: scale(1.1);
+}
+.lang-orb img { width: 100%; height: 100%; object-fit: cover; }
+
+/* THE ARABIC OVERRIDE (Triggered by dir="rtl") */
+html[dir="rtl"] {
+    --fn-d: 'Janna LT', sans-serif;
+    --fn-s: 'Janna LT', sans-serif;
+    --fn-b: 'Janna LT', sans-serif;
+}
+
+html[dir="rtl"] body {
+    direction: rtl; text-align: right;
+}
+
+/* Mirrored UI Adjustments */
+html[dir="rtl"] .nav-list { flex-direction: row-reverse; }
+html[dir="rtl"] .btn-primary::before { left: 100%; }
+html[dir="rtl"] .btn-primary:hover::before { left: -100%; }
+html[dir="rtl"] .filter-inner { flex-direction: row-reverse; }
+html[dir="rtl"] .filter-btn::after { left: auto; right: 50%; }
+html[dir="rtl"] .filter-btn.active::after { left: auto; right: 0; }
+html[dir="rtl"] .card-top { flex-direction: row-reverse; }
+html[dir="rtl"] .card-badges { align-items: flex-start; }
+html[dir="rtl"] .included-list li { flex-direction: row-reverse; }
+html[dir="rtl"] .faq-q { text-align: right; }
+html[dir="rtl"] .faq-q .faq-icon { margin-left: 0; margin-right: auto; }
+html[dir="rtl"] .foot-links a::before { content: '‹'; }
+html[dir="rtl"] .breadcrumb i { transform: rotate(180deg); }
+html[dir="rtl"] .hero-stat-row { flex-direction: row-reverse; }
+
+/* ================================================
+   ROOT & VARIABLES (UPDATED with Purista fallback)
+================================================ */
+:root {
+    --orange:        #FF6B2B;
+    --orange-dark:   #CC4B0F;
+    --orange-glow:   rgba(255,107,43,.22);
+    --orange-glow-s: rgba(255,107,43,.50);
+    --dark:          #0E0E0E;
+    --darker:        #080808;
+    --card:          #161616;
+    --card-light:    #1D1D1D;
+    --border:        rgba(255,107,43,.14);
+    --border-b:      rgba(255,107,43,.38);
+    --white:         #FFFFFF;
+    --muted:         #7A7A7A;
+    --light:         #C8C8C8;
+    --fn-d:          'Bebas Neue', 'Purista', sans-serif;
+    --fn-s:          'Barlow Condensed', 'Purista', sans-serif;
+    --fn-b:          'DM Sans', 'Purista', sans-serif;
+    --ease:          cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--dark); color:var(--white); font-family:var(--fn-b); overflow-x:hidden; cursor:none; }
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--darker); }
+::-webkit-scrollbar-thumb { background:var(--orange); border-radius:2px; }
+
+/* ================================================
+   CURSOR (unchanged)
+================================================ */
+#cur-dot {
+    width:9px; height:9px; background:var(--orange);
+    border-radius:50%; position:fixed; pointer-events:none;
+    z-index:9999; transform:translate(-50%,-50%);
+}
+#cur-ring {
+    width:30px; height:30px; border:1.5px solid var(--orange);
+    border-radius:50%; position:fixed; pointer-events:none;
+    z-index:9998; transform:translate(-50%,-50%);
+    opacity:.55; transition:width .15s,height .15s,opacity .15s;
+}
+.cursor-big #cur-ring { width:46px; height:46px; opacity:.9; }
+
+/* ================================================
+   LAYOUT
+================================================ */
+.container { max-width:1260px; margin:0 auto; padding:0 32px; }
+.sp { padding:96px 0; }
+.section-tag {
+    font-family:var(--fn-s); font-size:.78rem; font-weight:600;
+    letter-spacing:4px; text-transform:uppercase; color:var(--orange);
+    display:flex; align-items:center; gap:10px; margin-bottom:14px;
+}
+.section-tag::before { content:''; width:28px; height:2px; background:var(--orange); }
+.section-title {
+    font-family:var(--fn-d);
+    font-size:clamp(2.5rem,5.5vw,5rem);
+    letter-spacing:2px; line-height:.93;
+}
+.orange { color:var(--orange); }
+.outlined { -webkit-text-stroke:2px var(--white); color:transparent; }
+
+/* ================================================
+   BUTTONS
+================================================ */
+.btn-primary {
+    background:var(--orange); color:#000;
+    padding:13px 32px;
+    font-family:var(--fn-s); font-size:.92rem;
+    font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    text-decoration:none; display:inline-flex; align-items:center; gap:9px;
+    border:none; border-radius:3px; cursor:pointer;
+    transition:all .3s var(--ease);
+    box-shadow:0 4px 22px var(--orange-glow-s);
+    position:relative; overflow:hidden;
+}
+.btn-primary::before {
+    content:''; position:absolute; top:0; left:-100%;
+    width:100%; height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+    transition:left .45s;
+}
+.btn-primary:hover::before { left:100%; }
+.btn-primary:hover { background:#fff; transform:translateY(-2px); }
+
+.btn-ghost {
+    background:transparent; color:var(--white);
+    padding:11px 28px;
+    font-family:var(--fn-s); font-size:.9rem;
+    font-weight:500; letter-spacing:2px; text-transform:uppercase;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    border:1px solid rgba(255,255,255,.26); border-radius:3px; cursor:pointer;
+    transition:all .3s var(--ease);
+}
+.btn-ghost:hover { border-color:var(--orange); color:var(--orange); transform:translateY(-2px); }
+
+/* ================================================
+   HEADER (with language switcher)
+================================================ */
+#hdr {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    transition:background .35s var(--ease),border .35s;
+}
+#hdr.scrolled {
+    background:rgba(8,8,8,.94);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+.navbar { display:flex; align-items:center; justify-content:space-between; padding:17px 0; }
+.logo-link { display:flex; align-items:center; gap:13px; text-decoration:none; }
+.logo-img {
+    height:50px; width:50px; object-fit:contain;
+    filter:drop-shadow(0 0 12px var(--orange-glow-s)); transition:filter .3s;
+}
+.logo-link:hover .logo-img { filter:drop-shadow(0 0 22px var(--orange)); }
+.logo-texts { display:flex; flex-direction:column; }
+.logo-name { font-family:var(--fn-d); font-size:1.65rem; letter-spacing:3px; color:var(--white); line-height:1; }
+.logo-name em { color:var(--orange); font-style:normal; }
+.logo-sub { font-family:var(--fn-s); font-size:.62rem; letter-spacing:2.5px; color:var(--muted); text-transform:uppercase; margin-top:2px; }
+.nav-list { display:flex; list-style:none; gap:32px; align-items:center; }
+.nav-list a {
+    font-family:var(--fn-s); font-size:.93rem; font-weight:500;
+    letter-spacing:1.5px; text-transform:uppercase; color:var(--light);
+    text-decoration:none; transition:color .25s; position:relative;
+}
+.nav-list a::after {
+    content:''; position:absolute; bottom:-4px; left:0;
+    width:0; height:2px; background:var(--orange); transition:width .3s var(--ease);
+}
+.nav-list a:hover { color:var(--orange); }
+.nav-list a:hover::after { width:100%; }
+.nav-list a.active { color:var(--orange); }
+.nav-list a.active::after { width:100%; }
+.nav-cta {
+    background:var(--orange) !important; color:#000 !important;
+    padding:9px 22px; border-radius:3px; font-weight:700 !important;
+    box-shadow:0 0 16px var(--orange-glow) !important;
+}
+.nav-cta:hover { background:#fff !important; }
+.nav-cta::after { display:none !important; }
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:5px; }
+.hamburger span { display:block; width:24px; height:2px; background:var(--white); transition:all .3s var(--ease); }
+.hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+/* ================================================
+   PAGE HERO
+================================================ */
+#page-hero {
+    position:relative; padding:160px 0 90px;
+    overflow:hidden;
+    background:var(--darker);
+    border-bottom:1px solid var(--border);
+}
+#hero-canvas {
+    position:absolute; inset:0;
+    width:100%; height:100%; opacity:.12;
+}
+.hero-vignette-top {
+    position:absolute; inset:0;
+    background:
+        radial-gradient(ellipse 65% 55% at 50% 50%,rgba(255,107,43,.09) 0%,transparent 65%),
+        linear-gradient(to bottom,rgba(14,14,14,.3) 0%,transparent 40%,rgba(8,8,8,.9) 100%);
+    pointer-events:none;
+}
+.page-hero-content { position:relative; z-index:2; }
+.breadcrumb {
+    display:flex; align-items:center; gap:8px;
+    font-family:var(--fn-s); font-size:.8rem;
+    letter-spacing:2px; color:var(--muted); text-transform:uppercase;
+    margin-bottom:22px;
+}
+.breadcrumb a { color:var(--muted); text-decoration:none; transition:color .25s; }
+.breadcrumb a:hover { color:var(--orange); }
+.breadcrumb i { font-size:.6rem; color:var(--border-b); }
+.page-title {
+    font-family:var(--fn-d);
+    font-size:clamp(4rem,11vw,9rem);
+    line-height:.88; letter-spacing:3px;
+    margin-bottom:22px;
+    animation:fadeUp .7s ease .2s both;
+}
+.page-sub {
+    font-family:var(--fn-s); font-size:clamp(1rem,2vw,1.25rem);
+    font-weight:300; letter-spacing:3px; color:var(--light);
+    max-width:560px;
+    animation:fadeUp .7s ease .4s both;
+}
+.hero-stat-row {
+    display:flex; gap:40px; flex-wrap:wrap;
+    margin-top:44px;
+    animation:fadeUp .7s ease .6s both;
+}
+.h-stat { display:flex; flex-direction:column; gap:3px; }
+.h-stat strong {
+    font-family:var(--fn-d); font-size:2.2rem;
+    color:var(--orange); line-height:1;
+    filter:drop-shadow(0 0 12px var(--orange-glow));
+}
+.h-stat span {
+    font-family:var(--fn-s); font-size:.75rem;
+    letter-spacing:2px; color:var(--muted); text-transform:uppercase;
+}
+.hero-decoration {
+    position:absolute; right:5%; top:50%; transform:translateY(-50%);
+    z-index:1; opacity:.08;
+    animation:floatY 6s ease-in-out infinite;
+}
+.hero-decoration img { width:340px; }
+@keyframes floatY {
+    0%,100% { transform:translateY(-50%) translateY(0); }
+    50%      { transform:translateY(-50%) translateY(-18px); }
+}
+
+/* ================================================
+   FILTER BAR
+================================================ */
+#filter-bar {
+    position:sticky; top:84px; z-index:50;
+    background:rgba(8,8,8,.92); backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+    padding:0;
+}
+.filter-inner {
+    display:flex; align-items:center;
+    gap:0; overflow-x:auto;
+    scrollbar-width:none;
+}
+.filter-inner::-webkit-scrollbar { display:none; }
+.filter-btn {
+    font-family:var(--fn-s); font-size:.88rem;
+    font-weight:600; letter-spacing:2px; text-transform:uppercase;
+    color:var(--muted); background:transparent; border:none;
+    padding:18px 28px; cursor:pointer;
+    transition:all .3s var(--ease);
+    white-space:nowrap; position:relative;
+}
+.filter-btn::after {
+    content:''; position:absolute;
+    bottom:0; left:50%; right:50%;
+    height:2px; background:var(--orange);
+    transition:left .3s var(--ease),right .3s var(--ease);
+}
+.filter-btn:hover { color:var(--light); }
+.filter-btn.active { color:var(--orange); }
+.filter-btn.active::after { left:0; right:0; }
+.filter-count {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:20px; height:20px; font-size:.65rem;
+    background:var(--orange-glow); border:1px solid var(--border-b);
+    border-radius:50%; color:var(--orange);
+    margin-left:7px;
+}
+.filter-divider { width:1px; height:24px; background:var(--border); flex-shrink:0; }
+
+/* ================================================
+   SERVICES CATALOG
+================================================ */
+#catalog { background:var(--dark); padding:70px 0 100px; }
+.catalog-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(350px,1fr));
+    gap:22px;
+}
+
+/* Service Card */
+.svc-card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:6px;
+    overflow:hidden;
+    transition:border-color .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease);
+    display:flex; flex-direction:column;
+    opacity:1;
+    animation:cardIn .4s var(--ease) both;
+}
+@keyframes cardIn {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+.svc-card.hide { display:none; }
+.svc-card:hover {
+    border-color:var(--border-b);
+    transform:translateY(-5px);
+    box-shadow:0 16px 50px rgba(0,0,0,.4), 0 0 0 1px var(--border-b);
+}
+.card-bar { height:3px; background:var(--border-b); transition:background .3s; }
+.svc-card:hover .card-bar { background:linear-gradient(90deg,var(--orange-dark),var(--orange)); }
+.card-body { padding:30px 28px; flex:1; display:flex; flex-direction:column; gap:16px; }
+.card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.card-hex {
+    width:54px; height:54px; flex-shrink:0;
+    clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+    background:var(--orange-glow); border:1px solid var(--border-b);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.35rem; color:var(--orange);
+    transition:all .3s var(--ease);
+}
+.svc-card:hover .card-hex { background:var(--orange); color:#000; box-shadow:0 0 20px var(--orange-glow); }
+.card-badges { display:flex; flex-direction:column; align-items:flex-end; gap:5px; }
+.badge-cat {
+    font-family:var(--fn-s); font-size:.7rem; font-weight:600;
+    letter-spacing:2px; text-transform:uppercase;
+    padding:3px 10px; border-radius:2px;
+}
+.badge-cat.writing   { background:rgba(99,102,241,.15); color:#818cf8; border:1px solid rgba(99,102,241,.3); }
+.badge-cat.technical { background:rgba(34,197,94,.1);  color:#4ade80; border:1px solid rgba(34,197,94,.25); }
+.badge-cat.exam      { background:rgba(249,115,22,.12); color:#fb923c; border:1px solid rgba(249,115,22,.3); }
+.badge-cat.design    { background:rgba(236,72,153,.1);  color:#f472b6; border:1px solid rgba(236,72,153,.25); }
+.badge-time {
+    font-family:var(--fn-s); font-size:.68rem; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--muted);
+    display:flex; align-items:center; gap:4px;
+}
+.badge-time i { color:var(--orange); font-size:.65rem; }
+.card-title {
+    font-family:var(--fn-d); font-size:1.65rem;
+    letter-spacing:1px; color:var(--white);
+    transition:color .3s;
+}
+.svc-card:hover .card-title { color:var(--orange); }
+.card-desc { font-size:.87rem; line-height:1.75; color:var(--muted); }
+.included-label {
+    font-family:var(--fn-s); font-size:.72rem; font-weight:600;
+    letter-spacing:3px; text-transform:uppercase; color:var(--muted);
+    margin-bottom:8px;
+}
+.included-list { list-style:none; display:flex; flex-direction:column; gap:7px; }
+.included-list li {
+    display:flex; align-items:flex-start; gap:9px;
+    font-size:.85rem; color:var(--light); line-height:1.45;
+}
+.included-list li i { color:var(--orange); margin-top:2px; font-size:.7rem; flex-shrink:0; }
+.card-footer {
+    padding:18px 28px;
+    border-top:1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; background:rgba(0,0,0,.2);
+}
+.price-hint {
+    font-family:var(--fn-d); font-size:1.05rem; letter-spacing:1px;
+    color:var(--muted);
+}
+.price-hint em { color:var(--orange); font-style:normal; font-size:1.4rem; }
+
+/* ================================================
+   PRICING TIERS
+================================================ */
+#pricing {
+    background:var(--darker);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:96px 0;
+}
+.pricing-head { text-align:center; max-width:620px; margin:0 auto 64px; }
+.pricing-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1px; background:var(--border);
+    border:1px solid var(--border);
+    border-radius:6px; overflow:hidden;
+}
+.price-col {
+    background:var(--card); padding:44px 36px;
+    display:flex; flex-direction:column; gap:0;
+    position:relative; transition:background .3s;
+}
+.price-col.featured {
+    background:var(--card-light);
+    border-left:1px solid var(--border-b);
+    border-right:1px solid var(--border-b);
+}
+.price-popular {
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    background:var(--orange); color:#000;
+    font-family:var(--fn-s); font-size:.72rem; font-weight:700;
+    letter-spacing:3px; text-transform:uppercase;
+    padding:4px 20px; border-radius:0 0 6px 6px;
+}
+.price-tier {
+    font-family:var(--fn-s); font-size:.82rem; font-weight:600;
+    letter-spacing:4px; text-transform:uppercase; color:var(--muted);
+    margin-bottom:16px; margin-top:10px;
+}
+.price-amount {
+    font-family:var(--fn-d); font-size:3.8rem; line-height:1;
+    color:var(--white); margin-bottom:5px;
+}
+.price-amount .curr { font-size:1.6rem; color:var(--orange); vertical-align:top; margin-top:8px; display:inline-block; }
+.price-amount .from { font-family:var(--fn-s); font-size:.85rem; letter-spacing:2px; color:var(--muted); margin-left:4px; }
+.price-note { font-size:.82rem; color:var(--muted); margin-bottom:28px; }
+.price-divider { height:1px; background:var(--border); margin:24px 0; }
+.price-list { list-style:none; display:flex; flex-direction:column; gap:10px; flex:1; margin-bottom:28px; }
+.price-list li {
+    display:flex; align-items:center; gap:10px;
+    font-size:.86rem; color:var(--light);
+}
+.price-list li i { font-size:.75rem; flex-shrink:0; }
+.price-list li i.fa-check    { color:#4ade80; }
+.price-list li i.fa-times    { color:#555; }
+.price-list li.faded         { color:var(--muted); }
+.price-col:hover { background:var(--card-light); }
+.price-col.featured:hover { background:#202020; }
+
+/* ================================================
+   FAQ SECTION
+================================================ */
+#faq {
+    background:var(--dark); padding:96px 0;
+}
+.faq-grid { display:grid; grid-template-columns:1fr 1.6fr; gap:80px; align-items:start; }
+.faq-left { position:sticky; top:130px; }
+.faq-left p { font-size:.9rem; line-height:1.8; color:var(--muted); margin:16px 0 28px; }
+.faq-contact {
+    display:flex; align-items:center; gap:12px;
+    padding:18px 22px; border:1px solid var(--border);
+    border-radius:4px; background:var(--card);
+    text-decoration:none; transition:all .3s var(--ease);
+}
+.faq-contact:hover { border-color:var(--border-b); transform:translateX(5px); }
+.faq-contact-icon {
+    width:44px; height:44px;
+    clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+    background:var(--orange-glow); border:1px solid var(--border-b);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem; color:var(--orange); flex-shrink:0;
+}
+.faq-contact-txt strong {
+    display:block; font-family:var(--fn-s); font-size:.95rem;
+    font-weight:700; letter-spacing:1px; color:var(--white); margin-bottom:2px;
+}
+.faq-contact-txt span { font-size:.8rem; color:var(--muted); }
+.faq-list { display:flex; flex-direction:column; gap:0; }
+.faq-item {
+    border-bottom:1px solid var(--border); overflow:hidden;
+}
+.faq-q {
+    width:100%; background:transparent; border:none;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:22px 0; cursor:pointer;
+    font-family:var(--fn-s); font-size:1.08rem; font-weight:600;
+    letter-spacing:.5px; color:var(--light); text-align:left;
+    transition:color .25s;
+}
+.faq-q:hover { color:var(--orange); }
+.faq-q.open { color:var(--orange); }
+.faq-icon {
+    width:28px; height:28px; flex-shrink:0;
+    border:1px solid var(--border-b); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.7rem; color:var(--orange);
+    transition:transform .3s var(--ease), background .3s;
+}
+.faq-q.open .faq-icon { transform:rotate(45deg); background:var(--orange); color:#000; }
+.faq-a {
+    max-height:0; overflow:hidden;
+    transition:max-height .4s var(--ease), padding .35s;
+    font-size:.88rem; line-height:1.8; color:var(--muted);
+    padding:0;
+}
+.faq-a.open { max-height:300px; padding:0 0 20px; }
+.faq-a p + p { margin-top:10px; }
+
+/* ================================================
+   COMPARE TABLE
+================================================ */
+#compare {
+    background:var(--card);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:80px 0;
+}
+.compare-head { text-align:center; margin-bottom:48px; }
+.tbl-wrap { overflow-x:auto; }
+.compare-tbl {
+    width:100%; border-collapse:collapse;
+    font-size:.88rem; min-width:640px;
+}
+.compare-tbl thead tr {
+    background:var(--card-light);
+    border-bottom:2px solid var(--border-b);
+}
+.compare-tbl thead th {
+    padding:14px 22px; text-align:left;
+    font-family:var(--fn-s); font-size:.8rem; font-weight:600;
+    letter-spacing:3px; text-transform:uppercase; color:var(--muted);
+}
+.compare-tbl thead th:first-child { color:var(--orange); }
+.compare-tbl tbody tr {
+    border-bottom:1px solid var(--border);
+    transition:background .2s;
+}
+.compare-tbl tbody tr:hover { background:rgba(255,107,43,.04); }
+.compare-tbl tbody tr:last-child { border-bottom:none; }
+.compare-tbl tbody td {
+    padding:14px 22px; color:var(--light); vertical-align:middle;
+}
+.compare-tbl tbody td:first-child { font-weight:600; color:var(--white); }
+.tbl-check { color:#4ade80; }
+.tbl-cross { color:#444; }
+.tbl-badge {
+    font-family:var(--fn-s); font-size:.72rem; font-weight:600;
+    letter-spacing:1.5px; text-transform:uppercase;
+    padding:3px 9px; border-radius:2px;
+    display:inline-block;
+}
+.tbl-badge.fast  { background:rgba(251,146,60,.12); color:#fb923c; }
+.tbl-badge.std   { background:rgba(99,102,241,.12); color:#818cf8; }
+.tbl-badge.prem  { background:rgba(255,107,43,.12); color:var(--orange); }
+.row-highlight { background:rgba(255,107,43,.04) !important; }
+.row-highlight td:first-child { color:var(--orange) !important; }
+
+/* ================================================
+   CTA BAND
+================================================ */
+#cta-band {
+    padding:96px 0;
+    background:
+        radial-gradient(ellipse 80% 50% at 50% 50%,rgba(255,107,43,.1) 0%,transparent 65%),
+        linear-gradient(135deg,#140700 0%,var(--darker) 50%,#140700 100%);
+    border-top:1px solid var(--border);
+    position:relative; overflow:hidden;
+}
+#cta-band::before {
+    content:''; position:absolute; inset:0;
+    background:url('media/images/Wallpaper_1.jpg') center/cover no-repeat;
+    opacity:.03; filter:grayscale(100%);
+}
+.cta-inner { position:relative; z-index:2; text-align:center; max-width:780px; margin:0 auto; }
+.cta-title { font-family:var(--fn-d); font-size:clamp(3rem,7.5vw,7rem); line-height:.88; margin-bottom:20px; }
+.cta-sub { font-family:var(--fn-s); font-size:1.05rem; letter-spacing:2px; color:var(--muted); margin-bottom:40px; }
+.cta-pills { display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:32px; }
+.cta-pill { display:flex; align-items:center; gap:7px; font-family:var(--fn-s); font-size:.8rem; letter-spacing:1.5px; color:var(--muted); }
+.cta-pill i { color:var(--orange); }
+
+/* ================================================
+   FOOTER
+================================================ */
+footer { background:var(--darker); border-top:1px solid var(--border); padding:62px 0 28px; }
+.foot-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1.5fr; gap:48px; padding-bottom:48px; border-bottom:1px solid var(--border); margin-bottom:28px; }
+.foot-desc { font-size:.84rem; line-height:1.82; color:var(--muted); margin:18px 0 22px; }
+.socials { display:flex; gap:10px; }
+.soc-btn {
+    width:36px; height:36px; border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--muted); text-decoration:none; font-size:.88rem;
+    transition:all .3s var(--ease);
+    clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+}
+.soc-btn:hover { background:var(--orange); color:#000; border-color:var(--orange); }
+.foot-col h4 { font-family:var(--fn-s); font-size:.8rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--orange); margin-bottom:18px; padding-bottom:9px; border-bottom:1px solid var(--border); }
+.foot-links { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.foot-links a { font-size:.84rem; color:var(--muted); text-decoration:none; transition:all .25s; display:flex; align-items:center; gap:6px; }
+.foot-links a::before { content:'›'; color:var(--orange); opacity:0; transition:.25s; }
+.foot-links a:hover { color:var(--white); padding-left:5px; }
+.foot-links a:hover::before { opacity:1; }
+.foot-cr { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+.foot-cr span { font-family:var(--fn-s); font-size:.78rem; letter-spacing:1px; color:var(--muted); }
+.foot-cr em { color:var(--orange); font-style:normal; }
+
+/* ================================================
+   MOBILE MENU
+================================================ */
+#mob-overlay { position:fixed; inset:0; background:rgba(0,0,0,.78); z-index:198; opacity:0; pointer-events:none; transition:opacity .38s; }
+#mob-overlay.on { opacity:1; pointer-events:all; }
+#mob-menu { position:fixed; top:0; right:-100%; width:82vw; max-width:340px; height:100vh; background:var(--card); border-left:1px solid var(--border-b); z-index:199; padding:28px; transition:right .38s var(--ease); overflow-y:auto; }
+#mob-menu.on { right:0; }
+.mob-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:36px; padding-bottom:18px; border-bottom:1px solid var(--border); }
+.mob-close { background:none; border:none; color:var(--muted); font-size:1.45rem; cursor:pointer; transition:color .2s; }
+.mob-close:hover { color:var(--orange); }
+.mob-links { list-style:none; display:flex; flex-direction:column; gap:3px; margin-bottom:28px; }
+.mob-links a { display:block; font-family:var(--fn-d); font-size:2.1rem; letter-spacing:2px; color:var(--light); text-decoration:none; padding:7px 0; border-bottom:1px solid var(--border); transition:all .25s; }
+.mob-links a:hover { color:var(--orange); padding-left:10px; }
+.mob-links a.active { color:var(--orange); }
+.mob-socials { display:flex; gap:10px; justify-content:center; margin-top:28px; }
+
+/* ================================================
+   REQUEST MODAL
+================================================ */
+#req-modal { position:fixed; inset:0; background:rgba(0,0,0,.82); backdrop-filter:blur(12px); z-index:300; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; padding:20px; }
+#req-modal.on { opacity:1; pointer-events:all; }
+.modal-box { background:var(--card-light); border:1px solid var(--border-b); border-radius:4px; width:100%; max-width:550px; max-height:92vh; overflow-y:auto; position:relative; box-shadow:0 0 80px rgba(255,107,43,.18); animation:mSlide .3s ease; }
+@keyframes mSlide { from { transform:translateY(22px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+.modal-topbar { background:linear-gradient(90deg,var(--orange),var(--orange-dark)); padding:18px 28px; display:flex; align-items:center; gap:12px; }
+.modal-topbar img { height:34px; }
+.modal-topbar h3 { font-family:var(--fn-d); font-size:1.5rem; color:#000; letter-spacing:2px; }
+.modal-close { position:absolute; top:14px; right:18px; background:rgba(0,0,0,.32); border:none; color:#000; width:30px; height:30px; border-radius:50%; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+.modal-close:hover { background:rgba(0,0,0,.55); }
+.modal-body { padding:28px; }
+.fgrp { margin-bottom:16px; }
+.fgrp label { display:block; font-family:var(--fn-s); font-size:.78rem; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:5px; }
+.fgrp input, .fgrp select, .fgrp textarea { width:100%; background:var(--dark); border:1px solid var(--border); color:var(--white); padding:11px 14px; font-family:var(--fn-b); font-size:.88rem; border-radius:2px; outline:none; transition:border-color .3s,box-shadow .3s; }
+.fgrp input:focus, .fgrp select:focus, .fgrp textarea:focus { border-color:var(--orange); box-shadow:0 0 10px var(--orange-glow); }
+.fgrp select option { background:var(--card); }
+.fgrp textarea { resize:vertical; min-height:90px; }
+.frow { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+/* ================================================
+   PROCESSING OVERLAY
+================================================ */
+#proc-overlay { position:fixed; inset:0; background:rgba(0,0,0,.92); backdrop-filter:blur(16px); z-index:400; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; }
+#proc-overlay.on { opacity:1; pointer-events:all; }
+.terminal-box { background:var(--card); border:1px solid var(--border-b); border-radius:6px; padding:36px; width:90%; max-width:480px; box-shadow:0 0 60px rgba(255,107,43,.25); text-align:center; }
+.t-logo { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:22px; }
+.t-logo img { height:44px; filter:drop-shadow(0 0 12px var(--orange-glow-s)); }
+.t-title { font-family:var(--fn-d); font-size:1.6rem; color:var(--orange); letter-spacing:3px; margin-bottom:22px; }
+#t-log { background:var(--darker); border:1px solid var(--border); border-radius:4px; padding:14px; height:120px; overflow-y:auto; text-align:left; margin-bottom:16px; font-family:'Courier New',monospace; font-size:.78rem; color:#aaa; }
+.log-line.success { color:#00e676; }
+.prog-track { background:var(--border); height:5px; border-radius:3px; overflow:hidden; margin-bottom:12px; }
+#prog-bar { height:100%; width:0%; background:linear-gradient(90deg,var(--orange-dark),var(--orange)); transition:width .1s linear; box-shadow:0 0 10px var(--orange-glow); }
+.proc-status { font-family:var(--fn-s); font-size:.85rem; letter-spacing:4px; color:var(--orange); animation:blink 1s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+
+/* ================================================
+   SCROLL REVEAL
+================================================ */
+.rv { opacity:0; transform:translateY(36px); transition:opacity .7s ease,transform .7s ease; }
+.rv.in { opacity:1; transform:translateY(0); }
+.rv.d1{transition-delay:.1s} .rv.d2{transition-delay:.2s} .rv.d3{transition-delay:.3s} .rv.d4{transition-delay:.4s}
+
+/* ================================================
+   KEYFRAMES
+================================================ */
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+/* ================================================
+   RESPONSIVE
+================================================ */
+@media (max-width:1100px) {
+    .foot-grid { grid-template-columns:1fr 1fr; gap:36px; }
+    .faq-grid { grid-template-columns:1fr; gap:40px; }
+    .faq-left { position:static; }
+    .pricing-grid { grid-template-columns:1fr; gap:1px; }
+}
+@media (max-width:900px) {
+    .catalog-grid { grid-template-columns:1fr; }
+}
+@media (max-width:768px) {
+    .nav-list { display:none; }
+    .hamburger { display:flex; }
+    .container { padding:0 20px; }
+    .sp { padding:70px 0; }
+    .foot-grid { grid-template-columns:1fr; }
+    .foot-cr { flex-direction:column; text-align:center; }
+    .frow { grid-template-columns:1fr; }
+    .hero-stat-row { gap:24px; }
+    .hero-decoration { display:none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Cursor -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+
+<!-- ====================================================
+     HEADER (with language switcher added)
+==================================================== -->
+<header id="hdr">
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo-link">
+                <img src="media/images/Logo_1.png" alt="MA Services" class="logo-img">
+                <div class="logo-texts">
+                    <span class="logo-name"><em>MA</em> SERVICES<sup style="font-size:.45em;color:var(--muted);vertical-align:super;">™</sup></span>
+                    <span class="logo-sub" data-i18n="logo_sub">Academic E-Solutions</span>
+                </div>
+            </a>
+            <ul class="nav-list">
+                <li><a href="index.html#services" data-i18n="nav_services">Services</a></li>
+                <li><a href="index.html#process" data-i18n="nav_process">Process</a></li>
+                <li><a href="index.html#why" data-i18n="nav_why">Why Us</a></li>
+                <li><a href="index.html#contact" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="javascript:void(0)" onclick="openModal()" class="nav-cta" data-i18n="nav_cta">Get Started <i class="fas fa-bolt"></i></a></li>
+            </ul>
+
+            <!-- Language Switcher (added from index.html) -->
+            <div class="lang-switcher">
+                <div class="lang-orb" onclick="switchLang('en')" id="lang-en" title="English">
+                    <img src="media/images/GB.png" alt="EN">
+                </div>
+                <div class="lang-orb" onclick="switchLang('ar')" id="lang-ar" title="Arabic">
+                    <img src="media/images/Ar.png" alt="AR">
+                </div>
+            </div>
+
+            <!-- Hamburger button (added) -->
+            <div class="hamburger" id="hbg" onclick="toggleMob()">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </div>
+</header>
+
+
+<!-- ====================================================
+     PAGE HERO
+==================================================== -->
+<section id="page-hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-vignette-top"></div>
+
+    <div class="hero-decoration">
+        <img src="media/images/Logo_1.png" alt="">
+    </div>
+
+    <div class="container page-hero-content">
+        <div class="breadcrumb">
+            <a href="index.html" data-i18n="breadcrumb_home">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span style="color:var(--orange);" data-i18n="breadcrumb_services">Services</span>
+        </div>
+
+        <h1 class="page-title" data-i18n="page_title">
+            OUR<br>
+            <span class="orange">ACADEMIC</span><br>
+            <span class="outlined">SERVICES</span>
+        </h1>
+        <p class="page-sub" data-i18n="page_sub">Every service you need — covered by verified specialists with precision, speed, and discretion.</p>
+
+        <div class="hero-stat-row">
+            <div class="h-stat"><strong>12+</strong><span data-i18n="stat_services">Services Available</span></div>
+            <div class="h-stat"><strong>98%</strong><span data-i18n="stat_success">Success Rate</span></div>
+            <div class="h-stat"><strong>24H</strong><span data-i18n="stat_express">Express Option</span></div>
+            <div class="h-stat"><strong>∞</strong><span data-i18n="stat_revisions">Free Revisions</span></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ====================================================
+     FILTER BAR (with i18n attributes)
+==================================================== -->
+<div id="filter-bar">
+    <div class="container">
+        <div class="filter-inner">
+            <button class="filter-btn active" data-filter="all" onclick="filterCards('all',this)">
+                <span data-i18n="filter_all">All Services</span> <span class="filter-count" id="cnt-all">12</span>
+            </button>
+            <div class="filter-divider"></div>
+            <button class="filter-btn" data-filter="writing" onclick="filterCards('writing',this)">
+                <span data-i18n="filter_writing">Academic Writing</span> <span class="filter-count" id="cnt-writing">5</span>
+            </button>
+            <div class="filter-divider"></div>
+            <button class="filter-btn" data-filter="technical" onclick="filterCards('technical',this)">
+                <span data-i18n="filter_technical">Technical</span> <span class="filter-count" id="cnt-technical">4</span>
+            </button>
+            <div class="filter-divider"></div>
+            <button class="filter-btn" data-filter="exam" onclick="filterCards('exam',this)">
+                <span data-i18n="filter_exam">Exam &amp; Prep</span> <span class="filter-count" id="cnt-exam">2</span>
+            </button>
+            <div class="filter-divider"></div>
+            <button class="filter-btn" data-filter="design" onclick="filterCards('design',this)">
+                <span data-i18n="filter_design">Design &amp; Slides</span> <span class="filter-count" id="cnt-design">1</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- ====================================================
+     SERVICES CATALOG (all data-i18n attributes added)
+==================================================== -->
+<section id="catalog">
+    <div class="container">
+        <div class="catalog-grid" id="catalog-grid">
+
+            <!-- 01 ASSIGNMENTS -->
+            <div class="svc-card" data-cat="writing">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-file-alt"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat writing" data-i18n="badge_writing">Academic Writing</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 24H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc1_title">Assignments</h3>
+                    <p class="card-desc" data-i18n="svc1_desc">Custom-written assignments across all disciplines and academic levels. Fully researched, properly formatted, and referenced to your institution's exact requirements.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc1_inc1">Original, plagiarism-free content</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc1_inc2">Correct citation format (APA, MLA, Harvard, etc.)</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc1_inc3">In-text references and bibliography</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc1_inc4">Tailored to your grading rubric</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc1_inc5">Unlimited revisions until perfect</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$15</em></div>
+                    <button class="btn-primary" onclick="openModal('Assignments')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 02 RESEARCH ASSAY -->
+            <div class="svc-card" data-cat="writing">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-search"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat writing" data-i18n="badge_writing">Academic Writing</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 48H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc2_title">Research Assays</h3>
+                    <p class="card-desc" data-i18n="svc2_desc">In-depth research papers with solid academic sourcing, structured arguments, and professional analysis. Built for high-stakes submissions.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc2_inc1">Full literature review</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc2_inc2">Hypothesis & methodology section</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc2_inc3">Data analysis and discussion</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc2_inc4">Peer-reviewed source verification</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc2_inc5">Abstract and executive summary</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$25</em></div>
+                    <button class="btn-primary" onclick="openModal('Research Assay')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 03 PROJECT SOLUTIONS -->
+            <div class="svc-card" data-cat="technical">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-project-diagram"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat technical" data-i18n="badge_technical">Technical</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 48H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc3_title">Project Solutions</h3>
+                    <p class="card-desc" data-i18n="svc3_desc">Full project assistance from planning to final delivery. Engineering, CS, business, and beyond — we cover all phases and submit-ready documentation.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc3_inc1">Project planning & scope definition</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc3_inc2">Technical documentation</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc3_inc3">Code / diagrams / models as required</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc3_inc4">Final report and conclusion</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc3_inc5">Presentation slide deck (on request)</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$30</em></div>
+                    <button class="btn-primary" onclick="openModal('Project Solution')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 04 EXAM SCORING -->
+            <div class="svc-card" data-cat="exam">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-chart-bar"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat exam" data-i18n="badge_exam">Exam &amp; Prep</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 12H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc4_title">Exam Scoring</h3>
+                    <p class="card-desc" data-i18n="svc4_desc">Strategic exam preparation and model answer writing. We study previous papers, predict likely questions, and build you a scoring strategy.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc4_inc1">Past paper analysis & pattern study</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc4_inc2">Model answers for key questions</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc4_inc3">Chapter summaries & key points</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc4_inc4">Practice question bank</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc4_inc5">Exam strategy and time management tips</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$20</em></div>
+                    <button class="btn-primary" onclick="openModal('Exam Scoring')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 05 THESIS WRITING -->
+            <div class="svc-card" data-cat="writing">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat writing" data-i18n="badge_writing">Academic Writing</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_by">By</span> Agreement</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc5_title">Thesis Writing</h3>
+                    <p class="card-desc" data-i18n="svc5_desc">Comprehensive thesis and dissertation support handled by subject-specific specialists. From the first chapter to defense-ready final draft.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc5_inc1">Full chapter-by-chapter writing</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc5_inc2">Literature review & theoretical framework</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc5_inc3">Research design & methodology</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc5_inc4">Results, analysis & discussion</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc5_inc5">Defense preparation support</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$80</em></div>
+                    <button class="btn-primary" onclick="openModal('Thesis Writing')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 06 TECHNICAL REPORTS -->
+            <div class="svc-card" data-cat="technical">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-cogs"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat technical" data-i18n="badge_technical">Technical</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 24H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc6_title">Technical Reports</h3>
+                    <p class="card-desc" data-i18n="svc6_desc">Lab reports, case studies, and technical documentation prepared by subject-matter specialists. Clean, accurate, and submission-ready.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc6_inc1">Professional report structure</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc6_inc2">Proper data tables and charts</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc6_inc3">Calculations and interpretation</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc6_inc4">Conclusion and recommendations</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc6_inc5">Formatted per your template</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$20</em></div>
+                    <button class="btn-primary" onclick="openModal('Technical Report')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 07 LITERATURE REVIEW -->
+            <div class="svc-card" data-cat="writing">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-book-open"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat writing" data-i18n="badge_writing">Academic Writing</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 36H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc7_title">Literature Reviews</h3>
+                    <p class="card-desc" data-i18n="svc7_desc">Comprehensive, critically analyzed literature reviews sourced from peer-reviewed journals and academic databases. Thematically organized and expertly synthesized.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc7_inc1">Peer-reviewed source gathering</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc7_inc2">Critical comparison and synthesis</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc7_inc3">Thematic / chronological structure</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc7_inc4">Research gaps identification</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc7_inc5">Full reference list</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$22</em></div>
+                    <button class="btn-primary" onclick="openModal('Literature Review')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 08 PROOFREADING -->
+            <div class="svc-card" data-cat="writing">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-spell-check"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat writing" data-i18n="badge_writing">Academic Writing</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 6H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc8_title">Proofreading &amp; Editing</h3>
+                    <p class="card-desc" data-i18n="svc8_desc">A professional polish pass on your existing work. We correct grammar, improve flow, strengthen arguments, and ensure stylistic consistency throughout.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc8_inc1">Grammar and spelling correction</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc8_inc2">Sentence structure improvement</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc8_inc3">Tone and academic voice refinement</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc8_inc4">Citation & reference verification</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc8_inc5">Tracked changes document</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$10</em></div>
+                    <button class="btn-primary" onclick="openModal('Proofreading')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 09 MATH & STATISTICS -->
+            <div class="svc-card" data-cat="technical">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-square-root-alt"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat technical" data-i18n="badge_technical">Technical</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 12H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc9_title">Math &amp; Statistics</h3>
+                    <p class="card-desc" data-i18n="svc9_desc">Step-by-step solutions for math, statistics, and quantitative analysis. From calculus and linear algebra to SPSS data analysis and regression modeling.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc9_inc1">Full solution with detailed steps</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc9_inc2">Explanation for each method used</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc9_inc3">SPSS / Excel output interpretation</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc9_inc4">Graphs and tables if needed</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc9_inc5">Written analysis section</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$15</em></div>
+                    <button class="btn-primary" onclick="openModal('Math & Statistics')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 10 CASE STUDIES -->
+            <div class="svc-card" data-cat="writing">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-briefcase"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat writing" data-i18n="badge_writing">Academic Writing</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 36H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc10_title">Case Studies</h3>
+                    <p class="card-desc" data-i18n="svc10_desc">Professionally structured case studies for business, law, healthcare, and engineering. Deep analysis, frameworks applied, recommendations provided.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc10_inc1">Problem identification & background</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc10_inc2">Analytical frameworks (SWOT, Porter's, etc.)</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc10_inc3">Evidence-based evaluation</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc10_inc4">Strategic recommendations</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc10_inc5">Professional conclusion</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$25</em></div>
+                    <button class="btn-primary" onclick="openModal('Case Study')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 11 EXAM PREP (MCQ/Short Answer) -->
+            <div class="svc-card" data-cat="exam">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-tasks"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat exam" data-i18n="badge_exam">Exam &amp; Prep</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 6H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc11_title">Quiz &amp; MCQ Help</h3>
+                    <p class="card-desc" data-i18n="svc11_desc">Fast, accurate answers for online quizzes, MCQ exams, and short-answer tests. We work with your LMS questions directly — Blackboard, Moodle, Canvas, and more.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc11_inc1">Direct answer for each question</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc11_inc2">Brief explanation per answer (on request)</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc11_inc3">Priority express handling</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc11_inc4">Screenshot or doc submission</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc11_inc5">100% confidential process</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$10</em></div>
+                    <button class="btn-primary" onclick="openModal('Quiz & MCQ Help')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+            <!-- 12 PRESENTATIONS -->
+            <div class="svc-card" data-cat="design">
+                <div class="card-bar"></div>
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-hex"><i class="fas fa-desktop"></i></div>
+                        <div class="card-badges">
+                            <span class="badge-cat design" data-i18n="badge_design">Design &amp; Slides</span>
+                            <span class="badge-time"><i class="fas fa-clock"></i> <span data-i18n="time_from">From</span> 24H</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title" data-i18n="svc12_title">Presentations</h3>
+                    <p class="card-desc" data-i18n="svc12_desc">Professionally designed PowerPoint or Google Slides decks for academic submissions, defenses, and seminars. Content-ready and visually polished.</p>
+                    <div>
+                        <p class="included-label" data-i18n="included_label">What's Included</p>
+                        <ul class="included-list">
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc12_inc1">Fully designed slide deck (PPT / PPTX)</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc12_inc2">Content writing & key point extraction</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc12_inc3">Visual charts, icons & diagrams</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc12_inc4">Speaker notes on each slide</span></li>
+                            <li><i class="fas fa-circle"></i> <span data-i18n="svc12_inc5">Editable source file delivered</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price-hint"><span data-i18n="from">From</span> <em>$18</em></div>
+                    <button class="btn-primary" onclick="openModal('Presentation')"><i class="fas fa-bolt"></i> <span data-i18n="request_btn">Request</span></button>
+                </div>
+            </div>
+
+        </div><!-- /catalog-grid -->
+    </div>
+</section>
+
+
+<!-- ====================================================
+     PRICING TIERS (with i18n)
+==================================================== -->
+<section id="pricing">
+    <div class="container">
+        <div class="pricing-head rv">
+            <div class="section-tag" style="justify-content:center;" data-i18n="pricing_tag">Transparent Pricing</div>
+            <h2 class="section-title" style="text-align:center;"><span data-i18n="pricing_title_part1">PLANS THAT FIT</span> <span class="orange"><span data-i18n="pricing_title_part2">YOUR BUDGET</span></span></h2>
+            <p style="color:var(--muted);font-size:.9rem;margin-top:14px;letter-spacing:.3px;" data-i18n="pricing_sub">
+                Every request is custom-priced based on complexity, length, and deadline. These tiers give you a clear starting point.
+            </p>
+        </div>
+        <div class="pricing-grid rv d1">
+
+            <div class="price-col">
+                <p class="price-tier" data-i18n="tier_basic">Basic</p>
+                <div class="price-amount"><span class="curr">$</span>15 <span class="from" data-i18n="from_start">/ start</span></div>
+                <p class="price-note" data-i18n="tier_basic_note">Short tasks · Simple subjects</p>
+                <div class="price-divider"></div>
+                <ul class="price-list">
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="basic_feat1">Assignments (up to 1000 words)</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="basic_feat2">MCQ / Quiz help</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="basic_feat3">Proofreading (up to 5 pages)</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="basic_feat4">1 revision included</span></li>
+                    <li class="faded"><i class="fas fa-times tbl-cross"></i> <span data-i18n="basic_feat5">Express delivery</span></li>
+                    <li class="faded"><i class="fas fa-times tbl-cross"></i> <span data-i18n="basic_feat6">Thesis / research papers</span></li>
+                </ul>
+                <button class="btn-ghost" onclick="openModal()" style="width:100%;justify-content:center;" data-i18n="get_started_btn">Get Started</button>
+            </div>
+
+            <div class="price-col featured">
+                <div class="price-popular" data-i18n="most_popular">MOST POPULAR</div>
+                <p class="price-tier" style="color:var(--orange);" data-i18n="tier_standard">Standard</p>
+                <div class="price-amount"><span class="curr">$</span>30 <span class="from" data-i18n="from_start">/ start</span></div>
+                <p class="price-note" data-i18n="tier_standard_note">Full projects · Research-level tasks</p>
+                <div class="price-divider"></div>
+                <ul class="price-list">
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="standard_feat1">All Basic services</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="standard_feat2">Research assays & reports</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="standard_feat3">Project solutions</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="standard_feat4">Case studies & literature reviews</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="standard_feat5">3 revisions included</span></li>
+                    <li class="faded"><i class="fas fa-times tbl-cross"></i> <span data-i18n="standard_feat6">Express delivery add-on</span></li>
+                </ul>
+                <button class="btn-primary" onclick="openModal()" style="width:100%;justify-content:center;"><i class="fas fa-bolt"></i> <span data-i18n="get_started_btn">Get Started</span></button>
+            </div>
+
+            <div class="price-col">
+                <p class="price-tier" data-i18n="tier_premium">Premium</p>
+                <div class="price-amount"><span class="curr">$</span>80 <span class="from" data-i18n="from_start">/ start</span></div>
+                <p class="price-note" data-i18n="tier_premium_note">Thesis · Complex multi-chapter work</p>
+                <div class="price-divider"></div>
+                <ul class="price-list">
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="premium_feat1">All Standard services</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="premium_feat2">Full thesis & dissertation</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="premium_feat3">Priority expert matching</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="premium_feat4">Dedicated account support</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="premium_feat5">Unlimited revisions</span></li>
+                    <li><i class="fas fa-check tbl-check"></i> <span data-i18n="premium_feat6">Express delivery included</span></li>
+                </ul>
+                <button class="btn-ghost" onclick="openModal()" style="width:100%;justify-content:center;" data-i18n="get_started_btn">Get Started</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ====================================================
+     COMPARISON TABLE
+==================================================== -->
+<section id="compare">
+    <div class="container">
+        <div class="compare-head rv">
+            <div class="section-tag" style="justify-content:center;" data-i18n="compare_tag">At a Glance</div>
+            <h2 class="section-title" style="text-align:center;"><span data-i18n="compare_title_part1">SERVICE</span> <span class="orange"><span data-i18n="compare_title_part2">COMPARISON</span></span></h2>
+        </div>
+        <div class="tbl-wrap rv d1">
+            <table class="compare-tbl">
+                <thead>
+                    <tr>
+                        <th data-i18n="compare_service">Service</th>
+                        <th data-i18n="compare_category">Category</th>
+                        <th data-i18n="compare_turnaround">Turnaround</th>
+                        <th data-i18n="compare_revisions">Revisions</th>
+                        <th data-i18n="compare_source">Source File</th>
+                        <th data-i18n="compare_tier">Tier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td data-i18n="svc1_title_short">Assignments</td><td data-i18n="cat_writing">Academic Writing</td><td><span class="tbl-badge fast">From 24H</span></td><td data-i18n="rev_unlimited">Unlimited</td><td><i class="fas fa-check tbl-check"></i></td><td><span class="tbl-badge std">Basic+</span></td></tr>
+                    <tr><td data-i18n="svc2_title_short">Research Assays</td><td data-i18n="cat_writing">Academic Writing</td><td><span class="tbl-badge std">From 48H</span></td><td data-i18n="rev_unlimited">Unlimited</td><td><i class="fas fa-check tbl-check"></i></td><td><span class="tbl-badge std">Standard</span></td></tr>
+                    <tr><td data-i18n="svc3_title_short">Project Solutions</td><td data-i18n="cat_technical">Technical</td><td><span class="tbl-badge std">From 48H</span></td><td data-i18n="rev_unlimited">Unlimited</td><td><i class="fas fa-check tbl-check"></i></td><td><span class="tbl-badge std">Standard</span></td></tr>
+                    <tr class="row-highlight"><td data-i18n="svc5_title_short">Thesis Writing</td><td data-i18n="cat_writing">Academic Writing</td><td><span class="tbl-badge prem">By Agreement</span></td><td data-i18n="rev_unlimited">Unlimited</td><td><i class="fas fa-check tbl-check"></i></td><td><span class="tbl-badge prem">Premium</span></td></tr>
+                    <tr><td data-i18n="svc6_title_short">Technical Reports</td><td data-i18n="cat_technical">Technical</td><td><span class="tbl-badge fast">From 24H</span></td><td data-i18n="rev_unlimited">Unlimited</td><td><i class="fas fa-check tbl-check"></i></td><td><span class="tbl-badge std">Standard</span></td></tr>
+                    <tr><td data-i18n="svc4_title_short">Exam Scoring</td><td data-i18n="cat_exam">Exam &amp; Prep</td><td><span class="tbl-badge fast">From 12H</span></td><td data-i18n="rev_3">3 included</td><td><i class="fas fa-check tbl-check"></i></td><td><span class="tbl-badge std">Basic+</span></td></tr>
+                    <tr><td data-i18n="svc11_title_short">Quiz &amp; MCQ</td><td data-i18n="cat_exam">Exam &amp; Prep</td><td><span class="tbl-badge fast">From 6H</span></td><td data-i18n="rev_3">3 included</td><td><i class="fas fa-check tbl-check"></i></td><td><span class="tbl-badge std">Basic</span></td></tr>
+                    <tr><td data-i18n="svc8_title_short">Proofreading</td><td data-i18n="cat_writing">Academic Writing</td><td><span class="tbl-badge fast">From 6H</span></td><td data-i18n="rev_1">1 included</td><td><i class="fas fa-check tbl-check"></i></td><td><span class="tbl-badge std">Basic</span></td></tr>
+                    <tr><td data-i18n="svc12_title_short">Presentations</td><td data-i18n="cat_design">Design &amp; Slides</td><td><span class="tbl-badge fast">From 24H</span></td><td data-i18n="rev_unlimited">Unlimited</td><td><i class="fas fa-check tbl-check"></i></td><td><span class="tbl-badge std">Basic+</span></td></tr>
+                    <tr><td data-i18n="svc9_title_short">Math &amp; Statistics</td><td data-i18n="cat_technical">Technical</td><td><span class="tbl-badge fast">From 12H</span></td><td data-i18n="rev_3">3 included</td><td><i class="fas fa-check tbl-check"></i></td><td><span class="tbl-badge std">Standard</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<!-- ====================================================
+     FAQ
+==================================================== -->
+<section id="faq">
+    <div class="container">
+        <div class="faq-grid">
+
+            <div class="faq-left rv">
+                <div class="section-tag" data-i18n="faq_tag">FAQ</div>
+                <h2 class="section-title"><span data-i18n="faq_title_part1">GOT</span> <span class="orange"><span data-i18n="faq_title_part2">QUESTIONS?</span></span></h2>
+                <p data-i18n="faq_sub">We've answered the ones we hear most. If yours isn't here, reach out and we'll reply within the hour.</p>
+                <a href="javascript:void(0)" onclick="openModal()" class="faq-contact">
+                    <div class="faq-contact-icon"><i class="fas fa-comment-dots"></i></div>
+                    <div class="faq-contact-txt">
+                        <strong data-i18n="faq_ask_btn">Ask Us Directly</strong>
+                        <span data-i18n="faq_reply_time">We reply within 60 minutes</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="faq-list rv d2">
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span data-i18n="faq1_q">Is everything 100% confidential?</span>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </button>
+                    <div class="faq-a">
+                        <p data-i18n="faq1_a">Absolutely. We have a strict no-sharing, no-disclosure policy. Your name, university, documents, and request details are never stored beyond what's needed to complete your task, and are never shared with any third party — ever.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span data-i18n="faq2_q">How do I submit my request and files?</span>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </button>
+                    <div class="faq-a">
+                        <p data-i18n="faq2_a1">Click the "Request" button on any service card or the "Get Started" button in the nav. Fill in the quick form with your details, deadline, and service type. You can paste a WeTransfer or Google Drive link to share your files securely.</p>
+                        <p data-i18n="faq2_a2">We'll confirm receipt and match you with an expert within the hour.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span data-i18n="faq3_q">How is pricing determined?</span>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </button>
+                    <div class="faq-a">
+                        <p data-i18n="faq3_a">Pricing depends on three factors: the service type, the length/complexity of the work, and your deadline. The tighter the deadline, the higher the rate. All pricing is confirmed before we begin — no surprises.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span data-i18n="faq4_q">What if I'm not satisfied with the delivered work?</span>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </button>
+                    <div class="faq-a">
+                        <p data-i18n="faq4_a">We offer unlimited revisions until you're completely satisfied. If after revisions you are still not happy, we will issue a partial or full refund depending on the situation. Your success is our guarantee.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span data-i18n="faq5_q">Can I get a same-day or emergency delivery?</span>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </button>
+                    <div class="faq-a">
+                        <p data-i18n="faq5_a">Yes. We handle express requests daily. Mention your deadline in the form — even if it's a few hours away — and we'll tell you immediately whether it's possible. Emergency rates apply for deliveries under 12 hours.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span data-i18n="faq6_q">Which subjects and fields do you cover?</span>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </button>
+                    <div class="faq-a">
+                        <p data-i18n="faq6_a">We cover 50+ subjects across engineering, computer science, business administration, finance, law, medicine, nursing, social sciences, literature, mathematics, statistics, and more. If you're unsure, just ask — we'll confirm availability.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span data-i18n="faq7_q">How do I pay?</span>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </button>
+                    <div class="faq-a">
+                        <p data-i18n="faq7_a">Payment is arranged directly after we confirm your request and agree on the price. We accept local and international payment methods. You pay after receiving a quote — never upfront without agreement.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ====================================================
+     CTA BAND
+==================================================== -->
+<section id="cta-band">
+    <div class="cta-inner rv">
+        <div class="section-tag" style="justify-content:center;" data-i18n="cta_tag">Start Now</div>
+        <h2 class="cta-title">
+            <span data-i18n="cta_title_part1">PICK YOUR</span><br><span class="orange"><span data-i18n="cta_title_part2">SERVICE.</span></span> <span data-i18n="cta_title_part3">WIN.</span>
+        </h2>
+        <p class="cta-sub" data-i18n="cta_sub">Every expert. Every subject. Every deadline. Covered.</p>
+        <a href="javascript:void(0)" onclick="openModal()" class="btn-primary" style="font-size:1.05rem;padding:17px 48px;">
+            <i class="fas fa-paper-plane"></i> <span data-i18n="cta_btn">Submit My Request</span>
+        </a>
+        <div class="cta-pills">
+            <span class="cta-pill"><i class="fas fa-shield-alt"></i> <span data-i18n="cta_pill1">100% Confidential</span></span>
+            <span class="cta-pill"><i class="fas fa-redo"></i> <span data-i18n="cta_pill2">Unlimited Revisions</span></span>
+            <span class="cta-pill"><i class="fas fa-bolt"></i> <span data-i18n="cta_pill3">Express Available</span></span>
+            <span class="cta-pill"><i class="fas fa-star"></i> <span data-i18n="cta_pill4">Verified Experts</span></span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ====================================================
+     FOOTER (with i18n)
+==================================================== -->
+<footer id="contact">
+    <div class="container">
+        <div class="foot-grid">
+            <div>
+                <a href="index.html" class="logo-link">
+                    <img src="media/images/Logo_1.png" alt="Logo" style="height:46px;filter:drop-shadow(0 0 10px var(--orange-glow-s));">
+                    <div class="logo-texts">
+                        <span class="logo-name"><em>MA</em> SERVICES<sup style="font-size:.45em;color:var(--muted);vertical-align:super;">™</sup></span>
+                        <span class="logo-sub" data-i18n="logo_sub">Academic E-Solutions</span>
+                    </div>
+                </a>
+                <p class="foot-desc" data-i18n="foot_desc">Your best partner for academic success. Professional solutions delivered by verified experts across all subjects and academic levels.</p>
+                <div class="socials">
+                    <a href="https://facebook.com/mhstudios.836" class="soc-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/mhstudios.836" class="soc-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/mhstudios836" class="soc-btn"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://youtube.com/@mhstudios.836" class="soc-btn"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/" class="soc-btn"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="foot-col">
+                <h4 data-i18n="foot_ql_h">Quick Links</h4>
+                <ul class="foot-links">
+                    <li><a href="index.html" data-i18n="foot_ql1">Home</a></li>
+                    <li><a href="services.html" data-i18n="foot_ql2">Services</a></li>
+                    <li><a href="index.html#process" data-i18n="foot_ql3">How It Works</a></li>
+                    <li><a href="index.html#why" data-i18n="foot_ql4">Why Us</a></li>
+                    <li><a href="javascript:void(0)" onclick="openModal()" data-i18n="foot_ql5">Get Started</a></li>
+                </ul>
+            </div>
+            <div class="foot-col">
+                <h4 data-i18n="foot_svc_h">Our Services</h4>
+                <ul class="foot-links">
+                    <li><a href="#" data-i18n="svc1_title_short">Assignments</a></li>
+                    <li><a href="#" data-i18n="svc2_title_short">Research Assays</a></li>
+                    <li><a href="#" data-i18n="svc3_title_short">Project Solutions</a></li>
+                    <li><a href="#" data-i18n="svc4_title_short">Exam Scoring</a></li>
+                    <li><a href="#" data-i18n="svc5_title_short">Thesis Writing</a></li>
+                    <li><a href="#" data-i18n="svc6_title_short">Technical Reports</a></li>
+                </ul>
+            </div>
+            <div class="foot-col">
+                <h4 data-i18n="foot_contact_h">Contact Us</h4>
+                <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;">
+                    <i class="fas fa-globe" style="color:var(--orange);margin-top:2px;"></i>
+                    <span style="font-size:.84rem;color:var(--muted);">mhstudios836.github.io</span>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;">
+                    <i class="fab fa-instagram" style="color:var(--orange);margin-top:2px;"></i>
+                    <span style="font-size:.84rem;color:var(--muted);">@mhstudios.836</span>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;">
+                    <i class="fab fa-whatsapp" style="color:var(--orange);margin-top:2px;"></i>
+                    <span style="font-size:.84rem;color:var(--muted);" data-i18n="whatsapp_available">Available on WhatsApp</span>
+                </div>
+            </div>
+        </div>
+        <div class="foot-cr">
+            <span data-i18n="foot_copy">&copy; 2026 MA Services™ · Academic E-Solutions · All Rights Reserved</span>
+            <span data-i18n="foot_stamp">Developed by <em>MH Studios</em></span>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ====================================================
+     MOBILE MENU (with i18n)
+==================================================== -->
+<div id="mob-overlay" onclick="toggleMob()"></div>
+<div id="mob-menu">
+    <div class="mob-head">
+        <a href="index.html" class="logo-link">
+            <img src="media/images/Logo_1.png" style="height:38px;" alt="Logo">
+            <span class="logo-name"><em>MA</em> SERVICES</span>
+        </a>
+        <button class="mob-close" onclick="toggleMob()"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mob-links">
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="services.html" class="active" data-i18n="nav_services">Services</a></li>
+        <li><a href="index.html#process" onclick="toggleMob()" data-i18n="nav_process">Process</a></li>
+        <li><a href="index.html#why" onclick="toggleMob()" data-i18n="nav_why">Why Us</a></li>
+        <li><a href="index.html#contact" onclick="toggleMob()" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <a href="javascript:void(0)" onclick="openModal();toggleMob();" class="btn-primary" style="width:100%;justify-content:center;">
+        <i class="fas fa-bolt"></i> <span data-i18n="mob_cta">Get Started</span>
+    </a>
+    <div class="mob-socials">
+        <a href="https://instagram.com/mhstudios.836" class="soc-btn"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="soc-btn"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="soc-btn"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="soc-btn"><i class="fab fa-whatsapp"></i></a>
+    </div>
+</div>
+
+
+<!-- ====================================================
+     REQUEST MODAL (with i18n)
+==================================================== -->
+<div id="req-modal">
+    <div class="modal-box">
+        <div class="modal-topbar">
+            <img src="media/images/Logo_1.png" alt="Logo">
+            <h3 data-i18n="modal_h3">NEW REQUEST</h3>
+        </div>
+        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+        <div class="modal-body">
+            <form id="req-form" onsubmit="handleSubmit(event)">
+                <div class="frow">
+                    <div class="fgrp">
+                        <label data-i18n="form_name_lbl">Full Name</label>
+                        <input type="text" name="name" placeholder="Your name" data-i18n-placeholder="form_name_ph" required>
+                    </div>
+                    <div class="fgrp">
+                        <label data-i18n="form_phone_lbl">WhatsApp / Phone</label>
+                        <input type="tel" name="phone" placeholder="+962 7X XXXX XXXX" data-i18n-placeholder="form_phone_ph" required>
+                    </div>
+                </div>
+                <div class="fgrp">
+                    <label data-i18n="form_svc_lbl">Service Type</label>
+                    <select name="service" id="svc-select" required>
+                        <option value="" disabled selected data-i18n="form_svc_opt">Choose a service...</option>
+                        <option value="Assignments">Assignments</option>
+                        <option value="Research Assay">Research Assay</option>
+                        <option value="Project Solution">Project Solution</option>
+                        <option value="Exam Scoring">Exam Scoring</option>
+                        <option value="Thesis Writing">Thesis Writing</option>
+                        <option value="Technical Report">Technical Report</option>
+                        <option value="Literature Review">Literature Review</option>
+                        <option value="Proofreading">Proofreading</option>
+                        <option value="Math & Statistics">Math & Statistics</option>
+                        <option value="Case Study">Case Study</option>
+                        <option value="Quiz & MCQ Help">Quiz & MCQ Help</option>
+                        <option value="Presentation">Presentation</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="frow">
+                    <div class="fgrp">
+                        <label data-i18n="form_subject_lbl">Subject / Course</label>
+                        <input type="text" name="subject" placeholder="e.g. Database Systems" data-i18n-placeholder="form_subject_ph" required>
+                    </div>
+                    <div class="fgrp">
+                        <label data-i18n="form_deadline_lbl">Deadline</label>
+                        <input type="date" name="deadline" required>
+                    </div>
+                </div>
+                <div class="fgrp">
+                    <label data-i18n="form_details_lbl">Details &amp; Instructions</label>
+                    <textarea name="details" placeholder="Describe your requirements, grading criteria, any notes..." data-i18n-placeholder="form_details_ph"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" id="submit-btn" style="width:100%;justify-content:center;margin-top:6px;">
+                    <i class="fas fa-paper-plane"></i> <span data-i18n="form_submit">Send Request</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- ====================================================
+     PROCESSING OVERLAY
+==================================================== -->
+<div id="proc-overlay">
+    <div class="terminal-box">
+        <div class="t-logo"><img src="media/images/Logo_1.png" alt="Logo"></div>
+        <div class="t-title" data-i18n="gateway_title">MA SECURE GATEWAY</div>
+        <div id="t-log"><div class="log-line"><span data-i18n="init_msg">> Initializing request...</span></div></div>
+        <div class="prog-track"><div id="prog-bar"></div></div>
+        <div class="proc-status" id="proc-status" data-i18n="processing">PROCESSING...</div>
+    </div>
+</div>
+
+
+<!-- ====================================================
+     SCRIPTS (with full i18n dictionary from index.html)
+==================================================== -->
+<script>
+/* ─── CURSOR ─── */
+const dot = document.getElementById('cur-dot'), ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+    mx=e.clientX; my=e.clientY;
+    dot.style.cssText=`left:${mx}px;top:${my}px;`;
+});
+(function anim(){
+    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+    ring.style.cssText=`left:${rx}px;top:${ry}px;`;
+    requestAnimationFrame(anim);
+})();
+document.querySelectorAll('a,button,.svc-card,.faq-q,.price-col').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-big'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-big'));
+});
+if('ontouchstart' in window){ dot.style.display='none'; ring.style.display='none'; document.body.style.cursor='auto'; }
+
+/* ─── HERO CANVAS ─── */
+(function(){
+    const c=document.getElementById('hero-canvas'), ctx=c.getContext('2d');
+    const S=40, W=S*2, H=Math.sqrt(3)*S;
+    let hexes=[];
+    function resize(){ c.width=window.innerWidth; c.height=window.innerHeight; init(); }
+    function init(){
+        hexes=[];
+        const cols=Math.ceil(c.width/(W*.75))+3, rows=Math.ceil(c.height/H)+3;
+        for(let col=-1;col<cols;col++) for(let row=-1;row<rows;row++)
+            hexes.push({ cx:col*W*.75, cy:row*H+(col%2?H/2:0), p:Math.random()*Math.PI*2, sp:.003+Math.random()*.009, br:.12+Math.random()*.88 });
+    }
+    function hexPath(cx,cy,r){
+        ctx.beginPath();
+        for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-30); i?ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a)):ctx.moveTo(cx+r*Math.cos(a),cy+r*Math.sin(a));}
+        ctx.closePath();
+    }
+    function draw(){
+        ctx.clearRect(0,0,c.width,c.height);
+        for(const h of hexes){
+            h.p+=h.sp;
+            const a=(Math.sin(h.p)*.5+.5)*h.br;
+            hexPath(h.cx,h.cy,S-1.5);
+            ctx.strokeStyle=`rgba(255,107,43,${a*.5})`; ctx.lineWidth=.7; ctx.stroke();
+            if(a>.8){ hexPath(h.cx,h.cy,S-1.5); ctx.fillStyle=`rgba(255,107,43,${(a-.8)*.15})`; ctx.fill(); }
+        }
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize',resize);
+    resize(); draw();
+})();
+
+/* ─── HEADER SCROLL ─── */
+window.addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('scrolled',window.scrollY>55));
+
+/* ─── SCROLL REVEAL ─── */
+const rvObs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
+
+/* ─── FILTER CARDS ─── */
+function filterCards(cat, btn){
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.querySelectorAll('#catalog-grid .svc-card');
+    let shown=0;
+    cards.forEach((card,i)=>{
+        const match = cat==='all' || card.dataset.cat===cat;
+        if(match){
+            card.classList.remove('hide');
+            card.style.animationDelay = (shown * 0.06) + 's';
+            shown++;
+        } else {
+            card.classList.add('hide');
+        }
+    });
+}
+
+/* ─── FAQ ACCORDION ─── */
+function toggleFaq(btn){
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-q.open').forEach(q=>{
+        q.classList.remove('open');
+        q.nextElementSibling.classList.remove('open');
+    });
+    if(!isOpen){
+        btn.classList.add('open');
+        answer.classList.add('open');
+    }
+}
+
+/* ─── MOBILE MENU ─── */
+function toggleMob(){
+    const menu=document.getElementById('mob-menu'),ov=document.getElementById('mob-overlay'),hbg=document.getElementById('hbg');
+    menu.classList.toggle('on'); ov.classList.toggle('on'); hbg.classList.toggle('open');
+    document.body.style.overflow=menu.classList.contains('on')?'hidden':'';
+}
+
+/* ─── MODAL ─── */
+function openModal(svc){
+    document.getElementById('req-modal').classList.add('on');
+    document.body.style.overflow='hidden';
+    if(svc){
+        const sel=document.getElementById('svc-select');
+        for(const opt of sel.options) if(opt.value===svc||opt.text===svc){sel.value=opt.value;break;}
+    }
+}
+function closeModal(){
+    document.getElementById('req-modal').classList.remove('on');
+    document.body.style.overflow='';
+}
+document.getElementById('req-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+/* ─── PROCESSING ─── */
+function runProcessing(){
+    const ov=document.getElementById('proc-overlay'),log=document.getElementById('t-log'),bar=document.getElementById('prog-bar'),stat=document.getElementById('proc-status');
+    ov.classList.add('on');
+    log.innerHTML='<div class="log-line">> Initializing request...</div>';
+    const msgs=[
+        {text:'> Secure Link Established (TLS 1.3)...',delay:600},
+        {text:'> Encrypting your submission...',delay:1800},
+        {text:'> Verifying data integrity...',delay:3200},
+        {text:'> Connecting to Expert Assignment Engine...',delay:4800},
+        {text:'> Packet Transmission Complete.',delay:6500},
+        {text:'> Ticket Generated Successfully.',delay:8000},
+        {text:'> REQUEST CONFIRMED. ✓',delay:9200,type:'success'}
+    ];
+    msgs.forEach(m=>setTimeout(()=>{
+        const d=document.createElement('div');
+        d.className='log-line'+(m.type?' '+m.type:'');
+        d.innerText=m.text; log.appendChild(d);
+        log.scrollTop=log.scrollHeight;
+        if(m.type==='success') stat.textContent='REQUEST SENT!';
+    },m.delay));
+    let w=0; const iv=setInterval(()=>{w++;bar.style.width=w+'%';if(w>=100)clearInterval(iv);},100);
+    setTimeout(()=>{
+        ov.classList.remove('on'); closeModal();
+        document.getElementById('req-form').reset();
+        bar.style.width='0%'; stat.textContent='PROCESSING...';
+        const btn=document.getElementById('submit-btn');
+        btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Request'; btn.disabled=false;
+        alert('✅ Request Received!\nWe will review your details and reply shortly.');
+    },10800);
+}
+function handleSubmit(e){
+    e.preventDefault();
+    const btn=document.getElementById('submit-btn');
+    btn.innerHTML='<i class="fas fa-circle-notch fa-spin"></i> Securing...'; btn.disabled=true;
+    setTimeout(runProcessing,400);
+}
+
+/* ─── SMOOTH SCROLLING ─── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+        const t=document.querySelector(a.getAttribute('href'));
+        if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+});
+
+/* ================================================
+   MULTILINGUAL ENGINE (copied from index.html)
+================================================ */
+const dict = {
+    en: {
+        logo_sub: "Academic E-Solutions",
+        nav_services: "Services",
+        nav_process: "Process",
+        nav_why: "Why Us",
+        nav_contact: "Contact",
+        nav_cta: "<i class='fas fa-bolt'></i> Get Started",
+        nav_home: "Home",
+        
+        breadcrumb_home: "Home",
+        breadcrumb_services: "Services",
+        
+        page_title: "OUR<br><span class='orange'>ACADEMIC</span><br><span class='outlined'>SERVICES</span>",
+        page_sub: "Every service you need — covered by verified specialists with precision, speed, and discretion.",
+        
+        stat_services: "Services Available",
+        stat_success: "Success Rate",
+        stat_express: "Express Option",
+        stat_revisions: "Free Revisions",
+        
+        filter_all: "All Services",
+        filter_writing: "Academic Writing",
+        filter_technical: "Technical",
+        filter_exam: "Exam & Prep",
+        filter_design: "Design & Slides",
+        
+        badge_writing: "Academic Writing",
+        badge_technical: "Technical",
+        badge_exam: "Exam & Prep",
+        badge_design: "Design & Slides",
+        
+        time_from: "From",
+        time_by: "By",
+        included_label: "What's Included",
+        from: "From",
+        request_btn: "Request",
+        
+        svc1_title: "Assignments",
+        svc1_desc: "Custom-written assignments across all disciplines and academic levels. Fully researched, properly formatted, and referenced to your institution's exact requirements.",
+        svc1_inc1: "Original, plagiarism-free content",
+        svc1_inc2: "Correct citation format (APA, MLA, Harvard, etc.)",
+        svc1_inc3: "In-text references and bibliography",
+        svc1_inc4: "Tailored to your grading rubric",
+        svc1_inc5: "Unlimited revisions until perfect",
+        svc1_title_short: "Assignments",
+        
+        svc2_title: "Research Assays",
+        svc2_desc: "In-depth research papers with solid academic sourcing, structured arguments, and professional analysis. Built for high-stakes submissions.",
+        svc2_inc1: "Full literature review",
+        svc2_inc2: "Hypothesis & methodology section",
+        svc2_inc3: "Data analysis and discussion",
+        svc2_inc4: "Peer-reviewed source verification",
+        svc2_inc5: "Abstract and executive summary",
+        svc2_title_short: "Research Assays",
+        
+        svc3_title: "Project Solutions",
+        svc3_desc: "Full project assistance from planning to final delivery. Engineering, CS, business, and beyond — we cover all phases and submit-ready documentation.",
+        svc3_inc1: "Project planning & scope definition",
+        svc3_inc2: "Technical documentation",
+        svc3_inc3: "Code / diagrams / models as required",
+        svc3_inc4: "Final report and conclusion",
+        svc3_inc5: "Presentation slide deck (on request)",
+        svc3_title_short: "Project Solutions",
+        
+        svc4_title: "Exam Scoring",
+        svc4_desc: "Strategic exam preparation and model answer writing. We study previous papers, predict likely questions, and build you a scoring strategy.",
+        svc4_inc1: "Past paper analysis & pattern study",
+        svc4_inc2: "Model answers for key questions",
+        svc4_inc3: "Chapter summaries & key points",
+        svc4_inc4: "Practice question bank",
+        svc4_inc5: "Exam strategy and time management tips",
+        svc4_title_short: "Exam Scoring",
+        
+        svc5_title: "Thesis Writing",
+        svc5_desc: "Comprehensive thesis and dissertation support handled by subject-specific specialists. From the first chapter to defense-ready final draft.",
+        svc5_inc1: "Full chapter-by-chapter writing",
+        svc5_inc2: "Literature review & theoretical framework",
+        svc5_inc3: "Research design & methodology",
+        svc5_inc4: "Results, analysis & discussion",
+        svc5_inc5: "Defense preparation support",
+        svc5_title_short: "Thesis Writing",
+        
+        svc6_title: "Technical Reports",
+        svc6_desc: "Lab reports, case studies, and technical documentation prepared by subject-matter specialists. Clean, accurate, and submission-ready.",
+        svc6_inc1: "Professional report structure",
+        svc6_inc2: "Proper data tables and charts",
+        svc6_inc3: "Calculations and interpretation",
+        svc6_inc4: "Conclusion and recommendations",
+        svc6_inc5: "Formatted per your template",
+        svc6_title_short: "Technical Reports",
+        
+        svc7_title: "Literature Reviews",
+        svc7_desc: "Comprehensive, critically analyzed literature reviews sourced from peer-reviewed journals and academic databases. Thematically organized and expertly synthesized.",
+        svc7_inc1: "Peer-reviewed source gathering",
+        svc7_inc2: "Critical comparison and synthesis",
+        svc7_inc3: "Thematic / chronological structure",
+        svc7_inc4: "Research gaps identification",
+        svc7_inc5: "Full reference list",
+        
+        svc8_title: "Proofreading & Editing",
+        svc8_desc: "A professional polish pass on your existing work. We correct grammar, improve flow, strengthen arguments, and ensure stylistic consistency throughout.",
+        svc8_inc1: "Grammar and spelling correction",
+        svc8_inc2: "Sentence structure improvement",
+        svc8_inc3: "Tone and academic voice refinement",
+        svc8_inc4: "Citation & reference verification",
+        svc8_inc5: "Tracked changes document",
+        svc8_title_short: "Proofreading",
+        
+        svc9_title: "Math & Statistics",
+        svc9_desc: "Step-by-step solutions for math, statistics, and quantitative analysis. From calculus and linear algebra to SPSS data analysis and regression modeling.",
+        svc9_inc1: "Full solution with detailed steps",
+        svc9_inc2: "Explanation for each method used",
+        svc9_inc3: "SPSS / Excel output interpretation",
+        svc9_inc4: "Graphs and tables if needed",
+        svc9_inc5: "Written analysis section",
+        svc9_title_short: "Math & Statistics",
+        
+        svc10_title: "Case Studies",
+        svc10_desc: "Professionally structured case studies for business, law, healthcare, and engineering. Deep analysis, frameworks applied, recommendations provided.",
+        svc10_inc1: "Problem identification & background",
+        svc10_inc2: "Analytical frameworks (SWOT, Porter's, etc.)",
+        svc10_inc3: "Evidence-based evaluation",
+        svc10_inc4: "Strategic recommendations",
+        svc10_inc5: "Professional conclusion",
+        
+        svc11_title: "Quiz & MCQ Help",
+        svc11_desc: "Fast, accurate answers for online quizzes, MCQ exams, and short-answer tests. We work with your LMS questions directly — Blackboard, Moodle, Canvas, and more.",
+        svc11_inc1: "Direct answer for each question",
+        svc11_inc2: "Brief explanation per answer (on request)",
+        svc11_inc3: "Priority express handling",
+        svc11_inc4: "Screenshot or doc submission",
+        svc11_inc5: "100% confidential process",
+        svc11_title_short: "Quiz & MCQ",
+        
+        svc12_title: "Presentations",
+        svc12_desc: "Professionally designed PowerPoint or Google Slides decks for academic submissions, defenses, and seminars. Content-ready and visually polished.",
+        svc12_inc1: "Fully designed slide deck (PPT / PPTX)",
+        svc12_inc2: "Content writing & key point extraction",
+        svc12_inc3: "Visual charts, icons & diagrams",
+        svc12_inc4: "Speaker notes on each slide",
+        svc12_inc5: "Editable source file delivered",
+        svc12_title_short: "Presentations",
+        
+        pricing_tag: "Transparent Pricing",
+        pricing_title_part1: "PLANS THAT FIT",
+        pricing_title_part2: "YOUR BUDGET",
+        pricing_sub: "Every request is custom-priced based on complexity, length, and deadline. These tiers give you a clear starting point.",
+        tier_basic: "Basic",
+        tier_standard: "Standard",
+        tier_premium: "Premium",
+        from_start: "/ start",
+        tier_basic_note: "Short tasks · Simple subjects",
+        tier_standard_note: "Full projects · Research-level tasks",
+        tier_premium_note: "Thesis · Complex multi-chapter work",
+        most_popular: "MOST POPULAR",
+        basic_feat1: "Assignments (up to 1000 words)",
+        basic_feat2: "MCQ / Quiz help",
+        basic_feat3: "Proofreading (up to 5 pages)",
+        basic_feat4: "1 revision included",
+        basic_feat5: "Express delivery",
+        basic_feat6: "Thesis / research papers",
+        standard_feat1: "All Basic services",
+        standard_feat2: "Research assays & reports",
+        standard_feat3: "Project solutions",
+        standard_feat4: "Case studies & literature reviews",
+        standard_feat5: "3 revisions included",
+        standard_feat6: "Express delivery add-on",
+        premium_feat1: "All Standard services",
+        premium_feat2: "Full thesis & dissertation",
+        premium_feat3: "Priority expert matching",
+        premium_feat4: "Dedicated account support",
+        premium_feat5: "Unlimited revisions",
+        premium_feat6: "Express delivery included",
+        get_started_btn: "Get Started",
+        
+        compare_tag: "At a Glance",
+        compare_title_part1: "SERVICE",
+        compare_title_part2: "COMPARISON",
+        compare_service: "Service",
+        compare_category: "Category",
+        compare_turnaround: "Turnaround",
+        compare_revisions: "Revisions",
+        compare_source: "Source File",
+        compare_tier: "Tier",
+        cat_writing: "Academic Writing",
+        cat_technical: "Technical",
+        cat_exam: "Exam & Prep",
+        cat_design: "Design & Slides",
+        rev_unlimited: "Unlimited",
+        rev_3: "3 included",
+        rev_1: "1 included",
+        
+        faq_tag: "FAQ",
+        faq_title_part1: "GOT",
+        faq_title_part2: "QUESTIONS?",
+        faq_sub: "We've answered the ones we hear most. If yours isn't here, reach out and we'll reply within the hour.",
+        faq_ask_btn: "Ask Us Directly",
+        faq_reply_time: "We reply within 60 minutes",
+        faq1_q: "Is everything 100% confidential?",
+        faq1_a: "Absolutely. We have a strict no-sharing, no-disclosure policy. Your name, university, documents, and request details are never stored beyond what's needed to complete your task, and are never shared with any third party — ever.",
+        faq2_q: "How do I submit my request and files?",
+        faq2_a1: "Click the \"Request\" button on any service card or the \"Get Started\" button in the nav. Fill in the quick form with your details, deadline, and service type. You can paste a WeTransfer or Google Drive link to share your files securely.",
+        faq2_a2: "We'll confirm receipt and match you with an expert within the hour.",
+        faq3_q: "How is pricing determined?",
+        faq3_a: "Pricing depends on three factors: the service type, the length/complexity of the work, and your deadline. The tighter the deadline, the higher the rate. All pricing is confirmed before we begin — no surprises.",
+        faq4_q: "What if I'm not satisfied with the delivered work?",
+        faq4_a: "We offer unlimited revisions until you're completely satisfied. If after revisions you are still not happy, we will issue a partial or full refund depending on the situation. Your success is our guarantee.",
+        faq5_q: "Can I get a same-day or emergency delivery?",
+        faq5_a: "Yes. We handle express requests daily. Mention your deadline in the form — even if it's a few hours away — and we'll tell you immediately whether it's possible. Emergency rates apply for deliveries under 12 hours.",
+        faq6_q: "Which subjects and fields do you cover?",
+        faq6_a: "We cover 50+ subjects across engineering, computer science, business administration, finance, law, medicine, nursing, social sciences, literature, mathematics, statistics, and more. If you're unsure, just ask — we'll confirm availability.",
+        faq7_q: "How do I pay?",
+        faq7_a: "Payment is arranged directly after we confirm your request and agree on the price. We accept local and international payment methods. You pay after receiving a quote — never upfront without agreement.",
+        
+        cta_tag: "Start Now",
+        cta_title_part1: "PICK YOUR",
+        cta_title_part2: "SERVICE.",
+        cta_title_part3: "WIN.",
+        cta_sub: "Every expert. Every subject. Every deadline. Covered.",
+        cta_btn: "Submit My Request",
+        cta_pill1: "100% Confidential",
+        cta_pill2: "Unlimited Revisions",
+        cta_pill3: "Express Available",
+        cta_pill4: "Verified Experts",
+        
+        foot_desc: "Your best partner for academic success. Professional solutions delivered by verified experts across all subjects and academic levels.",
+        foot_ql_h: "Quick Links",
+        foot_ql1: "Home",
+        foot_ql2: "Services",
+        foot_ql3: "How It Works",
+        foot_ql4: "Why Us",
+        foot_ql5: "Get Started",
+        foot_svc_h: "Our Services",
+        foot_contact_h: "Contact Us",
+        foot_copy: "© 2026 MA Services™ · Academic E-Solutions · All Rights Reserved",
+        foot_stamp: "Developed by <em>MH Studios</em>",
+        whatsapp_available: "Available on WhatsApp",
+        
+        mob_cta: "<i class='fas fa-bolt'></i> Get Started",
+        
+        modal_h3: "NEW REQUEST",
+        form_name_lbl: "Full Name",
+        form_name_ph: "Your name",
+        form_phone_lbl: "WhatsApp / Phone",
+        form_phone_ph: "+962 7X XXXX XXXX",
+        form_svc_lbl: "Service Type",
+        form_svc_opt: "Choose a service...",
+        form_subject_lbl: "Subject / Course",
+        form_subject_ph: "e.g. Database Systems",
+        form_deadline_lbl: "Deadline",
+        form_details_lbl: "Details & Instructions",
+        form_details_ph: "Describe your requirements, grading criteria, any notes...",
+        form_submit: "<i class='fas fa-paper-plane'></i> Send Request",
+        
+        gateway_title: "MA SECURE GATEWAY",
+        init_msg: "> Initializing request...",
+        processing: "PROCESSING..."
+    },
+    ar: {
+        logo_sub: "الحلول الأكاديمية الإلكترونية",
+        nav_services: "الخدمات",
+        nav_process: "آلية العمل",
+        nav_why: "لماذا نحن",
+        nav_contact: "اتصل بنا",
+        nav_cta: "<i class='fas fa-bolt'></i> ابدأ الآن",
+        nav_home: "الرئيسية",
+        
+        breadcrumb_home: "الرئيسية",
+        breadcrumb_services: "الخدمات",
+        
+        page_title: "خدماتنا<br><span class='orange'>الأكاديمية</span><br><span class='outlined'>المتميزة</span>",
+        page_sub: "كل خدمة تحتاجها — يقدمها متخصصون موثوقون بدقة وسرعة وسرية تامة.",
+        
+        stat_services: "خدمة متاحة",
+        stat_success: "نسبة النجاح",
+        stat_express: "توصيل سريع",
+        stat_revisions: "تعديلات مجانية",
+        
+        filter_all: "جميع الخدمات",
+        filter_writing: "الكتابة الأكاديمية",
+        filter_technical: "التقني",
+        filter_exam: "الامتحانات",
+        filter_design: "التصميم والعروض",
+        
+        badge_writing: "الكتابة الأكاديمية",
+        badge_technical: "تقني",
+        badge_exam: "امتحانات",
+        badge_design: "تصميم",
+        
+        time_from: "من",
+        time_by: "حسب",
+        included_label: "ما تشمله الخدمة",
+        from: "من",
+        request_btn: "اطلب",
+        
+        svc1_title: "الواجبات",
+        svc1_desc: "واجبات مكتوبة حسب الطلب في جميع التخصصات والمستويات الأكاديمية. بحث وتنسيق ومراجع دقيقة وفق معايير مؤسستك.",
+        svc1_inc1: "محتوى أصلي خالٍ من الانتحال",
+        svc1_inc2: "تنسيق الاستشهاد الصحيح (APA, MLA, Harvard)",
+        svc1_inc3: "مراجع داخل النص وببليوغرافيا",
+        svc1_inc4: "مصمم حسب معايير التصحيح الخاصة بك",
+        svc1_inc5: "تعديلات غير محدودة حتى الإتقان",
+        svc1_title_short: "الواجبات",
+        
+        svc2_title: "الأبحاث العلمية",
+        svc2_desc: "أوراق بحثية متعمقة بمصادر أكاديمية موثوقة وحجج منطقية وتحليل احترافي. مصممة للتسليمات عالية المخاطر.",
+        svc2_inc1: "مراجعة أدبيات كاملة",
+        svc2_inc2: "قسم الفرضية والمنهجية",
+        svc2_inc3: "تحليل البيانات ومناقشتها",
+        svc2_inc4: "التحقق من المصادر المُحكّمة",
+        svc2_inc5: "ملخص تنفيذي وتجريدي",
+        svc2_title_short: "الأبحاث",
+        
+        svc3_title: "حلول المشاريع",
+        svc3_desc: "مساعدة كاملة في المشاريع من التخطيط حتى التسليم النهائي. الهندسة، الحاسوب، الأعمال، وأكثر — نغطي جميع المراحل.",
+        svc3_inc1: "تخطيط المشروع وتحديد النطاق",
+        svc3_inc2: "توثيق تقني",
+        svc3_inc3: "أكواد / رسوم بيانية / نماذج حسب الحاجة",
+        svc3_inc4: "تقرير نهائي وخاتمة",
+        svc3_inc5: "شرائح عرض تقديمي (عند الطلب)",
+        svc3_title_short: "حلول المشاريع",
+        
+        svc4_title: "التسجيل في الامتحانات",
+        svc4_desc: "تحضير استراتيجي للامتحانات وكتابة إجابات نموذجية. ندرس الأوراق السابقة ونتوقع الأسئلة المحتملة ونبني لك استراتيجية للتفوق.",
+        svc4_inc1: "تحليل أوراق الامتحانات السابقة",
+        svc4_inc2: "إجابات نموذجية للأسئلة الرئيسية",
+        svc4_inc3: "ملخصات الفصول والنقاط الرئيسية",
+        svc4_inc4: "بنك أسئلة تدريبية",
+        svc4_inc5: "استراتيجية الامتحان ونصائح إدارة الوقت",
+        svc4_title_short: "الامتحانات",
+        
+        svc5_title: "كتابة الرسائل",
+        svc5_desc: "دعم شامل للرسائل والأطاريح من قبل متخصصين في المجال. من الفصل الأول إلى المسودة النهائية الجاهزة للمناقشة.",
+        svc5_inc1: "كتابة كاملة فصلًا بفصل",
+        svc5_inc2: "مراجعة الأدبيات والإطار النظري",
+        svc5_inc3: "تصميم البحث والمنهجية",
+        svc5_inc4: "النتائج والتحليل والمناقشة",
+        svc5_inc5: "دعم التحضير للمناقشة",
+        svc5_title_short: "الرسائل",
+        
+        svc6_title: "التقارير التقنية",
+        svc6_desc: "تقارير المختبرات ودراسات الحالة والوثائق التقنية يعدها متخصصون في المادة. نظيفة ودقيقة وجاهزة للتسليم.",
+        svc6_inc1: "هيكل تقرير احترافي",
+        svc6_inc2: "جداول ورسوم بيانية مناسبة",
+        svc6_inc3: "حسابات وتفسيرات",
+        svc6_inc4: "خاتمة وتوصيات",
+        svc6_inc5: "منسق حسب قالبك",
+        svc6_title_short: "التقارير التقنية",
+        
+        svc7_title: "مراجعات الأدبيات",
+        svc7_desc: "مراجعات أدبية شاملة ومحللة نقدياً من مصادر محكّمة وقواعد بيانات أكاديمية. منظمة حسب الموضوع وخبيرة التركيب.",
+        svc7_inc1: "جمع مصادر محكّمة",
+        svc7_inc2: "مقارنة نقدية وتركيب",
+        svc7_inc3: "هيكل موضوعي / زمني",
+        svc7_inc4: "تحديد الفجوات البحثية",
+        svc7_inc5: "قائمة مراجع كاملة",
+        
+        svc8_title: "التدقيق اللغوي والتحرير",
+        svc8_desc: "تمريرة احترافية لتحسين عملك الحالي. نصحح الأخطاء النحوية ونحسن التدفق ونقوي الحجج ونضمن الاتساق الأسلوبي.",
+        svc8_inc1: "تصحيح القواعد والإملاء",
+        svc8_inc2: "تحسين تركيب الجمل",
+        svc8_inc3: "تحسين النبرة والصوت الأكاديمي",
+        svc8_inc4: "التحقق من الاستشهادات والمراجع",
+        svc8_inc5: "مستند بالتغييرات",
+        svc8_title_short: "التدقيق",
+        
+        svc9_title: "الرياضيات والإحصاء",
+        svc9_desc: "حلول خطوة بخطوة للرياضيات والإحصاء والتحليل الكمي. من التفاضل والتكامل والجبر الخطي إلى تحليل بيانات SPSS ونمذجة الانحدار.",
+        svc9_inc1: "حل كامل بخطوات مفصلة",
+        svc9_inc2: "شرح لكل طريقة مستخدمة",
+        svc9_inc3: "تفسير مخرجات SPSS / Excel",
+        svc9_inc4: "رسوم بيانية وجداول إذا لزم الأمر",
+        svc9_inc5: "قسم تحليل كتابي",
+        svc9_title_short: "الرياضيات",
+        
+        svc10_title: "دراسات الحالة",
+        svc10_desc: "دراسات حالة منظمة بشكل احترافي للأعمال والقانون والرعاية الصحية والهندسة. تحليل عميق وتطبيق أطر وتقديم توصيات.",
+        svc10_inc1: "تحديد المشكلة والخلفية",
+        svc10_inc2: "أطر التحليل (SWOT, Porter's...)",
+        svc10_inc3: "تقييم قائم على الأدلة",
+        svc10_inc4: "توصيات استراتيجية",
+        svc10_inc5: "خاتمة احترافية",
+        
+        svc11_title: "مساعدة الاختبارات",
+        svc11_desc: "إجابات سريعة ودقيقة للاختبارات عبر الإنترنت وامتحانات الاختيار من متعدد والاختبارات القصيرة. نعمل مع أسئلة نظام إدارة التعلم الخاص بك مباشرة.",
+        svc11_inc1: "إجابة مباشرة لكل سؤال",
+        svc11_inc2: "شرح مختصر لكل إجابة (عند الطلب)",
+        svc11_inc3: "معالجة سريعة بأولوية",
+        svc11_inc4: "تسليم لقطة شاشة أو مستند",
+        svc11_inc5: "عملية سرية 100%",
+        svc11_title_short: "الاختبارات",
+        
+        svc12_title: "العروض التقديمية",
+        svc12_desc: "شرائح PowerPoint أو Google Slides مصممة بشكل احترافي للتسليمات الأكاديمية والمناقشات والندوات. جاهزة المحتوى وجذابة بصرياً.",
+        svc12_inc1: "مجموعة شرائح مصممة بالكامل",
+        svc12_inc2: "كتابة المحتوى واستخراج النقاط الرئيسية",
+        svc12_inc3: "رسوم بيانية وأيقونات ومخططات",
+        svc12_inc4: "ملاحظات المتحدث في كل شريحة",
+        svc12_inc5: "تسليم الملف المصدر القابل للتعديل",
+        svc12_title_short: "العروض",
+        
+        pricing_tag: "أسعار شفافة",
+        pricing_title_part1: "خطط تناسب",
+        pricing_title_part2: "ميزانيتك",
+        pricing_sub: "كل طلب له سعر مخصص حسب التعقيد والحجم والموعد النهائي. هذه الفئات تعطيك نقطة بداية واضحة.",
+        tier_basic: "أساسي",
+        tier_standard: "قياسي",
+        tier_premium: "بريميوم",
+        from_start: "/ يبدأ",
+        tier_basic_note: "مهام قصيرة · مواد بسيطة",
+        tier_standard_note: "مشاريع كاملة · مهام بحثية",
+        tier_premium_note: "رسائل · أعمال متعددة الفصول",
+        most_popular: "الأكثر طلباً",
+        basic_feat1: "واجبات (حتى 1000 كلمة)",
+        basic_feat2: "مساعدة اختبارات",
+        basic_feat3: "تدقيق لغوي (حتى 5 صفحات)",
+        basic_feat4: "تعديل واحد مشمول",
+        basic_feat5: "توصيل سريع",
+        basic_feat6: "رسائل / أبحاث",
+        standard_feat1: "جميع خدمات الأساسي",
+        standard_feat2: "الأبحاث والتقارير",
+        standard_feat3: "حلول المشاريع",
+        standard_feat4: "دراسات الحالة ومراجعات الأدبيات",
+        standard_feat5: "3 تعديلات مشمولة",
+        standard_feat6: "إضافة التوصيل السريع",
+        premium_feat1: "جميع خدمات القياسي",
+        premium_feat2: "رسائل وأطاريح كاملة",
+        premium_feat3: "مطابقة خبير بأولوية",
+        premium_feat4: "دعم حساب مخصص",
+        premium_feat5: "تعديلات غير محدودة",
+        premium_feat6: "توصيل سريع مشمول",
+        get_started_btn: "ابدأ الآن",
+        
+        compare_tag: "لمحة سريعة",
+        compare_title_part1: "مقارنة",
+        compare_title_part2: "الخدمات",
+        compare_service: "الخدمة",
+        compare_category: "التصنيف",
+        compare_turnaround: "مدة التوصيل",
+        compare_revisions: "التعديلات",
+        compare_source: "الملف المصدر",
+        compare_tier: "الفئة",
+        cat_writing: "كتابة أكاديمية",
+        cat_technical: "تقني",
+        cat_exam: "امتحانات",
+        cat_design: "تصميم",
+        rev_unlimited: "غير محدودة",
+        rev_3: "3 مشمولة",
+        rev_1: "1 مشمول",
+        
+        faq_tag: "الأسئلة الشائعة",
+        faq_title_part1: "لديك",
+        faq_title_part2: "أسئلة؟",
+        faq_sub: "أجبنا على أكثر الأسئلة شيوعاً. إذا لم تجد سؤالك هنا، تواصل معنا وسنرد خلال ساعة.",
+        faq_ask_btn: "اسألنا مباشرة",
+        faq_reply_time: "نرد خلال 60 دقيقة",
+        faq1_q: "هل كل شيء سري بنسبة 100%؟",
+        faq1_a: "بالتأكيد. لدينا سياسة صارمة بعدم المشاركة أو الإفصاح. اسمك وجامعتك ومستنداتك وتفاصيل طلبك لا تُخزن أبداً، ولا تُشارك مع أي طرف ثالث — أبداً.",
+        faq2_q: "كيف أقدم طلبي وملفاتي؟",
+        faq2_a1: "انقر على زر 'طلب' في أي بطاقة خدمة أو زر 'ابدأ الآن' في القائمة. املأ النموذج السريع بتفاصيلك والموعد النهائي ونوع الخدمة. يمكنك لصق رابط WeTransfer أو Google Drive لمشاركة ملفاتك بأمان.",
+        faq2_a2: "سنؤكد الاستلام ونساعدك في مطابقة خبير خلال ساعة.",
+        faq3_q: "كيف يتم تحديد السعر؟",
+        faq3_a: "يعتمد السعر على ثلاثة عوامل: نوع الخدمة، طول العمل/تعقيده، والموعد النهائي. كلما كان الموعد النهائي أقرب، ارتفع السعر. يتم تأكيد جميع الأسعار قبل أن نبدأ — لا مفاجآت.",
+        faq4_q: "ماذا لو لم أكن راضياً عن العمل المسلّم؟",
+        faq4_a: "نقدم تعديلات غير محدودة حتى ترضى تماماً. إذا بقيت غير راضٍ بعد التعديلات، سنصدر استرداداً جزئياً أو كاملاً حسب الحالة. نجاحك هو ضماننا.",
+        faq5_q: "هل يمكنني الحصول على تسليم نفس اليوم أو طارئ؟",
+        faq5_a: "نعم. نتعامل مع الطلبات السريعة يومياً. اذكر موعدك النهائي في النموذج — حتى لو كان بعد ساعات قليلة — وسنخبرك فوراً إذا كان ممكناً. تنطبق أسعار الطوارئ على التسليم خلال أقل من 12 ساعة.",
+        faq6_q: "ما هي المواد والتخصصات التي تغطيها؟",
+        faq6_a: "نغطي أكثر من 50 تخصصاً في الهندسة وعلوم الحاسوب وإدارة الأعمال والمالية والقانون والطب والتمريض والعلوم الاجتماعية والأدب والرياضيات والإحصاء والمزيد. إذا كنت غير متأكد، فقط اسأل — سنؤكد التوفر.",
+        faq7_q: "كيف أدفع؟",
+        faq7_a: "يتم ترتيب الدفع مباشرة بعد تأكيد طلبك والاتفاق على السعر. نقبل طرق الدفع المحلية والدولية. تدفع بعد استلام عرض السعر — أبداً بدون اتفاق مسبق.",
+        
+        cta_tag: "ابدأ الآن",
+        cta_title_part1: "اختر خدمتك",
+        cta_title_part2: "وتفوق",
+        cta_title_part3: "",
+        cta_sub: "كل خبير. كل مادة. كل موعد. مشمول.",
+        cta_btn: "قدم طلبي",
+        cta_pill1: "سري 100%",
+        cta_pill2: "تعديلات غير محدودة",
+        cta_pill3: "توصيل سريع متاح",
+        cta_pill4: "خبراء موثقون",
+        
+        foot_desc: "شريكك الأفضل للنجاح الأكاديمي. حلول احترافية يقدمها خبراء موثوقون في جميع التخصصات والمستويات الأكاديمية.",
+        foot_ql_h: "روابط سريعة",
+        foot_ql1: "الرئيسية",
+        foot_ql2: "الخدمات",
+        foot_ql3: "آلية العمل",
+        foot_ql4: "لماذا نحن",
+        foot_ql5: "ابدأ الآن",
+        foot_svc_h: "خدماتنا",
+        foot_contact_h: "اتصل بنا",
+        foot_copy: "© 2026 MA Services™ · الحلول الأكاديمية الإلكترونية · جميع الحقوق محفوظة",
+        foot_stamp: "تطوير <em>MH Studios</em>",
+        whatsapp_available: "متاح على واتساب",
+        
+        mob_cta: "<i class='fas fa-bolt'></i> ابدأ الآن",
+        
+        modal_h3: "طلب جديد",
+        form_name_lbl: "الاسم الكامل",
+        form_name_ph: "اسمك",
+        form_phone_lbl: "واتساب / هاتف",
+        form_phone_ph: "+962 7X XXXX XXXX",
+        form_svc_lbl: "نوع الخدمة",
+        form_svc_opt: "اختر خدمة...",
+        form_subject_lbl: "المادة / الدورة",
+        form_subject_ph: "مثال: قواعد البيانات",
+        form_deadline_lbl: "الموعد النهائي",
+        form_details_lbl: "التفاصيل والتعليمات",
+        form_details_ph: "اشرح متطلباتك ومعايير التصحيح وأي ملاحظات...",
+        form_submit: "<i class='fas fa-paper-plane'></i> إرسال الطلب",
+        
+        gateway_title: "البوابة الآمنة MA",
+        init_msg: "> جاري تهيئة الطلب...",
+        processing: "جاري المعالجة..."
+    }
+};
+
+function switchLang(lang) {
+    localStorage.setItem('sys-lang', lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    
+    document.querySelectorAll('.lang-orb').forEach(orb => orb.classList.remove('active'));
+    document.getElementById(`lang-${lang}`).classList.add('active');
+    
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[lang][key]) {
+            if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = dict[lang][key];
+            } else {
+                el.innerHTML = dict[lang][key];
+            }
+        }
+    });
+    
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[lang][key]) el.placeholder = dict[lang][key];
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('sys-lang') || 'en';
+    switchLang(savedLang);
+});
+</script>
+
+</body>
+</html>
