@@ -8,8 +8,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="assets/css/main.css">
 
 <style>
 /* ================================================
@@ -1496,7 +1496,7 @@ footer { background:var(--darker); border-top:1px solid var(--border); padding:6
                 <div class="socials">
                     <a href="https://facebook.com/mhstudios.836" class="soc-btn"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://instagram.com/mhstudios.836" class="soc-btn"><i class="fab fa-instagram"></i></a>
-                    <a href="https://twitter.com/mhstudios836" class="soc-btn"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://twitter.com/mhstudios836" class="soc-btn"><i class="fab fa-twitter"></i></a>
                     <a href="https://youtube.com/@mhstudios.836" class="soc-btn"><i class="fab fa-youtube"></i></a>
                     <a href="https://wa.me/" class="soc-btn"><i class="fab fa-whatsapp"></i></a>
                 </div>
@@ -1591,13 +1591,13 @@ footer { background:var(--darker); border-top:1px solid var(--border); padding:6
             <form id="req-form" onsubmit="handleSubmit(event)">
                 <div class="frow">
                     <div class="fgrp">
-                        <label data-i18n="form_name_lbl">Full Name</label>
-                        <input type="text" name="name" placeholder="Your name" data-i18n-placeholder="form_name_ph" required>
-                    </div>
+						<label data-i18n="form_details_lbl">Details &amp; Instructions</label>
+						<textarea name="details" placeholder="Describe your requirements, grading criteria, any notes..." data-i18n-placeholder="form_details_ph"></textarea>
+					</div>
                     <div class="fgrp">
-                        <label data-i18n="form_phone_lbl">WhatsApp / Phone</label>
-                        <input type="tel" name="phone" placeholder="+962 7X XXXX XXXX" data-i18n-placeholder="form_phone_ph" required>
-                    </div>
+						<label data-i18n="form_file_lbl">Assignment File (PDF, DOC, DOCX, JPG, PNG)</label>
+						<input type="file" id="assignment-file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
+					</div>
                 </div>
                 <div class="fgrp">
                     <label data-i18n="form_svc_lbl">Service Type</label>
@@ -1658,73 +1658,38 @@ footer { background:var(--darker); border-top:1px solid var(--border); padding:6
 <!-- ====================================================
      SCRIPTS (with full i18n dictionary from index.html)
 ==================================================== -->
-<script>
-/* ─── CURSOR ─── */
-const dot = document.getElementById('cur-dot'), ring = document.getElementById('cur-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-    mx=e.clientX; my=e.clientY;
-    dot.style.cssText=`left:${mx}px;top:${my}px;`;
-});
-(function anim(){
-    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-    ring.style.cssText=`left:${rx}px;top:${ry}px;`;
-    requestAnimationFrame(anim);
-})();
-document.querySelectorAll('a,button,.svc-card,.faq-q,.price-col').forEach(el=>{
-    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-big'));
-    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-big'));
-});
-if('ontouchstart' in window){ dot.style.display='none'; ring.style.display='none'; document.body.style.cursor='auto'; }
+<script type="module">
+// ========== FIREBASE IMPORTS & CONFIG ==========
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-storage.js";
 
-/* ─── HERO CANVAS ─── */
-(function(){
-    const c=document.getElementById('hero-canvas'), ctx=c.getContext('2d');
-    const S=40, W=S*2, H=Math.sqrt(3)*S;
-    let hexes=[];
-    function resize(){ c.width=window.innerWidth; c.height=window.innerHeight; init(); }
-    function init(){
-        hexes=[];
-        const cols=Math.ceil(c.width/(W*.75))+3, rows=Math.ceil(c.height/H)+3;
-        for(let col=-1;col<cols;col++) for(let row=-1;row<rows;row++)
-            hexes.push({ cx:col*W*.75, cy:row*H+(col%2?H/2:0), p:Math.random()*Math.PI*2, sp:.003+Math.random()*.009, br:.12+Math.random()*.88 });
-    }
-    function hexPath(cx,cy,r){
-        ctx.beginPath();
-        for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-30); i?ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a)):ctx.moveTo(cx+r*Math.cos(a),cy+r*Math.sin(a));}
-        ctx.closePath();
-    }
-    function draw(){
-        ctx.clearRect(0,0,c.width,c.height);
-        for(const h of hexes){
-            h.p+=h.sp;
-            const a=(Math.sin(h.p)*.5+.5)*h.br;
-            hexPath(h.cx,h.cy,S-1.5);
-            ctx.strokeStyle=`rgba(255,107,43,${a*.5})`; ctx.lineWidth=.7; ctx.stroke();
-            if(a>.8){ hexPath(h.cx,h.cy,S-1.5); ctx.fillStyle=`rgba(255,107,43,${(a-.8)*.15})`; ctx.fill(); }
-        }
-        requestAnimationFrame(draw);
-    }
-    window.addEventListener('resize',resize);
-    resize(); draw();
-})();
+const firebaseConfig = {
+    apiKey: "AIzaSyBZ1HdW2wBXZ4sP4YxeMH6HG8H_zvKBxRU",
+    authDomain: "ma-services-80545.firebaseapp.com",
+    projectId: "ma-services-80545",
+    storageBucket: "ma-services-80545.firebasestorage.app",
+    messagingSenderId: "822071246752",
+    appId: "1:822071246752:web:16c5fb421501b34149eec5"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-/* ─── HEADER SCROLL ─── */
-window.addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('scrolled',window.scrollY>55));
+let currentUser = null;
+onAuthStateChanged(auth, (user) => { currentUser = user; });
 
-/* ─── SCROLL REVEAL ─── */
-const rvObs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
-document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
-
-/* ─── FILTER CARDS ─── */
-function filterCards(cat, btn){
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+// ========== GLOBAL FUNCTIONS (must be attached to window for inline onclick) ==========
+window.filterCards = function(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const cards = document.querySelectorAll('#catalog-grid .svc-card');
-    let shown=0;
-    cards.forEach((card,i)=>{
-        const match = cat==='all' || card.dataset.cat===cat;
-        if(match){
+    let shown = 0;
+    cards.forEach(card => {
+        const match = cat === 'all' || card.dataset.cat === cat;
+        if (match) {
             card.classList.remove('hide');
             card.style.animationDelay = (shown * 0.06) + 's';
             shown++;
@@ -1732,87 +1697,269 @@ function filterCards(cat, btn){
             card.classList.add('hide');
         }
     });
-}
+};
 
-/* ─── FAQ ACCORDION ─── */
-function toggleFaq(btn){
+window.toggleFaq = function(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = btn.classList.contains('open');
-    document.querySelectorAll('.faq-q.open').forEach(q=>{
+    document.querySelectorAll('.faq-q.open').forEach(q => {
         q.classList.remove('open');
         q.nextElementSibling.classList.remove('open');
     });
-    if(!isOpen){
+    if (!isOpen) {
         btn.classList.add('open');
         answer.classList.add('open');
     }
-}
+};
 
-/* ─── MOBILE MENU ─── */
-function toggleMob(){
-    const menu=document.getElementById('mob-menu'),ov=document.getElementById('mob-overlay'),hbg=document.getElementById('hbg');
-    menu.classList.toggle('on'); ov.classList.toggle('on'); hbg.classList.toggle('open');
-    document.body.style.overflow=menu.classList.contains('on')?'hidden':'';
-}
-
-/* ─── MODAL ─── */
-function openModal(svc){
-    document.getElementById('req-modal').classList.add('on');
-    document.body.style.overflow='hidden';
-    if(svc){
-        const sel=document.getElementById('svc-select');
-        for(const opt of sel.options) if(opt.value===svc||opt.text===svc){sel.value=opt.value;break;}
+window.toggleMob = function() {
+    const menu = document.getElementById('mob-menu');
+    const overlay = document.getElementById('mob-overlay');
+    const hbg = document.getElementById('hbg');
+    if (menu && overlay && hbg) {
+        menu.classList.toggle('on');
+        overlay.classList.toggle('on');
+        hbg.classList.toggle('open');
+        document.body.style.overflow = menu.classList.contains('on') ? 'hidden' : '';
     }
-}
-function closeModal(){
-    document.getElementById('req-modal').classList.remove('on');
-    document.body.style.overflow='';
-}
-document.getElementById('req-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+};
 
-/* ─── PROCESSING ─── */
-function runProcessing(){
-    const ov=document.getElementById('proc-overlay'),log=document.getElementById('t-log'),bar=document.getElementById('prog-bar'),stat=document.getElementById('proc-status');
-    ov.classList.add('on');
-    log.innerHTML='<div class="log-line">> Initializing request...</div>';
-    const msgs=[
-        {text:'> Secure Link Established (TLS 1.3)...',delay:600},
-        {text:'> Encrypting your submission...',delay:1800},
-        {text:'> Verifying data integrity...',delay:3200},
-        {text:'> Connecting to Expert Assignment Engine...',delay:4800},
-        {text:'> Packet Transmission Complete.',delay:6500},
-        {text:'> Ticket Generated Successfully.',delay:8000},
-        {text:'> REQUEST CONFIRMED. ✓',delay:9200,type:'success'}
-    ];
-    msgs.forEach(m=>setTimeout(()=>{
-        const d=document.createElement('div');
-        d.className='log-line'+(m.type?' '+m.type:'');
-        d.innerText=m.text; log.appendChild(d);
-        log.scrollTop=log.scrollHeight;
-        if(m.type==='success') stat.textContent='REQUEST SENT!';
-    },m.delay));
-    let w=0; const iv=setInterval(()=>{w++;bar.style.width=w+'%';if(w>=100)clearInterval(iv);},100);
-    setTimeout(()=>{
-        ov.classList.remove('on'); closeModal();
-        document.getElementById('req-form').reset();
-        bar.style.width='0%'; stat.textContent='PROCESSING...';
-        const btn=document.getElementById('submit-btn');
-        btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Request'; btn.disabled=false;
-        alert('✅ Request Received!\nWe will review your details and reply shortly.');
-    },10800);
-}
-function handleSubmit(e){
+window.openModal = function(svc) {
+    const modal = document.getElementById('req-modal');
+    if (!modal) return;
+    modal.classList.add('on');
+    document.body.style.overflow = 'hidden';
+    if (svc) {
+        const sel = document.getElementById('svc-select');
+        if (sel) {
+            for (const opt of sel.options) {
+                if (opt.value === svc || opt.text === svc) {
+                    sel.value = opt.value;
+                    break;
+                }
+            }
+        }
+    }
+};
+
+window.closeModal = function() {
+    const modal = document.getElementById('req-modal');
+    if (modal) modal.classList.remove('on');
+    document.body.style.overflow = '';
+};
+
+window.handleSubmit = async function(e) {
     e.preventDefault();
-    const btn=document.getElementById('submit-btn');
-    btn.innerHTML='<i class="fas fa-circle-notch fa-spin"></i> Securing...'; btn.disabled=true;
-    setTimeout(runProcessing,400);
-}
+    if (!currentUser) {
+        alert('Please log in first');
+        window.location.href = 'login.html';
+        return;
+    }
+    const btn = document.getElementById('submit-btn');
+    btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Uploading...';
+    btn.disabled = true;
 
-/* ─── SMOOTH SCROLLING ─── */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click',e=>{
-        const t=document.querySelector(a.getAttribute('href'));
-        if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    const name = document.querySelector('input[name="name"]').value;
+    const phone = document.querySelector('input[name="phone"]').value;
+    const service = document.getElementById('svc-select').value;
+    const subject = document.querySelector('input[name="subject"]').value;
+    const deadline = document.querySelector('input[name="deadline"]').value;
+    const details = document.querySelector('textarea[name="details"]').value;
+    const file = document.getElementById('assignment-file').files[0];
+
+    if (!file) {
+        alert('Please select a file to upload');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Request';
+        return;
+    }
+
+    try {
+        const storageRef = ref(storage, `service_requests/${currentUser.uid}/${Date.now()}_${file.name}`);
+        const uploadTask = await uploadBytesResumable(storageRef, file);
+        const downloadURL = await getDownloadURL(uploadTask.ref);
+
+        await addDoc(collection(db, "service_requests"), {
+            userId: currentUser.uid,
+            name: name,
+            phone: phone,
+            service: service,
+            subject: subject,
+            deadline: deadline,
+            details: details,
+            fileUrl: downloadURL,
+            fileName: file.name,
+            status: "pending",
+            createdAt: serverTimestamp()
+        });
+
+        alert('✅ Request submitted successfully!');
+        document.getElementById('req-form').reset();
+        closeModal();
+    } catch (error) {
+        console.error(error);
+        alert('❌ Submission failed: ' + error.message);
+    } finally {
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Request';
+        btn.disabled = false;
+    }
+};
+
+// Optional processing overlay (if you want to keep the terminal effect, call it after successful submit)
+window.runProcessing = function() {
+    const ov = document.getElementById('proc-overlay'), log = document.getElementById('t-log'), bar = document.getElementById('prog-bar'), stat = document.getElementById('proc-status');
+    if (!ov) return;
+    ov.classList.add('on');
+    log.innerHTML = '<div class="log-line">> Initializing request...</div>';
+    const msgs = [
+        {text: '> Secure Link Established (TLS 1.3)...', delay: 600},
+        {text: '> Encrypting your submission...', delay: 1800},
+        {text: '> Verifying data integrity...', delay: 3200},
+        {text: '> Connecting to Expert Assignment Engine...', delay: 4800},
+        {text: '> Packet Transmission Complete.', delay: 6500},
+        {text: '> Ticket Generated Successfully.', delay: 8000},
+        {text: '> REQUEST CONFIRMED. ✓', delay: 9200, type: 'success'}
+    ];
+    msgs.forEach(m => setTimeout(() => {
+        const d = document.createElement('div');
+        d.className = 'log-line' + (m.type ? ' ' + m.type : '');
+        d.innerText = m.text;
+        log.appendChild(d);
+        log.scrollTop = log.scrollHeight;
+        if (m.type === 'success') stat.textContent = 'REQUEST SENT!';
+    }, m.delay));
+    let w = 0;
+    const iv = setInterval(() => { w++; bar.style.width = w + '%'; if (w >= 100) clearInterval(iv); }, 100);
+    setTimeout(() => {
+        ov.classList.remove('on');
+        closeModal();
+        document.getElementById('req-form').reset();
+        bar.style.width = '0%';
+        stat.textContent = 'PROCESSING...';
+        const btn = document.getElementById('submit-btn');
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Request';
+        btn.disabled = false;
+        alert('✅ Request Received!\nWe will review your details and reply shortly.');
+    }, 10800);
+};
+
+// ========== DOM-DEPENDENT INITIALIZATIONS ==========
+document.addEventListener('DOMContentLoaded', () => {
+    // ----- CUSTOM CURSOR -----
+    const dot = document.getElementById('cur-dot');
+    const ring = document.getElementById('cur-ring');
+    if (dot && ring) {
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX;
+            my = e.clientY;
+            dot.style.cssText = `left:${mx}px;top:${my}px;`;
+        });
+        (function anim() {
+            rx += (mx - rx) * 0.12;
+            ry += (my - ry) * 0.12;
+            ring.style.cssText = `left:${rx}px;top:${ry}px;`;
+            requestAnimationFrame(anim);
+        })();
+        document.querySelectorAll('a, button, .svc-card, .faq-q, .price-col').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-big'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-big'));
+        });
+    }
+    if ('ontouchstart' in window) {
+        if (dot) dot.style.display = 'none';
+        if (ring) ring.style.display = 'none';
+        document.body.style.cursor = 'auto';
+    }
+
+    // ----- HERO CANVAS ANIMATION -----
+    (function() {
+        const c = document.getElementById('hero-canvas');
+        if (!c) return;
+        const ctx = c.getContext('2d');
+        const S = 40, W = S * 2, H = Math.sqrt(3) * S;
+        let hexes = [];
+        function resize() {
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+            init();
+        }
+        function init() {
+            hexes = [];
+            const cols = Math.ceil(c.width / (W * 0.75)) + 3;
+            const rows = Math.ceil(c.height / H) + 3;
+            for (let col = -1; col < cols; col++) {
+                for (let row = -1; row < rows; row++) {
+                    hexes.push({
+                        cx: col * W * 0.75,
+                        cy: row * H + (col % 2 ? H / 2 : 0),
+                        p: Math.random() * Math.PI * 2,
+                        sp: 0.003 + Math.random() * 0.009,
+                        br: 0.12 + Math.random() * 0.88
+                    });
+                }
+            }
+        }
+        function hexPath(cx, cy, r) {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const a = Math.PI / 180 * (60 * i - 30);
+                const x = cx + r * Math.cos(a);
+                const y = cy + r * Math.sin(a);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+        }
+        function draw() {
+            ctx.clearRect(0, 0, c.width, c.height);
+            for (const h of hexes) {
+                h.p += h.sp;
+                const a = (Math.sin(h.p) * 0.5 + 0.5) * h.br;
+                hexPath(h.cx, h.cy, S - 1.5);
+                ctx.strokeStyle = `rgba(255,107,43,${a * 0.5})`;
+                ctx.lineWidth = 0.7;
+                ctx.stroke();
+                if (a > 0.8) {
+                    hexPath(h.cx, h.cy, S - 1.5);
+                    ctx.fillStyle = `rgba(255,107,43,${(a - 0.8) * 0.15})`;
+                    ctx.fill();
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+        window.addEventListener('resize', resize);
+        resize();
+        draw();
+    })();
+
+    // ----- HEADER SCROLL EFFECT -----
+    const hdr = document.getElementById('hdr');
+    if (hdr) {
+        window.addEventListener('scroll', () => {
+            hdr.classList.toggle('scrolled', window.scrollY > 55);
+        });
+    }
+
+    // ----- SCROLL REVEAL (rv class) -----
+    const rvObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.rv').forEach(el => rvObs.observe(el));
+
+    // ----- MODAL CLICK OUTSIDE -----
+    const modal = document.getElementById('req-modal');
+    if (modal) modal.addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+
+    // ----- SMOOTH SCROLLING FOR ANCHOR LINKS -----
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
     });
 });
 
@@ -2072,6 +2219,7 @@ const dict = {
         form_deadline_lbl: "Deadline",
         form_details_lbl: "Details & Instructions",
         form_details_ph: "Describe your requirements, grading criteria, any notes...",
+        form_file_lbl: "Assignment File (PDF, DOC, DOCX, JPG, PNG)",
         form_submit: "<i class='fas fa-paper-plane'></i> Send Request",
         
         gateway_title: "MA SECURE GATEWAY",
@@ -2330,6 +2478,7 @@ const dict = {
         form_deadline_lbl: "الموعد النهائي",
         form_details_lbl: "التفاصيل والتعليمات",
         form_details_ph: "اشرح متطلباتك ومعايير التصحيح وأي ملاحظات...",
+        form_file_lbl: "ملف الواجب (PDF, DOC, DOCX, JPG, PNG)",
         form_submit: "<i class='fas fa-paper-plane'></i> إرسال الطلب",
         
         gateway_title: "البوابة الآمنة MA",
@@ -2338,30 +2487,28 @@ const dict = {
     }
 };
 
-function switchLang(lang) {
+window.switchLang = function(lang) {
     localStorage.setItem('sys-lang', lang);
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    
     document.querySelectorAll('.lang-orb').forEach(orb => orb.classList.remove('active'));
-    document.getElementById(`lang-${lang}`).classList.add('active');
-    
+    const activeOrb = document.getElementById(`lang-${lang}`);
+    if (activeOrb) activeOrb.classList.add('active');
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (dict[lang][key]) {
-            if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        if (dict[lang] && dict[lang][key]) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = dict[lang][key];
             } else {
                 el.innerHTML = dict[lang][key];
             }
         }
     });
-    
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
-        if (dict[lang][key]) el.placeholder = dict[lang][key];
+        if (dict[lang] && dict[lang][key]) el.placeholder = dict[lang][key];
     });
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('sys-lang') || 'en';

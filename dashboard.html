@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="User Dashboard | MA Services™ - Manage your requests and profile">
+    <title>Dashboard | MA Services™</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== DASHBOARD-SPECIFIC STYLES ===== */
+        .dashboard-container {
+            min-height: 100vh;
+            padding: 120px 0 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 32px;
+        }
+
+        /* Sidebar */
+        .dashboard-sidebar {
+            background: rgba(22,22,22,0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid var(--border-b);
+            padding: 28px 20px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .profile-avatar {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .avatar-circle {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 16px;
+            background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #000;
+            box-shadow: 0 0 20px var(--orange-glow);
+        }
+
+        .profile-name {
+            font-family: var(--fn-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .profile-email {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.8rem;
+            margin: 5px 0 20px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-family: var(--fn-sub);
+            font-size: 0.9rem;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .sidebar-menu a i {
+            width: 24px;
+            color: var(--orange);
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu .active a {
+            background: rgba(255,107,43,0.15);
+            color: var(--orange);
+        }
+
+        /* Main content */
+        .dashboard-main {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* Stats cards */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--card-light);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--orange);
+        }
+
+        .stat-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-family: var(--fn-display);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--orange);
+        }
+
+        /* Requests table */
+        .requests-section {
+            background: var(--card-light);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .section-header h2 {
+            font-family: var(--fn-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .requests-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .requests-table th, .requests-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .requests-table th {
+            font-family: var(--fn-sub);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--orange);
+            background: rgba(0,0,0,0.3);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .status-pending { background: #ffc10720; color: #ffc107; }
+        .status-in-progress { background: #17a2b820; color: #17a2b8; }
+        .status-completed { background: #28a74520; color: #28a745; }
+        .status-reviewed { background: #6f42c120; color: #6f42c1; }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            color: var(--orange);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .btn-icon:hover { color: #fff; transform: scale(1.1); }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px;
+            color: var(--muted);
+        }
+
+        /* Quick action */
+        .quick-action {
+            background: linear-gradient(135deg, rgba(255,107,43,0.1), rgba(0,0,0,0));
+            border: 1px solid var(--border-b);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .dashboard-sidebar { position: static; margin-bottom: 24px; }
+            .stats-row { grid-template-columns: repeat(2,1fr); }
+        }
+        @media (max-width: 640px) {
+            .stats-row { grid-template-columns: 1fr; }
+            .section-header { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Custom Cursor (same as index) -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- Header (identical to index) -->
+<header id="hdr">
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo-link">
+                <img src="media/images/Logo_1.png" alt="MA Studios" class="logo-img">
+                <div class="logo-texts">
+                    <span class="logo-name"><em>MA</em> SERVICES<sup style="font-size:.45em;color:var(--muted);vertical-align:super;">™</sup></span>
+                    <span class="logo-sub" data-i18n="logo_sub">Academic E-Solutions</span>
+                </div>
+            </a>
+            <ul class="nav-list">
+                <li><a href="index.html#services" data-i18n="nav_services">Services</a></li>
+                <li><a href="index.html#process" data-i18n="nav_process">Process</a></li>
+                <li><a href="index.html#why" data-i18n="nav_why">Why Us</a></li>
+                <li><a href="index.html#contact" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="javascript:void(0)" onclick="openRequestModal()" class="nav-cta" data-i18n="nav_cta">New Request <i class="fas fa-bolt"></i></a></li>
+            </ul>
+            <div class="lang-switcher">
+                <div class="lang-orb" onclick="switchLang('en')" id="lang-en"><img src="media/images/GB.png" alt="EN"></div>
+                <div class="lang-orb" onclick="switchLang('ar')" id="lang-ar"><img src="media/images/Ar.png" alt="AR"></div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Canvas Background -->
+<section id="hero" style="height: auto; min-height: 100vh;">
+    <canvas id="hex-canvas"></canvas>
+    <div class="hero-vignette"></div>
+
+    <div class="dashboard-container container">
+        <div class="dashboard-grid">
+            <!-- SIDEBAR -->
+            <aside class="dashboard-sidebar">
+                <div class="profile-avatar">
+                    <div class="avatar-circle" id="avatarInitial">U</div>
+                    <h3 class="profile-name" id="displayName">Loading...</h3>
+                    <div class="profile-email" id="displayEmail">user@example.com</div>
+                </div>
+                <ul class="sidebar-menu">
+                    <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="edit_profile.html"><i class="fas fa-user-edit"></i> Edit Profile</a></li>
+                    <li><a href="#" id="changePasswordBtn"><i class="fas fa-key"></i> Change Password</a></li>
+                    <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </aside>
+
+            <!-- MAIN CONTENT -->
+            <div class="dashboard-main">
+                <!-- Stats Cards -->
+                <div class="stats-row">
+                    <div class="stat-card"><div class="stat-title">Total Requests</div><div class="stat-value" id="totalRequests">0</div></div>
+                    <div class="stat-card"><div class="stat-title">Pending</div><div class="stat-value" id="pendingRequests">0</div></div>
+                    <div class="stat-card"><div class="stat-title">In Progress</div><div class="stat-value" id="inProgressRequests">0</div></div>
+                    <div class="stat-card"><div class="stat-title">Completed</div><div class="stat-value" id="completedRequests">0</div></div>
+                </div>
+
+                <!-- Recent Requests Table -->
+                <div class="requests-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-history"></i> Your Service Requests</h2>
+                        <button class="btn-primary" style="padding:8px 20px;" onclick="openRequestModal()"><i class="fas fa-plus"></i> New Request</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="requests-table" id="requestsTable">
+                            <thead>
+                                <tr><th>Service</th><th>Subject</th><th>Deadline</th><th>Status</th><th>File</th><th>Date</th></tr>
+                            </thead>
+                            <tbody id="requestsTableBody">
+                                <tr><td colspan="6" class="empty-state">Loading your requests...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Quick Action -->
+                <div class="quick-action">
+                    <div><strong>Need help urgently?</strong><br><span style="font-size:0.8rem; color:var(--muted)">Submit a new request and we'll match you within 1 hour.</span></div>
+                    <button class="btn-primary" onclick="openRequestModal()"><i class="fas fa-bolt"></i> Submit Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer (same as index) -->
+<footer id="contact">
+    <div class="container">
+        <div class="foot-grid">
+            <div>
+                <a href="index.html" class="logo-link"><img src="media/images/Logo_1.png" style="height:46px;"><div class="logo-texts"><span class="logo-name"><em>MA</em> STUDIOS™</span><span class="logo-sub" data-i18n="logo_sub">Academic E-Solutions</span></div></a>
+                <p class="foot-desc" data-i18n="foot_desc">Your best partner for academic success.</p>
+                <div class="socials"><a href="#" class="soc-btn"><i class="fab fa-facebook-f"></i></a><a href="#" class="soc-btn"><i class="fab fa-instagram"></i></a><a href="#" class="soc-btn"><i class="fab fa-twitter"></i></a></div>
+            </div>
+            <div class="foot-col"><h4 data-i18n="foot_ql_h">Quick Links</h4><ul class="foot-links"><li><a href="index.html">Home</a></li><li><a href="index.html#services">Services</a></li><li><a href="index.html#process">Process</a></li><li><a href="index.html#why">Why Us</a></li><li><a href="javascript:void(0)" onclick="openRequestModal()">New Request</a></li></ul></div>
+            <div class="foot-col"><h4 data-i18n="foot_contact_h">Contact</h4><div class="foot-contact-row"><i class="fas fa-globe"></i><span>mhstudios836.github.io</span></div><div class="foot-contact-row"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></div></div>
+        </div>
+        <div class="foot-bottom"><span class="copy">&copy; 2026 MA Services™</span><span class="foot-stamp">MH Studios</span></div>
+    </div>
+</footer>
+
+<!-- Request Modal (reused from index) -->
+<div id="req-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:1000; align-items:center; justify-content:center;">
+    <div class="modal-box" style="max-width:550px; background:var(--card-light); border:1px solid var(--orange); border-radius:12px; overflow:hidden;">
+        <div class="modal-topbar" style="background:var(--orange); padding:16px 24px; display:flex; justify-content:space-between;">
+            <h3 style="color:#000;">New Service Request</h3>
+            <button class="modal-close" onclick="closeRequestModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+        </div>
+        <div class="modal-body" style="padding:24px;">
+            <form id="req-form-dashboard">
+                <div class="frow" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                    <div class="fgrp"><label>Full Name</label><input type="text" id="dash_name" required></div>
+                    <div class="fgrp"><label>WhatsApp/Phone</label><input type="tel" id="dash_phone" required></div>
+                </div>
+                <div class="fgrp"><label>Service Type</label><select id="dash_service" required><option value="">Choose...</option><option>Assignments</option><option>Research Assay</option><option>Project Solution</option><option>Exam Scoring</option><option>Thesis Writing</option><option>Technical Report</option></select></div>
+                <div class="frow"><div class="fgrp"><label>Subject</label><input type="text" id="dash_subject" required></div><div class="fgrp"><label>Deadline</label><input type="date" id="dash_deadline" required></div></div>
+                <div class="fgrp"><label>Details</label><textarea id="dash_details" rows="3"></textarea></div>
+                <div class="fgrp"><label>Attachment (PDF/DOC/JPG)</label><input type="file" id="dash_file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required></div>
+                <button type="submit" class="btn-primary" style="width:100%; margin-top:16px;">Submit Request</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    // ========== FIREBASE IMPORTS ==========
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+    import { getFirestore, collection, query, where, orderBy, getDocs, getDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-storage.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBZ1HdW2wBXZ4sP4YxeMH6HG8H_zvKBxRU",
+        authDomain: "ma-services-80545.firebaseapp.com",
+        projectId: "ma-services-80545",
+        storageBucket: "ma-services-80545.firebasestorage.app",
+        messagingSenderId: "822071246752",
+        appId: "1:822071246752:web:16c5fb421501b34149eec5"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // DOM Elements
+    const avatarInitial = document.getElementById('avatarInitial');
+    const displayNameSpan = document.getElementById('displayName');
+    const displayEmailSpan = document.getElementById('displayEmail');
+    const totalSpan = document.getElementById('totalRequests');
+    const pendingSpan = document.getElementById('pendingRequests');
+    const inProgressSpan = document.getElementById('inProgressRequests');
+    const completedSpan = document.getElementById('completedRequests');
+    const tableBody = document.getElementById('requestsTableBody');
+
+    let currentUser = null;
+    let userDocRef = null;
+
+    // Helper: show modal
+    window.openRequestModal = function() {
+        if (!currentUser) { alert('Please login first'); window.location.href='login.html'; return; }
+        const modal = document.getElementById('req-modal');
+        modal.style.display = 'flex';
+        // Pre-fill name and phone from user profile if available
+        getUserProfile().then(profile => {
+            if(profile) {
+                document.getElementById('dash_name').value = profile.fullName || profile.name || '';
+                document.getElementById('dash_phone').value = profile.phone || '';
+            }
+        });
+    };
+    window.closeRequestModal = function() {
+        document.getElementById('req-modal').style.display = 'none';
+        document.getElementById('req-form-dashboard').reset();
+    };
+
+    // Get user profile from Firestore
+    async function getUserProfile() {
+        if (!currentUser) return null;
+        const userRef = doc(db, "users", currentUser.uid);
+        const snap = await getDoc(userRef);
+        if (snap.exists()) return snap.data();
+        return null;
+    }
+
+    // Update sidebar with user info
+    async function updateUserUI() {
+        if (!currentUser) return;
+        const email = currentUser.email;
+        displayEmailSpan.textContent = email;
+        // Fetch display name from Firestore
+        const profile = await getUserProfile();
+        let name = profile?.fullName || profile?.name || email.split('@')[0];
+        displayNameSpan.textContent = name;
+        avatarInitial.textContent = name.charAt(0).toUpperCase();
+        // Also store name/phone for modal prefilling
+        window.userProfileCache = profile;
+    }
+
+    // Fetch and display user's service requests
+    async function loadUserRequests() {
+        if (!currentUser) return;
+        const q = query(collection(db, "service_requests"), where("userId", "==", currentUser.uid), orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(q);
+        const requests = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        updateStats(requests);
+        renderRequestsTable(requests);
+    }
+
+    function updateStats(requests) {
+        const total = requests.length;
+        const pending = requests.filter(r => r.status === 'pending').length;
+        const inProgress = requests.filter(r => r.status === 'in-progress' || r.status === 'reviewed').length;
+        const completed = requests.filter(r => r.status === 'completed').length;
+        totalSpan.textContent = total;
+        pendingSpan.textContent = pending;
+        inProgressSpan.textContent = inProgress;
+        completedSpan.textContent = completed;
+    }
+
+    function formatDate(timestamp) {
+        if (!timestamp) return 'N/A';
+        const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+        return date.toLocaleDateString();
+    }
+
+    function renderRequestsTable(requests) {
+        if (requests.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="6" class="empty-state">No requests yet. Click "New Request" to get started.</td></tr>';
+            return;
+        }
+        let html = '';
+        requests.forEach(req => {
+            const statusClass = `status-${req.status || 'pending'}`;
+            const fileLink = req.fileUrl ? `<a href="${req.fileUrl}" target="_blank" class="btn-icon"><i class="fas fa-download"></i></a>` : '-';
+            html += `<tr>
+                <td>${req.service || '-'}</td>
+                <td>${req.subject || '-'}</td>
+                <td>${req.deadline || '-'}</td>
+                <td><span class="status-badge ${statusClass}">${req.status || 'pending'}</span></td>
+                <td>${fileLink}</td>
+                <td>${formatDate(req.createdAt)}</td>
+            </tr>`;
+        });
+        tableBody.innerHTML = html;
+    }
+
+    // Handle new request submission
+    const requestForm = document.getElementById('req-form-dashboard');
+    requestForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentUser) { alert('Please login'); return; }
+        const name = document.getElementById('dash_name').value.trim();
+        const phone = document.getElementById('dash_phone').value.trim();
+        const service = document.getElementById('dash_service').value;
+        const subject = document.getElementById('dash_subject').value.trim();
+        const deadline = document.getElementById('dash_deadline').value;
+        const details = document.getElementById('dash_details').value.trim();
+        const file = document.getElementById('dash_file').files[0];
+        if (!name || !phone || !service || !subject || !deadline || !file) {
+            alert('Please fill all required fields and attach a file.');
+            return;
+        }
+        const submitBtn = requestForm.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+        try {
+            // Upload file to storage
+            const storageRef = ref(storage, `service_requests/${currentUser.uid}/${Date.now()}_${file.name}`);
+            const uploadTask = await uploadBytesResumable(storageRef, file);
+            const downloadURL = await getDownloadURL(uploadTask.ref);
+            // Save to Firestore
+            const newRequest = {
+                userId: currentUser.uid,
+                name, phone, service, subject, deadline, details,
+                fileUrl: downloadURL,
+                fileName: file.name,
+                status: 'pending',
+                createdAt: new Date()
+            };
+            await addDoc(collection(db, "service_requests"), newRequest);
+            alert('Request submitted successfully!');
+            closeRequestModal();
+            loadUserRequests(); // refresh list
+        } catch (err) {
+            console.error(err);
+            alert('Error: ' + err.message);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Request';
+        }
+    });
+
+    // Change password (using Firebase sendPasswordResetEmail)
+    document.getElementById('changePasswordBtn').addEventListener('click', async () => {
+        if (!currentUser) return;
+        const confirmed = confirm('We will send a password reset link to your email. Continue?');
+        if (confirmed) {
+            try {
+                await sendPasswordResetEmail(auth, currentUser.email);
+                alert('Reset link sent to your email. Please check your inbox.');
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await signOut(auth);
+        window.location.href = 'login.html';
+    });
+
+    // Auth state listener
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            window.location.href = 'login.html';
+            return;
+        }
+        currentUser = user;
+        await updateUserUI();
+        await loadUserRequests();
+    });
+
+    // ========== CURSOR + HEX CANVAS (same as index) ==========
+    (function setupCursorAndCanvas() {
+        const dot = document.getElementById('cur-dot');
+        const ring = document.getElementById('cur-ring');
+        let mx=0,my=0,rx=0,ry=0;
+        document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.cssText=`left:${mx}px;top:${my}px;`; });
+        (function anim(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.cssText=`left:${rx}px;top:${ry}px;`; requestAnimationFrame(anim); })();
+        document.querySelectorAll('a,button,.stat-card,.requests-table tr').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-big'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-big'));
+        });
+        if ('ontouchstart' in window) { dot.style.display='none'; ring.style.display='none'; }
+
+        const canvas = document.getElementById('hex-canvas');
+        if(canvas){
+            const ctx = canvas.getContext('2d');
+            let hexes = [];
+            const S=42, W=S*2, H=Math.sqrt(3)*S;
+            function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; init(); }
+            function hex(cx,cy,r){ ctx.beginPath(); for(let i=0;i<6;i++){ let a=Math.PI/180*(60*i-30), x=cx+r*Math.cos(a), y=cy+r*Math.sin(a); i?ctx.lineTo(x,y):ctx.moveTo(x,y); } ctx.closePath(); }
+            function init(){ hexes=[]; let cols=Math.ceil(canvas.width/(W*.75))+3, rows=Math.ceil(canvas.height/H)+3; for(let c=-1;c<cols;c++) for(let r=-1;r<rows;r++) hexes.push({ cx:c*W*.75, cy:r*H+(c%2?H/2:0), p:Math.random()*Math.PI*2, sp:.004+Math.random()*.009, br:.15+Math.random()*.85 }); }
+            function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(let h of hexes){ h.p+=h.sp; let a=(Math.sin(h.p)*.5+.5)*h.br; hex(h.cx,h.cy,S-1.5); ctx.strokeStyle=`rgba(255,107,43,${a*.55})`; ctx.lineWidth=.7; ctx.stroke(); if(a>.82){ hex(h.cx,h.cy,S-1.5); ctx.fillStyle=`rgba(255,107,43,${(a-.82)*.18})`; ctx.fill(); } } requestAnimationFrame(draw); }
+            window.addEventListener('resize',resize); resize(); draw();
+        }
+    })();
+
+    // Header scroll effect
+    const hdr = document.getElementById('hdr');
+    window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 55));
+
+    // Simple i18n placeholder (same as index but minimal)
+    window.switchLang = function(lang) {
+        localStorage.setItem('sys-lang', lang);
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.querySelectorAll('.lang-orb').forEach(orb => orb.classList.remove('active'));
+        document.getElementById(`lang-${lang}`).classList.add('active');
+        // For simplicity, we won't translate full dashboard here – but you can expand.
+    };
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('sys-lang') || 'en';
+        switchLang(savedLang);
+    });
+</script>
+</body>
+</html>

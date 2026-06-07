@@ -719,40 +719,171 @@ footer {
     </div>
 </section>
 
-<!-- Same footer, mobile menu, scripts as login.html -->
+<script type="module">
+  import { auth, db } from './assets/js/firebase-config.js';
+  import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+  import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+  const signupForm = document.getElementById('signupForm');
+  const fullNameInput = document.getElementById('fullName');
+  const emailInput = document.getElementById('signupEmail');
+  const phoneInput = document.getElementById('phone');
+  const passwordInput = document.getElementById('signupPassword');
+  const confirmInput = document.getElementById('confirmPassword');
+  const termsCheckbox = document.querySelector('input[type="checkbox"]');
+  const submitBtn = signupForm?.querySelector('.btn-auth');
+
+  window.handleSignup = async function(e) {
+    e.preventDefault();
+    const name = fullNameInput.value.trim();
+    const email = emailInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const password = passwordInput.value;
+    const confirm = confirmInput.value;
+
+    if (!name || !email || !password) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    if (password !== confirm) {
+      alert('Passwords do not match.');
+      return;
+    }
+    if (password.length < 6) {
+      alert('Password must be at least 6 characters.');
+      return;
+    }
+    if (!termsCheckbox?.checked) {
+      alert('You must agree to the Terms & Conditions.');
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Creating account...';
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      await updateProfile(user, { displayName: name });
+      await setDoc(doc(db, 'users', user.uid), {
+        uid: user.uid,
+        name: name,
+        email: email,
+        phone: phone || '',
+        role: 'student',
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+      alert('Account created successfully! Please login.');
+      window.location.href = 'login.html';
+    } catch (error) {
+      console.error(error);
+      let errorMsg = 'Registration failed. ';
+      if (error.code === 'auth/email-already-in-use') errorMsg += 'Email already registered.';
+      else if (error.code === 'auth/invalid-email') errorMsg += 'Invalid email address.';
+      else if (error.code === 'auth/weak-password') errorMsg += 'Password too weak.';
+      else errorMsg += error.message;
+      alert(errorMsg);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'SIGN UP';
+      }
+    }
+  };
+
+  signupForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    window.handleSignup(e);
+  });
+</script>
 
 <script>
-// Same cursor, canvas, header, mobile menu functions as login.html
+// Custom Cursor
+const dot = document.getElementById('cur-dot'), ring = document.getElementById('cur-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.cssText = `left:${mx}px;top:${my}px;`;
+});
+(function anim() {
+    rx += (mx - rx) * .12;
+    ry += (my - ry) * .12;
+    ring.style.cssText = `left:${rx}px;top:${ry}px;`;
+    requestAnimationFrame(anim);
+})();
+document.querySelectorAll('a, button, .social-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-big'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-big'));
+});
+if ('ontouchstart' in window) { dot.style.display = 'none'; ring.style.display = 'none'; document.body.style.cursor = 'auto'; }
 
-// Handle Signup
-function handleSignup(e) {
-    e.preventDefault();
-    const name = document.getElementById('fullName').value;
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-    const confirm = document.getElementById('confirmPassword').value;
-    
-    if (!name || !email || !password) {
-        alert('Please fill in all required fields');
-        return;
+// Canvas Animation
+(function() {
+    const c = document.getElementById('auth-canvas');
+    if (!c) return;
+    const ctx = c.getContext('2d');
+    const S = 45, W = S * 2, H = Math.sqrt(3) * S;
+    let hexes = [];
+    function resize() { c.width = window.innerWidth; c.height = window.innerHeight; init(); }
+    function init() {
+        hexes = [];
+        const cols = Math.ceil(c.width / (W * .75)) + 3;
+        const rows = Math.ceil(c.height / H) + 3;
+        for (let col = -1; col < cols; col++) {
+            for (let row = -1; row < rows; row++) {
+                hexes.push({
+                    cx: col * W * .75,
+                    cy: row * H + (col % 2 ? H / 2 : 0),
+                    p: Math.random() * Math.PI * 2,
+                    sp: .003 + Math.random() * .009,
+                    br: .12 + Math.random() * .88
+                });
+            }
+        }
     }
-    
-    if (password !== confirm) {
-        alert('Passwords do not match!');
-        return;
+    function hexPath(cx, cy, r) {
+        ctx.beginPath();
+        for (let i = 0; i < 6; i++) {
+            const a = Math.PI / 180 * (60 * i - 30);
+            i ? ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a)) : ctx.moveTo(cx + r * Math.cos(a), cy + r * Math.sin(a));
+        }
+        ctx.closePath();
     }
-    
-    if (password.length < 6) {
-        alert('Password must be at least 6 characters');
-        return;
+    function draw() {
+        ctx.clearRect(0, 0, c.width, c.height);
+        for (const h of hexes) {
+            h.p += h.sp;
+            const a = (Math.sin(h.p) * .5 + .5) * h.br;
+            hexPath(h.cx, h.cy, S - 2);
+            ctx.strokeStyle = `rgba(255,107,43,${a * .45})`;
+            ctx.lineWidth = 0.7;
+            ctx.stroke();
+            if (a > .78) {
+                hexPath(h.cx, h.cy, S - 2);
+                ctx.fillStyle = `rgba(255,107,43,${(a - .78) * .12})`;
+                ctx.fill();
+            }
+        }
+        requestAnimationFrame(draw);
     }
-    
-    alert(`Welcome ${name}! Your account has been created. (Demo)`);
-    // Redirect to login
-    // window.location.href = 'login.html';
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+})();
+
+// Header Scroll
+window.addEventListener('scroll', () => document.getElementById('hdr').classList.toggle('scrolled', window.scrollY > 55));
+
+// Mobile Menu
+function toggleMob() {
+    const menu = document.getElementById('mob-menu'), ov = document.getElementById('mob-overlay'), hbg = document.getElementById('hbg');
+    menu.classList.toggle('on'); ov.classList.toggle('on'); hbg.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('on') ? 'hidden' : '';
 }
 
-// Multilingual Engine (same as login.html with additional keys)
 const dict = {
     en: {
         logo_sub: "Academic E-Solutions",
@@ -808,14 +939,16 @@ function switchLang(lang) {
     document.getElementById(`lang-${lang}`).classList.add('active');
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (dict[lang][key]) el.innerHTML = dict[lang][key];
+        if (dict[lang][key]) {
+            if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = dict[lang][key];
+            else el.innerHTML = dict[lang][key];
+        }
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         if (dict[lang][key]) el.placeholder = dict[lang][key];
     });
 }
-
 document.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('sys-lang') || 'en';
     switchLang(savedLang);

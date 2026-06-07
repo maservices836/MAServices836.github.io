@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MA Services – Story 1080×1920</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/main.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1080px;height:1920px;overflow:hidden;background:#000;}
+
+	/* ================================================
+	   ROOT & VARIABLES
+	================================================ */
+	:root {
+		--orange:          #FF6B2B;
+		--orange-dark:     #CC4B0F;
+		--orange-glow:     rgba(255, 107, 43, 0.22);
+		--orange-glow-s:   rgba(255, 107, 43, 0.50);
+		--charcoal:        #2A2A2A;
+		--steel:           #3A3A3A;
+		--dark:            #0E0E0E;
+		--darker:          #080808;
+		--card:            #161616;
+		--card-light:      #1D1D1D;
+		--border:          rgba(255,107,43,0.14);
+		--border-b:        rgba(255,107,43,0.38);
+		--white:           #FFFFFF;
+		--off-white:       #F4F4F4;
+		--muted:           #7A7A7A;
+		--light:           #C8C8C8;
+		/* Update these three lines */
+		--fn-display:      'Purista', sans-serif;
+		--fn-sub:          'Purista', sans-serif;
+		--fn-body:         'Purista', sans-serif;
+		--ease:            cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+	html { scroll-behavior: smooth; }
+	body {
+		background: var(--dark);
+		color: var(--white);
+		font-family: var(--fn-body);
+		overflow-x: hidden;
+		cursor: none;
+	}
+	::-webkit-scrollbar { width:4px; }
+	::-webkit-scrollbar-track { background: var(--darker); }
+	::-webkit-scrollbar-thumb { background: var(--orange); border-radius:2px; }
+
+/* ================================================
+	   LOCAL TYPOGRAPHY MAPPINGS
+	================================================ */
+	@font-face {
+		font-family: 'Purista';
+		src: url('assets/webfonts/purista_thin-webfont.woff2') format('woff2'),
+			 url('assets/webfonts/purista_thin-webfont.woff') format('woff'),
+			 url('assets/webfonts/Purista Thin.ttf') format('truetype');
+		font-weight: 100;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: 'Purista';
+		src: url('assets/webfonts/purista_light-webfont.woff2') format('woff2'),
+			 url('assets/webfonts/purista_light-webfont.woff') format('woff'),
+			 url('assets/webfonts/Purista Light.ttf') format('truetype');
+		font-weight: 300;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: 'Purista';
+		src: url('assets/webfonts/Purista.ttf') format('truetype');
+		font-weight: 400;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: 'Purista';
+		src: url('assets/webfonts/Purista SemiBold.ttf') format('truetype');
+		font-weight: 600;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: 'Purista';
+		src: url('assets/webfonts/purista_bold-webfont.woff2') format('woff2'),
+			 url('assets/webfonts/purista_bold-webfont.woff') format('woff'),
+			 url('assets/webfonts/Purista Bold.ttf') format('truetype');
+		font-weight: 700;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	/* ================================================
+	   MULTILINGUAL & RTL ENGINE
+	================================================ */
+	@font-face {
+		font-family: 'Janna LT';
+		src: url('assets/webfonts/Janna_LT_Regular.ttf') format('truetype');
+		font-weight: 400; font-style: normal; font-display: swap;
+	}
+
+	/* Language Switcher UI */
+	.lang-switcher {
+		display: flex; gap: 10px; margin-left: 20px; align-items: center;
+	}
+	.lang-orb {
+		width: 28px; height: 28px; border-radius: 50%; overflow: hidden;
+		cursor: pointer; border: 2px solid rgba(255,255,255,0.2);
+		transition: all var(--ease) 0.3s; filter: grayscale(100%);
+	}
+	.lang-orb:hover, .lang-orb.active {
+		filter: grayscale(0%); border-color: var(--orange); transform: scale(1.1);
+	}
+	.lang-orb img { width: 100%; height: 100%; object-fit: cover; }
+
+	/* ------------------------------------------------
+	   THE ARABIC OVERRIDE (Triggered by dir="rtl")
+	------------------------------------------------ */
+	html[dir="rtl"] {
+		--fn-display: 'Janna LT', sans-serif;
+		--fn-sub:     'Janna LT', sans-serif;
+		--fn-body:    'Janna LT', sans-serif;
+	}
+
+	html[dir="rtl"] body {
+		direction: rtl; text-align: right;
+	}
+
+	/* Mirrored UI Adjustments */
+	html[dir="rtl"] .nav-list { flex-direction: row-reverse; }
+	html[dir="rtl"] .btn-primary::before { left: 100%; }
+	html[dir="rtl"] .btn-primary:hover::before { left: -100%; }
+	html[dir="rtl"] .svc-cta, html[dir="rtl"] .feat:hover { transform: translateX(-4px); }
+	html[dir="rtl"] .hero-title, html[dir="rtl"] .section-title { line-height: 1.2; }
+
+
+.g {
+    width:1080px; height:1920px;
+    background:#080808;
+    position:relative; overflow:hidden;
+    font-family:'Barlow Condensed',sans-serif;
+}
+
+/* ── HEX GRID ── */
+.hex-bg {
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='104' height='120'%3E%3Cpolygon points='52,6 98,31 98,89 52,114 6,89 6,31' fill='none' stroke='rgba(255,107,43,0.11)' stroke-width='1.4'/%3E%3C/svg%3E");
+    background-size:104px 120px;
+}
+
+/* ── GLOWS ── */
+.glow-t {
+    position:absolute; top:-300px; left:50%; transform:translateX(-50%);
+    width:900px; height:700px;
+    background:radial-gradient(ellipse at center,rgba(255,107,43,0.22) 0%,transparent 65%);
+    pointer-events:none;
+}
+.glow-c {
+    position:absolute; top:560px; left:50%; transform:translateX(-50%);
+    width:1000px; height:900px;
+    background:radial-gradient(ellipse at center,rgba(255,107,43,0.1) 0%,transparent 65%);
+    pointer-events:none;
+}
+
+/* ── LARGE BG HEX DECORATIONS ── */
+.deco {
+    position:absolute; pointer-events:none;
+    clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+}
+.deco-a {width:480px;height:480px;top:-60px;left:-160px;background:rgba(255,107,43,0.04);}
+.deco-b {width:360px;height:360px;top:100px;right:-100px;background:rgba(255,107,43,0.03);}
+.deco-c {width:500px;height:500px;top:880px;left:-200px;background:rgba(255,107,43,0.035);}
+.deco-d {width:300px;height:300px;bottom:300px;right:-80px;background:rgba(255,107,43,0.04);}
+
+/* ── FOREGROUND ── */
+.fg {
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center;
+}
+
+/* TOP TAG */
+.top-tag {
+    margin-top:88px;
+    display:flex; align-items:center; gap:18px;
+    font-size:21px; letter-spacing:8px;
+    color:rgba(255,107,43,0.75); font-weight:600;
+    text-transform:uppercase;
+}
+.top-tag::before,.top-tag::after {
+    content:''; width:55px; height:1.5px;
+    background:rgba(255,107,43,0.4);
+}
+
+/* LOGO CLUSTER */
+.logo-wrap {
+    margin-top:90px;
+    position:relative;
+    width:380px; height:380px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+}
+.logo-r3,.logo-r2,.logo-r1 {
+    position:absolute;
+    clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+}
+.logo-r3 {width:460px;height:460px;background:rgba(255,107,43,0.03);border:1px solid rgba(255,107,43,0.1);}
+.logo-r2 {width:400px;height:400px;background:rgba(255,107,43,0.06);border:1px solid rgba(255,107,43,0.18);}
+.logo-r1 {width:340px;height:340px;background:rgba(255,107,43,0.09);border:1.5px solid rgba(255,107,43,0.28);}
+.logo-img {
+    width:290px; height:290px; object-fit:contain;
+    filter:drop-shadow(0 0 55px rgba(255,107,43,0.75));
+    position:relative; z-index:2;
+}
+
+/* BRAND NAME */
+.brand-ma {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:210px; color:#FF6B2B;
+    line-height:0.85; letter-spacing:14px;
+    margin-top:22px;
+    filter:drop-shadow(0 0 35px rgba(255,107,43,0.35));
+}
+.brand-studios {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:105px; letter-spacing:18px;
+    line-height:0.85;
+    color:transparent; -webkit-text-stroke:2px #fff;
+}
+.brand-tm {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:28px; letter-spacing:0;
+    color:rgba(255,255,255,0.35);
+    vertical-align:super;
+    -webkit-text-stroke:0;
+}
+
+/* DIVIDER */
+.div-line {
+    width:180px; height:2px;
+    background:linear-gradient(to right,transparent,#FF6B2B,transparent);
+    margin:38px 0 28px;
+}
+
+/* TAGLINE */
+.tag-pre {
+    font-size:28px; font-weight:300;
+    color:rgba(255,255,255,0.45);
+    letter-spacing:4px; text-transform:uppercase;
+    margin-bottom:10px;
+}
+.tag-main {
+    font-size:50px; font-weight:700;
+    color:#fff; letter-spacing:3px;
+    text-transform:uppercase; text-align:center;
+    line-height:1;
+}
+
+/* ── SERVICES STRIP ── */
+.svc-strip {
+    position:absolute; top:1260px;
+    width:100%; padding:0;
+    display:flex; flex-direction:column; align-items:center;
+}
+.svc-strip-inner {
+    width:100%;
+    background:rgba(255,107,43,0.04);
+    border-top:1px solid rgba(255,107,43,0.18);
+    border-bottom:1px solid rgba(255,107,43,0.18);
+    padding:55px 70px;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:10px;
+}
+.svc-item {
+    display:flex; flex-direction:column; align-items:center; gap:14px;
+}
+.svc-hex {
+    width:100px; height:100px;
+    clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+    background:rgba(255,107,43,0.1); border:1.5px solid rgba(255,107,43,0.35);
+    display:flex; align-items:center; justify-content:center;
+    font-size:34px; color:#FF6B2B;
+}
+.svc-lbl {
+    font-size:21px; font-weight:700; letter-spacing:2px;
+    color:rgba(255,255,255,0.82); text-transform:uppercase;
+    text-align:center;
+}
+.and-more {
+    margin-top:32px;
+    font-size:22px; font-weight:300; font-style:italic;
+    color:rgba(255,255,255,0.28); letter-spacing:3px;
+}
+
+/* ── FOOTER ── */
+.footer {
+    position:absolute; bottom:0; left:0; right:0;
+    padding:0 80px 65px;
+    display:flex; flex-direction:column; align-items:center;
+}
+.foot-divider {
+    width:100%; height:1px;
+    background:linear-gradient(to right,transparent,rgba(255,107,43,0.45),transparent);
+    margin-bottom:48px;
+}
+.social-row {
+    display:flex; align-items:center; gap:26px; margin-bottom:28px;
+}
+.soc-hex {
+    width:58px; height:58px;
+    clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+    background:rgba(255,107,43,0.08); border:1px solid rgba(255,107,43,0.28);
+    display:flex; align-items:center; justify-content:center;
+    font-size:21px; color:rgba(255,107,43,0.75);
+}
+.handle {
+    font-size:28px; font-weight:600; letter-spacing:4px;
+    color:rgba(255,255,255,0.65); margin-bottom:10px;
+}
+.url {
+    font-size:25px; font-weight:300; letter-spacing:2px;
+    color:#FF6B2B; margin-bottom:38px;
+}
+.watermark {
+    display:flex; align-items:center; gap:12px;
+}
+.wm-img { width:36px; height:36px; object-fit:contain; opacity:0.3; }
+.wm-txt {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:26px; letter-spacing:6px;
+    color:rgba(255,255,255,0.2);
+}
+
+/* Bottom edge fade */
+.edge-fade {
+    position:absolute; bottom:0; left:0; right:0; height:200px;
+    background:linear-gradient(to top,rgba(8,8,8,0.6),transparent);
+    pointer-events:none;
+}
+</style>
+</head>
+<body>
+<div class="g">
+    <!-- Background -->
+    <div class="hex-bg"></div>
+    <div class="glow-t"></div>
+    <div class="glow-c"></div>
+    <div class="deco deco-a"></div>
+    <div class="deco deco-b"></div>
+    <div class="deco deco-c"></div>
+    <div class="deco deco-d"></div>
+
+    <!-- Foreground content -->
+    <div class="fg">
+        <div class="top-tag">Academic E-Solutions</div>
+
+        <div class="logo-wrap">
+            <div class="logo-r3"></div>
+            <div class="logo-r2"></div>
+            <div class="logo-r1"></div>
+            <img src="media/images/Logo_1.png" alt="MA Studios" class="logo-img">
+        </div>
+
+        <div class="brand-ma">MA</div>
+        <div class="brand-studios">STUDIOS<span class="brand-tm">™</span></div>
+
+        <div class="div-line"></div>
+
+        <div class="tag-pre">Your Best Partner for</div>
+        <div class="tag-main">Academic Solutions</div>
+    </div>
+
+    <!-- Services strip -->
+    <div class="svc-strip">
+        <div class="svc-strip-inner">
+            <div class="svc-item">
+                <div class="svc-hex"><i class="fas fa-file-alt"></i></div>
+                <div class="svc-lbl">Assignments</div>
+            </div>
+            <div class="svc-item">
+                <div class="svc-hex"><i class="fas fa-search"></i></div>
+                <div class="svc-lbl">Research</div>
+            </div>
+            <div class="svc-item">
+                <div class="svc-hex"><i class="fas fa-project-diagram"></i></div>
+                <div class="svc-lbl">Projects</div>
+            </div>
+            <div class="svc-item">
+                <div class="svc-hex"><i class="fas fa-chart-bar"></i></div>
+                <div class="svc-lbl">Exams</div>
+            </div>
+        </div>
+        <div class="and-more">And Many More Academic Solutions ...</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="foot-divider"></div>
+        <div class="social-row">
+            <div class="soc-hex"><i class="fab fa-facebook-f"></i></div>
+            <div class="soc-hex"><i class="fab fa-instagram"></i></div>
+            <div class="soc-hex"><i class="fab fa-x-twitter"></i></div>
+            <div class="soc-hex"><i class="fab fa-youtube"></i></div>
+            <div class="soc-hex"><i class="fab fa-whatsapp"></i></div>
+        </div>
+        <div class="handle">@mhstudios.836</div>
+        <div class="url">mhstudios836.github.io</div>
+        <div class="watermark">
+            <img src="media/images/Logo_1.png" class="wm-img" alt="">
+            <span class="wm-txt">MA STUDIOS™</span>
+        </div>
+    </div>
+
+    <div class="edge-fade"></div>
+</div>
+</body>
+</html>

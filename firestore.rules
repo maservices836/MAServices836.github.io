@@ -1,0 +1,103 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /artifacts/ma-services-80545 {
+
+      // --- HELPERS (unchanged) ---
+      function isSignedIn() { return request.auth != null; }
+      function getUserData() {
+        return get(/databases/$(database)/documents/artifacts/ma-services-80545/users/$(request.auth.uid)).data;
+      }
+      function isWarlord() {
+        return isSignedIn() && getUserData().role == 'admin';
+      }
+      function isClient() {
+        return isSignedIn() && (
+          getUserData().role == 'student' || 
+          getUserData().role == 'contractor' || 
+          getUserData().role == 'admin'
+        );
+      }
+      function isOwner(userId) {
+        return isSignedIn() && request.auth.uid == userId;
+      }
+
+      // =================================================================
+      // 1. USERS (unchanged)
+      // =================================================================
+      match /users/{userId} {
+        allow read: if isSignedIn();
+        allow create: if isOwner(userId);
+        allow update: if isOwner(userId) 
+                      && (!request.resource.data.diff(resource.data).affectedKeys()
+                         .hasAny(['role', 'wallet_balance', 'tier', 'status', 'is_banned', 'titanId']))
+                      || isWarlord();
+
+        // ===== SHOPPING CART (NEW) =====
+        match /cart/{itemId} {
+          // Users can read/write their own cart
+          allow read, write: if isOwner(userId);
+          // Admin can read any cart (for support)
+          allow read: if isWarlord();
+        }
+      }
+
+      // =================================================================
+      // 2. MISSIONS (unchanged)
+      // =================================================================
+      match /missions/{missionId} {
+        allow read: if isSignedIn();
+        allow create: if isClient();
+        allow update: if isWarlord() 
+                      || (isSignedIn() && resource.data.studentUid == request.auth.uid)
+                      || (isSignedIn() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'freelancerUid', 'freelancerName', 'acceptedAt', 'deliverableUrl']));
+        allow delete: if isWarlord() 
+                      || (resource.data.studentUid == request.auth.uid && resource.data.status == 'OPEN');
+      }
+
+      // =================================================================
+      // 3. CHATS (unchanged)
+      // =================================================================
+      match /chats/{chatId} {
+        allow read, write: if isSignedIn() && (
+          request.auth.uid in resource.data.participants || 
+          request.auth.uid in request.resource.data.participants ||
+          isWarlord()
+        );
+      }
+
+      // =================================================================
+      // 4. GLOBAL COMMS (unchanged)
+      // =================================================================
+      match /global_comms/{msgId} {
+        allow read: if isSignedIn();
+        allow create: if isSignedIn();
+      }
+
+      // =================================================================
+      // 5. PRODUCTS (already present, unchanged)
+      // =================================================================
+      match /products/{productId} {
+        allow read: if true;
+        allow write: if isWarlord();
+      }
+
+      // =================================================================
+      // 6. TRANSACTIONS (unchanged)
+      // =================================================================
+      match /transactions/{txId} {
+        allow read: if isWarlord() || resource.data.user_id == request.auth.uid;
+        allow write: if isWarlord();
+      }
+
+      // =================================================================
+      // 7. SERVICE REQUESTS (unchanged)
+      // =================================================================
+      match /service_requests/{requestId} {
+        allow create: if true;
+        allow read, update: if isWarlord();
+      }
+    }
+  }
+}

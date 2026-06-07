@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MA Studios™ | Social Media Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --orange:#FF6B2B; --dark:#0A0A0A; --card:#161616;
+    --border:rgba(255,107,43,0.15); --muted:#666; --light:#C8C8C8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--dark);color:#fff;font-family:'DM Sans',sans-serif;min-height:100vh;}
+
+/* ── PAGE HEADER ── */
+.page-hdr {
+    background:rgba(8,8,8,0.95);
+    border-bottom:1px solid var(--border);
+    padding:20px 40px;
+    display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:10;
+    backdrop-filter:blur(16px);
+}
+.ph-brand {
+    display:flex; align-items:center; gap:12px;
+}
+.ph-logo { height:40px; object-fit:contain; filter:drop-shadow(0 0 8px rgba(255,107,43,0.5)); }
+.ph-name { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:3px; }
+.ph-name em { color:var(--orange); font-style:normal; }
+.ph-tag { font-family:'Barlow Condensed',sans-serif; font-size:.72rem; letter-spacing:3px; color:var(--muted); text-transform:uppercase; }
+.ph-title { font-family:'Barlow Condensed',sans-serif; font-size:1rem; letter-spacing:4px; text-transform:uppercase; color:var(--muted); }
+.ph-badge {
+    font-family:'Barlow Condensed',sans-serif; font-size:.78rem; font-weight:600;
+    letter-spacing:2px; text-transform:uppercase;
+    background:rgba(255,107,43,0.12); border:1px solid rgba(255,107,43,0.3);
+    color:var(--orange); padding:6px 16px; border-radius:2px;
+}
+
+/* ── EXPORT INSTRUCTIONS ── */
+.export-banner {
+    background:rgba(255,107,43,0.06);
+    border-bottom:1px solid rgba(255,107,43,0.14);
+    padding:14px 40px;
+    display:flex; align-items:center; gap:10px;
+    font-family:'Barlow Condensed',sans-serif; font-size:.92rem;
+    letter-spacing:1.5px; color:rgba(255,255,255,0.5);
+}
+.export-banner i { color:var(--orange); }
+.export-banner strong { color:rgba(255,255,255,0.75); }
+
+/* ── MAIN GRID ── */
+.main {
+    padding:48px 40px 80px;
+    display:flex; gap:50px; justify-content:center; flex-wrap:wrap; align-items:flex-start;
+}
+
+/* ── GRAPHIC COLUMN ── */
+.graphic-col {
+    display:flex; flex-direction:column; align-items:center; gap:20px;
+}
+.col-label {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:.78rem; font-weight:700; letter-spacing:5px;
+    text-transform:uppercase; color:var(--orange);
+    display:flex; align-items:center; gap:10px;
+}
+.col-label::before,.col-label::after { content:''; width:24px; height:1.5px; background:rgba(255,107,43,0.4); }
+.col-dim {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:.78rem; letter-spacing:3px; color:var(--muted); text-transform:uppercase;
+    margin-top:-10px;
+}
+
+/* ── PREVIEW FRAMES ── */
+.preview-frame {
+    position:relative;
+    border:1px solid rgba(255,107,43,0.22);
+    border-radius:4px;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,107,43,0.1);
+    transition:box-shadow .3s;
+}
+.preview-frame:hover {
+    box-shadow:0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,107,43,0.3);
+}
+.corner-mark {
+    position:absolute; z-index:5; pointer-events:none;
+}
+.cm-tl { top:0; left:0; border-top:2px solid rgba(255,107,43,0.5); border-left:2px solid rgba(255,107,43,0.5); width:20px; height:20px; }
+.cm-tr { top:0; right:0; border-top:2px solid rgba(255,107,43,0.5); border-right:2px solid rgba(255,107,43,0.5); width:20px; height:20px; }
+.cm-bl { bottom:0; left:0; border-bottom:2px solid rgba(255,107,43,0.5); border-left:2px solid rgba(255,107,43,0.5); width:20px; height:20px; }
+.cm-br { bottom:0; right:0; border-bottom:2px solid rgba(255,107,43,0.5); border-right:2px solid rgba(255,107,43,0.5); width:20px; height:20px; }
+
+/* Story frame: 1080x1920 → scale to ~340x604 */
+.story-frame { width:340px; height:604px; }
+.story-scaler {
+    width:1080px; height:1920px;
+    transform:scale(0.3148);
+    transform-origin:top left;
+}
+
+/* Post frame: 1080x1080 → scale to ~420x420 */
+.post-frame { width:420px; height:420px; }
+.post-scaler {
+    width:1080px; height:1080px;
+    transform:scale(0.3889);
+    transform-origin:top left;
+}
+
+/* ── ACTION BUTTONS ── */
+.actions { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+.btn-open {
+    font-family:'Barlow Condensed',sans-serif; font-size:.88rem;
+    font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    background:var(--orange); color:#000;
+    padding:11px 24px; border:none; border-radius:3px; cursor:pointer;
+    display:flex; align-items:center; gap:8px;
+    transition:all .3s; text-decoration:none;
+}
+.btn-open:hover { background:#fff; transform:translateY(-2px); }
+.btn-ghost {
+    font-family:'Barlow Condensed',sans-serif; font-size:.88rem;
+    font-weight:500; letter-spacing:2px; text-transform:uppercase;
+    background:transparent; color:var(--light);
+    padding:9px 22px; border:1px solid rgba(255,255,255,0.2); border-radius:3px; cursor:pointer;
+    display:flex; align-items:center; gap:8px;
+    transition:all .3s; text-decoration:none;
+}
+.btn-ghost:hover { border-color:var(--orange); color:var(--orange); }
+
+/* ── INSTRUCTIONS PANEL ── */
+.instructions {
+    max-width:860px; margin:0 auto;
+    padding:36px;
+    background:var(--card); border:1px solid var(--border); border-radius:6px;
+}
+.inst-title {
+    font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:3px;
+    color:var(--orange); margin-bottom:24px;
+    display:flex; align-items:center; gap:10px;
+}
+.inst-steps {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+}
+.step {
+    display:flex; flex-direction:column; gap:10px;
+    padding:20px; background:rgba(255,107,43,0.05);
+    border:1px solid rgba(255,107,43,0.12); border-radius:4px;
+}
+.step-n {
+    font-family:'Bebas Neue',sans-serif; font-size:2rem;
+    color:rgba(255,107,43,0.4); line-height:1;
+}
+.step-h { font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#fff; }
+.step-p { font-size:.82rem; line-height:1.65; color:var(--muted); }
+.step-p code {
+    background:rgba(255,107,43,0.12); color:var(--orange);
+    padding:2px 6px; border-radius:2px; font-family:monospace; font-size:.78rem;
+}
+.inst-note {
+    margin-top:22px; padding:14px 18px;
+    background:rgba(255,107,43,0.06); border-left:3px solid var(--orange);
+    border-radius:0 3px 3px 0;
+    font-size:.84rem; color:var(--muted); line-height:1.6;
+}
+.inst-note strong { color:rgba(255,255,255,0.7); }
+
+/* Responsive */
+@media(max-width:900px){
+    .main{flex-direction:column;align-items:center;}
+    .inst-steps{grid-template-columns:1fr;}
+    .page-hdr{flex-wrap:wrap;gap:12px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Page Header -->
+<div class="page-hdr">
+    <div class="ph-brand">
+        <img src="media/images/Logo_1.png" class="ph-logo" alt="MA Studios">
+        <div>
+            <div class="ph-name"><em>MA</em> STUDIOS™</div>
+            <div class="ph-tag">Social Media Kit · 2026</div>
+        </div>
+    </div>
+    <div class="ph-title">Brand Awareness Graphics</div>
+    <div class="ph-badge"><i class="fas fa-layer-group"></i> &nbsp; 2 Formats Ready</div>
+</div>
+
+<!-- Export notice -->
+<div class="export-banner">
+    <i class="fas fa-info-circle"></i>
+    <span>
+        <strong>Preview Mode</strong> — Graphics are scaled down for review.
+        Click <strong>"Open Full Size"</strong> on each, then screenshot or print to export.
+    </span>
+</div>
+
+<!-- Main preview grid -->
+<div class="main">
+
+    <!-- STORY -->
+    <div class="graphic-col">
+        <div class="col-label">Story</div>
+        <div class="col-dim">1080 × 1920 px &nbsp;·&nbsp; 9:16</div>
+        <div class="preview-frame story-frame">
+            <div class="corner-mark cm-tl"></div>
+            <div class="corner-mark cm-tr"></div>
+            <div class="corner-mark cm-bl"></div>
+            <div class="corner-mark cm-br"></div>
+            <div class="story-scaler">
+                <iframe src="social_story.html" width="1080" height="1920"
+                    style="border:none;display:block;"
+                    scrolling="no"></iframe>
+            </div>
+        </div>
+        <div class="actions">
+            <a href="social_story.html" target="_blank" class="btn-open">
+                <i class="fas fa-expand"></i> Open Full Size
+            </a>
+            <a href="social_story.html" download class="btn-ghost">
+                <i class="fas fa-download"></i> Download HTML
+            </a>
+        </div>
+    </div>
+
+    <!-- POST -->
+    <div class="graphic-col">
+        <div class="col-label">Post</div>
+        <div class="col-dim">1080 × 1080 px &nbsp;·&nbsp; 1:1</div>
+        <div class="preview-frame post-frame">
+            <div class="corner-mark cm-tl"></div>
+            <div class="corner-mark cm-tr"></div>
+            <div class="corner-mark cm-bl"></div>
+            <div class="corner-mark cm-br"></div>
+            <div class="post-scaler">
+                <iframe src="social_post.html" width="1080" height="1080"
+                    style="border:none;display:block;"
+                    scrolling="no"></iframe>
+            </div>
+        </div>
+        <div class="actions">
+            <a href="social_post.html" target="_blank" class="btn-open">
+                <i class="fas fa-expand"></i> Open Full Size
+            </a>
+            <a href="social_post.html" download class="btn-ghost">
+                <i class="fas fa-download"></i> Download HTML
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<!-- Export instructions -->
+<div style="padding:0 40px 80px;">
+<div class="instructions">
+    <div class="inst-title"><i class="fas fa-terminal"></i> Export Instructions</div>
+    <div class="inst-steps">
+        <div class="step">
+            <div class="step-n">01</div>
+            <div class="step-h">Open Full Size</div>
+            <div class="step-p">Click the <strong>"Open Full Size"</strong> button for the graphic you want. It will open in a new tab at <strong>1080×1920</strong> or <strong>1080×1080</strong> — exact social media dimensions.</div>
+        </div>
+        <div class="step">
+            <div class="step-n">02</div>
+            <div class="step-h">Screenshot or Print</div>
+            <div class="step-p">
+                <strong>Option A</strong> — Use a browser screenshot extension (like <code>GoFullPage</code>) to capture the full page as PNG.<br><br>
+                <strong>Option B</strong> — Press <code>Ctrl+P</code> → Save as PDF → crop in Photoshop/Canva.
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-n">03</div>
+            <div class="step-h">Upload & Post</div>
+            <div class="step-p">Upload the exported PNG to Instagram, Facebook, WhatsApp Status, or any platform. The <strong>logo</strong> will render correctly when opened from your project folder where <code>media/images/Logo_1.png</code> exists.</div>
+        </div>
+    </div>
+    <div class="inst-note">
+        <strong>Note:</strong> The logo image requires the HTML file to be opened from your project folder
+        (<code>MA Services/</code>) so the path <code>media/images/Logo_1.png</code> resolves correctly.
+        Alternatively, edit the <code>&lt;img src&gt;</code> to use an absolute URL or Base64 data URI
+        for standalone use.
+    </div>
+</div>
+</div>
+
+</body>
+</html>

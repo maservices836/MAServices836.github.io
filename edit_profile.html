@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | MA Services™</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ================================================
+		   PURISTA FONTS
+		================================================ */
+		@font-face {
+			font-family: 'Purista';
+			src: url('assets/webfonts/purista_thin-webfont.woff2') format('woff2'),
+				 url('assets/webfonts/purista_thin-webfont.woff') format('woff'),
+				 url('assets/webfonts/Purista Thin.ttf') format('truetype');
+			font-weight: 100;
+			font-style: normal;
+			font-display: swap;
+		}
+		@font-face {
+			font-family: 'Purista';
+			src: url('assets/webfonts/purista_light-webfont.woff2') format('woff2'),
+				 url('assets/webfonts/purista_light-webfont.woff') format('woff'),
+				 url('assets/webfonts/Purista Light.ttf') format('truetype');
+			font-weight: 300;
+			font-style: normal;
+			font-display: swap;
+		}
+		@font-face {
+			font-family: 'Purista';
+			src: url('assets/webfonts/Purista.ttf') format('truetype');
+			font-weight: 400;
+			font-style: normal;
+			font-display: swap;
+		}
+		@font-face {
+			font-family: 'Purista';
+			src: url('assets/webfonts/Purista SemiBold.ttf') format('truetype');
+			font-weight: 600;
+			font-style: normal;
+			font-display: swap;
+		}
+		@font-face {
+			font-family: 'Purista';
+			src: url('assets/webfonts/purista_bold-webfont.woff2') format('woff2'),
+				 url('assets/webfonts/purista_bold-webfont.woff') format('woff'),
+				 url('assets/webfonts/Purista Bold.ttf') format('truetype');
+			font-weight: 700;
+			font-style: normal;
+			font-display: swap;
+		}
+
+		/* ================================================
+		   MULTILINGUAL & RTL ENGINE
+		================================================ */
+		@font-face {
+			font-family: 'Janna LT';
+			src: url('assets/webfonts/Janna_LT_Regular.ttf') format('truetype');
+			font-weight: 400;
+			font-style: normal;
+			font-display: swap;
+		}
+
+		.lang-switcher {
+			display: flex;
+			gap: 10px;
+			margin-left: 20px;
+			align-items: center;
+		}
+		.lang-orb {
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			overflow: hidden;
+			cursor: pointer;
+			border: 2px solid rgba(255,255,255,0.2);
+			transition: all var(--ease) 0.3s;
+			filter: grayscale(100%);
+		}
+		.lang-orb:hover, .lang-orb.active {
+			filter: grayscale(0%);
+			border-color: var(--orange);
+			transform: scale(1.1);
+		}
+		.lang-orb img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		html[dir="rtl"] {
+			--fn-display: 'Janna LT', sans-serif;
+			--fn-sub: 'Janna LT', sans-serif;
+			--fn-body: 'Janna LT', sans-serif;
+		}
+		html[dir="rtl"] body {
+			direction: rtl;
+			text-align: right;
+		}
+		html[dir="rtl"] .nav-list {
+			flex-direction: row-reverse;
+		}
+		html[dir="rtl"] .btn-primary::before {
+			left: 100%;
+		}
+		html[dir="rtl"] .btn-primary:hover::before {
+			left: -100%;
+		}
+		html[dir="rtl"] .auth-card {
+			text-align: right;
+		}
+		html[dir="rtl"] .input-group i {
+			left: auto;
+			right: 16px;
+		}
+		html[dir="rtl"] .input-group input {
+			padding-left: 16px;
+			padding-right: 48px;
+		}
+
+		/* ================================================
+		   ROOT & VARIABLES
+		================================================ */
+		:root {
+			--orange: #FF6B2B;
+			--orange-dark: #CC4B0F;
+			--orange-glow: rgba(255,107,43,0.22);
+			--orange-glow-s: rgba(255,107,43,0.50);
+			--charcoal: #2A2A2A;
+			--steel: #3A3A3A;
+			--dark: #0E0E0E;
+			--darker: #080808;
+			--card: #161616;
+			--card-light: #1D1D1D;
+			--border: rgba(255,107,43,0.14);
+			--border-b: rgba(255,107,43,0.38);
+			--white: #FFFFFF;
+			--off-white: #F4F4F4;
+			--muted: #7A7A7A;
+			--light: #C8C8C8;
+			--fn-display: 'Purista', sans-serif;
+			--fn-sub: 'Purista', sans-serif;
+			--fn-body: 'Purista', sans-serif;
+			--ease: cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		*, *::before, *::after {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		html {
+			scroll-behavior: smooth;
+		}
+		body {
+			background: var(--dark);
+			color: var(--white);
+			font-family: var(--fn-body);
+			overflow-x: hidden;
+			cursor: none;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+		::-webkit-scrollbar {
+			width: 4px;
+		}
+		::-webkit-scrollbar-track {
+			background: var(--darker);
+		}
+		::-webkit-scrollbar-thumb {
+			background: var(--orange);
+			border-radius: 2px;
+		}
+
+		/* ================================================
+		   CUSTOM CURSOR
+		================================================ */
+		#cur-dot {
+			width: 9px;
+			height: 9px;
+			background: var(--orange);
+			border-radius: 50%;
+			position: fixed;
+			pointer-events: none;
+			z-index: 9999;
+			transform: translate(-50%, -50%);
+		}
+		#cur-ring {
+			width: 30px;
+			height: 30px;
+			border: 1.5px solid var(--orange);
+			border-radius: 50%;
+			position: fixed;
+			pointer-events: none;
+			z-index: 9998;
+			transform: translate(-50%, -50%);
+			opacity: 0.55;
+			transition: width .15s, height .15s, opacity .15s;
+		}
+		.cursor-big #cur-ring {
+			width: 46px;
+			height: 46px;
+			opacity: 0.9;
+		}
+
+		/* ================================================
+		   HEADER
+		================================================ */
+		#hdr {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 100;
+			transition: background .35s var(--ease), border .35s;
+		}
+		#hdr.scrolled {
+			background: rgba(8,8,8,.93);
+			backdrop-filter: blur(18px);
+			border-bottom: 1px solid var(--border);
+		}
+		.navbar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 17px 0;
+		}
+		.logo-link {
+			display: flex;
+			align-items: center;
+			gap: 13px;
+			text-decoration: none;
+		}
+		.logo-img {
+			height: 50px;
+			width: 50px;
+			object-fit: contain;
+			filter: drop-shadow(0 0 12px var(--orange-glow-s));
+			transition: filter .3s;
+		}
+		.logo-link:hover .logo-img {
+			filter: drop-shadow(0 0 22px var(--orange));
+		}
+		.logo-texts {
+			display: flex;
+			flex-direction: column;
+		}
+		.logo-name {
+			font-family: var(--fn-display);
+			font-weight: 700;
+			font-size: 1.65rem;
+			letter-spacing: 3px;
+			color: var(--white);
+			line-height: 1;
+		}
+		.logo-name em {
+			color: var(--orange);
+			font-style: normal;
+		}
+		.logo-sub {
+			font-family: var(--fn-sub);
+			font-size: .62rem;
+			letter-spacing: 2.5px;
+			color: var(--muted);
+			text-transform: uppercase;
+			margin-top: 2px;
+		}
+		.nav-list {
+			display: flex;
+			list-style: none;
+			gap: 32px;
+			align-items: center;
+		}
+		.nav-list a {
+			font-family: var(--fn-sub);
+			font-size: .93rem;
+			font-weight: 500;
+			letter-spacing: 1.5px;
+			text-transform: uppercase;
+			color: var(--light);
+			text-decoration: none;
+			transition: color .25s;
+			position: relative;
+		}
+		.nav-list a::after {
+			content: '';
+			position: absolute;
+			bottom: -4px;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background: var(--orange);
+			transition: width .3s var(--ease);
+		}
+		.nav-list a:hover {
+			color: var(--orange);
+		}
+		.nav-list a:hover::after {
+			width: 100%;
+		}
+		.nav-list a.active {
+			color: var(--orange);
+		}
+		.nav-list a.active::after {
+			width: 100%;
+		}
+		.nav-cta {
+			background: var(--orange) !important;
+			color: #000 !important;
+			padding: 9px 22px;
+			border-radius: 3px;
+			font-weight: 700 !important;
+			box-shadow: 0 0 16px var(--orange-glow) !important;
+		}
+		.nav-cta:hover {
+			background: #fff !important;
+		}
+		.nav-cta::after {
+			display: none !important;
+		}
+		.hamburger {
+			display: none;
+			flex-direction: column;
+			gap: 5px;
+			cursor: pointer;
+			padding: 5px;
+		}
+		.hamburger span {
+			display: block;
+			width: 24px;
+			height: 2px;
+			background: var(--white);
+			transition: all .3s var(--ease);
+		}
+		.hamburger.open span:nth-child(1) {
+			transform: rotate(45deg) translate(5px, 5px);
+		}
+		.hamburger.open span:nth-child(2) {
+			opacity: 0;
+		}
+		.hamburger.open span:nth-child(3) {
+			transform: rotate(-45deg) translate(5px, -5px);
+		}
+		.container {
+			max-width: 1260px;
+			margin: 0 auto;
+			padding: 0 32px;
+		}
+
+		/* ================================================
+		   AUTH SECTION (LOGIN/SIGNUP / EDIT PROFILE)
+		================================================ */
+		.auth-section {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 140px 32px 80px;
+			position: relative;
+			overflow: hidden;
+		}
+		.auth-card {
+			position: relative;
+			z-index: 2;
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			padding: 48px 42px;
+			max-width: 600px;   /* overridden to 600px for profile page (was 480px) */
+			width: 100%;
+			backdrop-filter: blur(4px);
+			transition: all .3s var(--ease);
+		}
+		.auth-card:hover {
+			border-color: var(--border-b);
+			box-shadow: 0 20px 50px rgba(0,0,0,.4), 0 0 0 1px var(--border-b);
+		}
+		.auth-header {
+			text-align: center;
+			margin-bottom: 36px;
+		}
+		.auth-icon {
+			width: 70px;
+			height: 70px;
+			margin: 0 auto 20px;
+			clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+			background: var(--orange-glow);
+			border: 1px solid var(--border-b);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 2rem;
+			color: var(--orange);
+		}
+		.auth-title {
+			font-family: var(--fn-display);
+			font-size: 2.5rem;
+			letter-spacing: 2px;
+			color: var(--white);
+		}
+		.auth-title .orange {
+			color: var(--orange);
+		}
+		.auth-sub {
+			font-family: var(--fn-sub);
+			font-size: .88rem;
+			color: var(--muted);
+			margin-top: 8px;
+		}
+		.input-group {
+			margin-bottom: 24px;
+			position: relative;
+		}
+		.input-group i {
+			position: absolute;
+			left: 16px;
+			top: 50%;
+			transform: translateY(-50%);
+			color: var(--muted);
+			font-size: 1rem;
+			transition: color .3s;
+		}
+		.input-group input,
+		.input-group select {
+			width: 100%;
+			background: var(--darker);
+			border: 1px solid var(--border);
+			color: var(--white);
+			padding: 14px 16px 14px 48px;
+			font-family: var(--fn-body);
+			font-size: .95rem;
+			border-radius: 8px;
+			outline: none;
+			transition: all .3s var(--ease);
+		}
+		.input-group input:focus,
+		.input-group select:focus {
+			border-color: var(--orange);
+			box-shadow: 0 0 12px var(--orange-glow);
+		}
+		.input-group input:focus + i,
+		.input-group select:focus + i {
+			color: var(--orange);
+		}
+		small {
+			color: var(--muted);
+			font-size: 0.7rem;
+			margin-top: 5px;
+			display: block;
+		}
+		.btn-auth {
+			width: 100%;
+			background: var(--orange);
+			color: #000;
+			padding: 14px;
+			font-family: var(--fn-sub);
+			font-size: 1rem;
+			font-weight: 700;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: all .3s var(--ease);
+			position: relative;
+			overflow: hidden;
+			margin-bottom: 20px;
+		}
+		.btn-auth::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+			transition: left .5s;
+		}
+		.btn-auth:hover::before {
+			left: 100%;
+		}
+		.btn-auth:hover {
+			background: #fff;
+			transform: translateY(-2px);
+			box-shadow: 0 8px 25px rgba(255,107,43,.4);
+		}
+		.btn-ghost {
+			background: transparent;
+			border: 1px solid var(--border);
+			color: var(--light);
+			padding: 10px 24px;
+			border-radius: 8px;
+			text-decoration: none;
+			display: inline-block;
+			transition: 0.2s;
+		}
+		.btn-ghost:hover {
+			border-color: var(--orange);
+			color: var(--orange);
+		}
+		/* other auth elements (forgot, remember, social) are kept but not used in edit_profile */
+		.input-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 28px;
+		}
+		.remember {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-family: var(--fn-sub);
+			font-size: .85rem;
+			color: var(--muted);
+			cursor: pointer;
+		}
+		.remember input {
+			width: 16px;
+			height: 16px;
+			accent-color: var(--orange);
+			cursor: pointer;
+		}
+		.forgot-link {
+			font-family: var(--fn-sub);
+			font-size: .85rem;
+			color: var(--orange);
+			text-decoration: none;
+			transition: color .3s;
+		}
+		.forgot-link:hover {
+			color: var(--white);
+			text-decoration: underline;
+		}
+		.divider {
+			display: flex;
+			align-items: center;
+			gap: 16px;
+			margin: 24px 0;
+			color: var(--muted);
+			font-size: .8rem;
+		}
+		.divider::before,
+		.divider::after {
+			content: '';
+			flex: 1;
+			height: 1px;
+			background: var(--border);
+		}
+		.social-login {
+			display: flex;
+			gap: 16px;
+			justify-content: center;
+		}
+		.social-btn {
+			width: 46px;
+			height: 46px;
+			border: 1px solid var(--border);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--muted);
+			text-decoration: none;
+			font-size: 1.2rem;
+			transition: all .3s var(--ease);
+		}
+		.social-btn:hover {
+			background: var(--orange);
+			color: #000;
+			border-color: var(--orange);
+			transform: translateY(-3px);
+		}
+		.auth-footer {
+			text-align: center;
+			font-family: var(--fn-sub);
+			font-size: .9rem;
+			color: var(--muted);
+			margin-top: 20px;
+		}
+		.auth-footer a {
+			color: var(--orange);
+			text-decoration: none;
+			font-weight: 600;
+			transition: color .3s;
+		}
+		.auth-footer a:hover {
+			color: var(--white);
+			text-decoration: underline;
+		}
+
+		/* ================================================
+		   FOOTER
+		================================================ */
+		footer {
+			background: var(--darker);
+			border-top: 1px solid var(--border);
+			padding: 62px 0 28px;
+		}
+		.foot-grid {
+			display: grid;
+			grid-template-columns: 2fr 1fr 1fr 1.5fr;
+			gap: 48px;
+			padding-bottom: 48px;
+			border-bottom: 1px solid var(--border);
+			margin-bottom: 28px;
+		}
+		.foot-desc {
+			font-size: .84rem;
+			line-height: 1.82;
+			color: var(--muted);
+			margin: 18px 0 22px;
+		}
+		.socials {
+			display: flex;
+			gap: 10px;
+		}
+		.soc-btn {
+			width: 36px;
+			height: 36px;
+			border: 1px solid var(--border);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--muted);
+			text-decoration: none;
+			font-size: .88rem;
+			transition: all .3s var(--ease);
+			clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+		}
+		.soc-btn:hover {
+			background: var(--orange);
+			color: #000;
+			border-color: var(--orange);
+		}
+		.foot-col h4 {
+			font-family: var(--fn-sub);
+			font-size: .8rem;
+			font-weight: 600;
+			letter-spacing: 3px;
+			text-transform: uppercase;
+			color: var(--orange);
+			margin-bottom: 18px;
+			padding-bottom: 9px;
+			border-bottom: 1px solid var(--border);
+		}
+		.foot-links {
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			gap: 9px;
+		}
+		.foot-links a {
+			font-size: .84rem;
+			color: var(--muted);
+			text-decoration: none;
+			transition: all .25s;
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+		.foot-links a::before {
+			content: '›';
+			color: var(--orange);
+			opacity: 0;
+			transition: .25s;
+		}
+		.foot-links a:hover {
+			color: var(--white);
+			padding-left: 5px;
+		}
+		.foot-links a:hover::before {
+			opacity: 1;
+		}
+		.foot-contact-row {
+			display: flex;
+			gap: 11px;
+			align-items: flex-start;
+			margin-bottom: 13px;
+		}
+		.foot-contact-row i {
+			color: var(--orange);
+			margin-top: 2px;
+			font-size: .88rem;
+			flex-shrink: 0;
+		}
+		.foot-contact-row span {
+			font-size: .84rem;
+			color: var(--muted);
+			line-height: 1.6;
+		}
+		.foot-bottom {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 14px;
+		}
+		.copy {
+			font-family: var(--fn-sub);
+			font-size: .78rem;
+			letter-spacing: 1px;
+			color: var(--muted);
+		}
+		.foot-stamp {
+			font-family: var(--fn-sub);
+			font-size: .75rem;
+			letter-spacing: 2px;
+			color: var(--muted);
+		}
+		.foot-stamp em {
+			color: var(--orange);
+			font-style: normal;
+		}
+
+		/* ================================================
+		   MOBILE SIDE-MENU
+		================================================ */
+		#mob-overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0,0,0,.78);
+			z-index: 198;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity .38s;
+		}
+		#mob-overlay.on {
+			opacity: 1;
+			pointer-events: all;
+		}
+		#mob-menu {
+			position: fixed;
+			top: 0;
+			right: -100%;
+			width: 82vw;
+			max-width: 340px;
+			height: 100vh;
+			background: var(--card);
+			border-left: 1px solid var(--border-b);
+			z-index: 199;
+			padding: 28px;
+			transition: right .38s var(--ease);
+			overflow-y: auto;
+		}
+		#mob-menu.on {
+			right: 0;
+		}
+		.mob-head {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 36px;
+			padding-bottom: 18px;
+			border-bottom: 1px solid var(--border);
+		}
+		.mob-close {
+			background: none;
+			border: none;
+			color: var(--muted);
+			font-size: 1.45rem;
+			cursor: pointer;
+			transition: color .2s;
+		}
+		.mob-close:hover {
+			color: var(--orange);
+		}
+		.mob-links {
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			gap: 3px;
+			margin-bottom: 28px;
+		}
+		.mob-links a {
+			display: block;
+			font-family: var(--fn-display);
+			font-size: 2.1rem;
+			letter-spacing: 2px;
+			color: var(--light);
+			text-decoration: none;
+			padding: 7px 0;
+			border-bottom: 1px solid var(--border);
+			transition: all .25s;
+		}
+		.mob-links a:hover {
+			color: var(--orange);
+			padding-left: 10px;
+		}
+		.mob-socials {
+			display: flex;
+			gap: 10px;
+			justify-content: center;
+			margin-top: 28px;
+		}
+
+		/* ================================================
+		   REQUEST MODAL (if used)
+		================================================ */
+		#req-modal {
+			position: fixed;
+			inset: 0;
+			background: rgba(0,0,0,.82);
+			backdrop-filter: blur(12px);
+			z-index: 300;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity .3s;
+			padding: 20px;
+		}
+		#req-modal.on {
+			opacity: 1;
+			pointer-events: all;
+		}
+		.modal-box {
+			background: var(--card-light);
+			border: 1px solid var(--border-b);
+			border-radius: 4px;
+			width: 100%;
+			max-width: 550px;
+			max-height: 92vh;
+			overflow-y: auto;
+			position: relative;
+			box-shadow: 0 0 80px rgba(255,107,43,.18);
+			animation: mSlide .3s ease;
+		}
+		@keyframes mSlide {
+			from {
+				transform: translateY(22px);
+				opacity: 0;
+			}
+			to {
+				transform: translateY(0);
+				opacity: 1;
+			}
+		}
+		.modal-topbar {
+			background: linear-gradient(90deg, var(--orange), var(--orange-dark));
+			padding: 18px 28px;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+		.modal-topbar img {
+			height: 34px;
+		}
+		.modal-topbar h3 {
+			font-family: var(--fn-display);
+			font-size: 1.5rem;
+			color: #000;
+			letter-spacing: 2px;
+		}
+		.modal-close {
+			position: absolute;
+			top: 14px;
+			right: 18px;
+			background: rgba(0,0,0,.32);
+			border: none;
+			color: #000;
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			font-size: 1.1rem;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: background .2s;
+		}
+		.modal-close:hover {
+			background: rgba(0,0,0,.55);
+		}
+		.modal-body {
+			padding: 28px;
+		}
+		.fgrp {
+			margin-bottom: 16px;
+		}
+		.fgrp label {
+			display: block;
+			font-family: var(--fn-sub);
+			font-size: .78rem;
+			letter-spacing: 2px;
+			color: var(--muted);
+			text-transform: uppercase;
+			margin-bottom: 5px;
+		}
+		.fgrp input,
+		.fgrp select,
+		.fgrp textarea {
+			width: 100%;
+			background: var(--dark);
+			border: 1px solid var(--border);
+			color: var(--white);
+			padding: 11px 14px;
+			font-family: var(--fn-body);
+			font-size: .88rem;
+			border-radius: 2px;
+			outline: none;
+			transition: border-color .3s, box-shadow .3s;
+		}
+		.fgrp input:focus,
+		.fgrp select:focus,
+		.fgrp textarea:focus {
+			border-color: var(--orange);
+			box-shadow: 0 0 10px var(--orange-glow);
+		}
+		.fgrp select option {
+			background: var(--card);
+		}
+		.fgrp textarea {
+			resize: vertical;
+			min-height: 90px;
+		}
+		.frow {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 14px;
+		}
+
+		/* ================================================
+		   PROCESSING OVERLAY
+		================================================ */
+		#proc-overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0,0,0,.92);
+			backdrop-filter: blur(16px);
+			z-index: 400;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity .3s;
+		}
+		#proc-overlay.on {
+			opacity: 1;
+			pointer-events: all;
+		}
+		.terminal-box {
+			background: var(--card);
+			border: 1px solid var(--border-b);
+			border-radius: 6px;
+			padding: 36px;
+			width: 90%;
+			max-width: 480px;
+			box-shadow: 0 0 60px rgba(255,107,43,.25);
+			text-align: center;
+		}
+		.t-logo {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			margin-bottom: 22px;
+		}
+		.t-logo img {
+			height: 44px;
+			filter: drop-shadow(0 0 12px var(--orange-glow-s));
+		}
+		.t-title {
+			font-family: var(--fn-display);
+			font-size: 1.6rem;
+			color: var(--orange);
+			letter-spacing: 3px;
+			margin-bottom: 22px;
+		}
+		#t-log {
+			background: var(--darker);
+			border: 1px solid var(--border);
+			border-radius: 4px;
+			padding: 14px;
+			height: 120px;
+			overflow-y: auto;
+			text-align: left;
+			margin-bottom: 16px;
+			font-family: 'Courier New', monospace;
+			font-size: .78rem;
+			color: #aaa;
+		}
+		.log-line.success {
+			color: #00e676;
+		}
+		.prog-track {
+			background: var(--border);
+			height: 5px;
+			border-radius: 3px;
+			overflow: hidden;
+			margin-bottom: 12px;
+		}
+		#prog-bar {
+			height: 100%;
+			width: 0%;
+			background: linear-gradient(90deg, var(--orange-dark), var(--orange));
+			transition: width .1s linear;
+			box-shadow: 0 0 10px var(--orange-glow);
+		}
+		.proc-status {
+			font-family: var(--fn-sub);
+			font-size: .85rem;
+			letter-spacing: 4px;
+			color: var(--orange);
+			animation: blink 1s ease-in-out infinite;
+		}
+		@keyframes blink {
+			0%, 100% { opacity: 1; }
+			50% { opacity: .3; }
+		}
+
+		/* ================================================
+		   REVEAL ANIMATIONS
+		================================================ */
+		.rv {
+			opacity: 0;
+			transform: translateY(38px);
+			transition: opacity .7s ease, transform .7s ease;
+		}
+		.rv.in {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		.rv.d1 { transition-delay: .1s; }
+		.rv.d2 { transition-delay: .2s; }
+		.rv.d3 { transition-delay: .3s; }
+		.rv.d4 { transition-delay: .4s; }
+
+		/* ================================================
+		   RESPONSIVE
+		================================================ */
+		@media (max-width: 768px) {
+			.nav-list {
+				display: none;
+			}
+			.hamburger {
+				display: flex;
+			}
+			.container {
+				padding: 0 20px;
+			}
+			.auth-card {
+				padding: 36px 24px;
+			}
+			.auth-title {
+				font-size: 2rem;
+			}
+			.auth-section {
+				padding: 120px 20px 60px;
+			}
+			.foot-bottom {
+				flex-direction: column;
+				text-align: center;
+			}
+		}
+		@media (max-width: 640px) {
+			.auth-card {
+				padding: 32px 24px;
+			}
+			.auth-title {
+				font-size: 1.8rem;
+			}
+		}
+		@media (max-width: 480px) {
+			.logo-name {
+				font-size: 1.3rem;
+			}
+			.auth-card {
+				padding: 28px 20px;
+			}
+		}
+    </style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- Header (same as index) -->
+<header id="hdr">
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo-link">
+                <img src="media/images/Logo_1.png" class="logo-img">
+                <div class="logo-texts">
+                    <span class="logo-name"><em>MA</em> SERVICES<sup style="font-size:.45em;color:var(--muted);">™</sup></span>
+                    <span class="logo-sub" data-i18n="logo_sub">Academic E-Solutions</span>
+                </div>
+            </a>
+            <ul class="nav-list">
+                <li><a href="index.html#services" data-i18n="nav_services">Services</a></li>
+                <li><a href="index.html#process" data-i18n="nav_process">Process</a></li>
+                <li><a href="index.html#why" data-i18n="nav_why">Why Us</a></li>
+                <li><a href="index.html#contact" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="dashboard.html" class="nav-cta" data-i18n="nav_dashboard">Dashboard</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <div class="lang-orb" onclick="switchLang('en')" id="lang-en"><img src="media/images/GB.png" alt="EN"></div>
+                <div class="lang-orb" onclick="switchLang('ar')" id="lang-ar"><img src="media/images/Ar.png" alt="AR"></div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Background Hex Canvas -->
+<canvas id="hex-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:0;"></canvas>
+<div class="hero-vignette" style="position:fixed; inset:0; pointer-events:none; z-index:1;"></div>
+
+<!-- Edit Profile Form -->
+<section class="auth-section" style="position:relative; z-index:2;">
+    <div class="container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-icon"><i class="fas fa-user-edit"></i></div>
+                <h1 class="auth-title"><span data-i18n="edit_title">EDIT</span> <span class="orange" data-i18n="profile_title">PROFILE</span></h1>
+            </div>
+
+            <form id="editProfileForm">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="displayName" placeholder="Full Name" data-i18n="name_placeholder" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" id="phone" placeholder="WhatsApp / Phone" data-i18n="phone_placeholder">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-university"></i>
+                    <input type="text" id="university" placeholder="University / Institution" data-i18n="uni_placeholder">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-image"></i>
+                    <input type="file" id="avatarFile" accept="image/jpeg,image/png,image/gif">
+                    <small data-i18n="avatar_hint">Leave empty to keep current avatar</small>
+                </div>
+                <button type="submit" class="btn-auth" id="saveBtn"><span data-i18n="save_btn">SAVE CHANGES</span></button>
+            </form>
+
+            <div style="text-align: center;">
+                <a href="dashboard.html" class="btn-ghost" data-i18n="back_dashboard">← Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer (same as index) -->
+<footer id="contact" style="position:relative; z-index:2;">
+    <div class="container">
+        <div class="foot-grid">
+            <div>
+                <a href="index.html" class="logo-link"><img src="media/images/Logo_1.png" style="height:46px;"><div class="logo-texts"><span class="logo-name"><em>MA</em> STUDIOS™</span><span class="logo-sub" data-i18n="logo_sub">Academic E-Solutions</span></div></a>
+                <p class="foot-desc" data-i18n="foot_desc">Your best partner for academic success.</p>
+                <div class="socials"><a href="#" class="soc-btn"><i class="fab fa-facebook-f"></i></a><a href="#" class="soc-btn"><i class="fab fa-instagram"></i></a><a href="#" class="soc-btn"><i class="fab fa-twitter"></i></a></div>
+            </div>
+            <div class="foot-col"><h4 data-i18n="foot_ql_h">Quick Links</h4><ul class="foot-links"><li><a href="index.html" data-i18n="foot_ql1">Home</a></li><li><a href="index.html#services" data-i18n="foot_ql2">Services</a></li><li><a href="index.html#process" data-i18n="foot_ql3">Process</a></li><li><a href="index.html#why" data-i18n="foot_ql4">Why Us</a></li><li><a href="dashboard.html" data-i18n="foot_ql5">Dashboard</a></li></ul></div>
+            <div class="foot-col"><h4 data-i18n="foot_contact_h">Contact</h4><div class="foot-contact-row"><i class="fas fa-globe"></i><span>mhstudios836.github.io</span></div><div class="foot-contact-row"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></div></div>
+        </div>
+        <div class="foot-bottom"><span class="copy" data-i18n="foot_copy">&copy; 2026 MA Services™</span><span class="foot-stamp" data-i18n="foot_stamp">MH Studios</span></div>
+    </div>
+</footer>
+
+<script type="module">
+    // ========== FIREBASE IMPORTS ==========
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-storage.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBZ1HdW2wBXZ4sP4YxeMH6HG8H_zvKBxRU",
+        authDomain: "ma-services-80545.firebaseapp.com",
+        projectId: "ma-services-80545",
+        storageBucket: "ma-services-80545.firebasestorage.app",
+        messagingSenderId: "822071246752",
+        appId: "1:822071246752:web:16c5fb421501b34149eec5"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // DOM elements
+    const nameInput = document.getElementById('displayName');
+    const phoneInput = document.getElementById('phone');
+    const uniInput = document.getElementById('university');
+    const avatarFile = document.getElementById('avatarFile');
+    const saveBtn = document.getElementById('saveBtn');
+    let currentUser = null;
+
+    // Load user data
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            window.location.href = 'login.html';
+            return;
+        }
+        currentUser = user;
+        // Get Firestore data
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists()) {
+            const data = userDoc.data();
+            nameInput.value = data.name || user.displayName || '';
+            phoneInput.value = data.phone || '';
+            uniInput.value = data.university || '';
+        } else {
+            nameInput.value = user.displayName || '';
+        }
+    });
+
+    // Save changes
+    const form = document.getElementById('editProfileForm');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentUser) return;
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> <span data-i18n="updating">Updating...</span>';
+
+        try {
+            let photoURL = currentUser.photoURL;
+            const file = avatarFile.files[0];
+            if (file) {
+                const storageRef = ref(storage, `avatars/${currentUser.uid}/${Date.now()}_${file.name}`);
+                await uploadBytes(storageRef, file);
+                photoURL = await getDownloadURL(storageRef);
+            }
+
+            // Update Auth profile
+            await updateProfile(currentUser, {
+                displayName: nameInput.value,
+                photoURL: photoURL
+            });
+
+            // Update Firestore
+            const userRef = doc(db, 'users', currentUser.uid);
+            await updateDoc(userRef, {
+                name: nameInput.value,
+                phone: phoneInput.value,
+                university: uniInput.value,
+                photoURL: photoURL,
+                updatedAt: new Date()
+            });
+
+            alert(translations[localStorage.getItem('sys-lang') || 'en']?.update_success || 'Profile updated!');
+            window.location.href = 'dashboard.html';
+        } catch (err) {
+            alert('Error: ' + err.message);
+            saveBtn.disabled = false;
+            saveBtn.innerHTML = '<span data-i18n="save_btn">SAVE CHANGES</span>';
+        }
+    });
+
+    // ========== MULTILINGUAL ENGINE ==========
+    const translations = {
+        en: {
+            logo_sub: "Academic E-Solutions",
+            nav_services: "Services", nav_process: "Process", nav_why: "Why Us", nav_contact: "Contact", nav_dashboard: "Dashboard",
+            edit_title: "EDIT", profile_title: "PROFILE",
+            name_placeholder: "Full Name", phone_placeholder: "WhatsApp / Phone", uni_placeholder: "University / Institution",
+            avatar_hint: "Leave empty to keep current avatar",
+            save_btn: "SAVE CHANGES", back_dashboard: "← Back to Dashboard", updating: "Updating...",
+            update_success: "Profile updated successfully!",
+            foot_desc: "Your best partner for academic success.",
+            foot_ql_h: "Quick Links", foot_ql1: "Home", foot_ql2: "Services", foot_ql3: "Process", foot_ql4: "Why Us", foot_ql5: "Dashboard",
+            foot_contact_h: "Contact Us", foot_copy: "© 2026 MA Services™", foot_stamp: "Developed by MH Studios"
+        },
+        ar: {
+            logo_sub: "للحلول الأكاديمية الإلكترونية",
+            nav_services: "الخدمات", nav_process: "آلية العمل", nav_why: "لماذا نحن", nav_contact: "اتصل بنا", nav_dashboard: "لوحة التحكم",
+            edit_title: "تعديل", profile_title: "الملف الشخصي",
+            name_placeholder: "الاسم الكامل", phone_placeholder: "واتساب / هاتف", uni_placeholder: "الجامعة / المؤسسة",
+            avatar_hint: "اتركه فارغاً للحفاظ على الصورة الحالية",
+            save_btn: "حفظ التغييرات", back_dashboard: "← العودة للوحة", updating: "جاري التحديث...",
+            update_success: "تم تحديث الملف الشخصي بنجاح!",
+            foot_desc: "شريكك الأفضل للنجاح الأكاديمي.",
+            foot_ql_h: "روابط سريعة", foot_ql1: "الرئيسية", foot_ql2: "الخدمات", foot_ql3: "آلية العمل", foot_ql4: "لماذا نحن", foot_ql5: "لوحة التحكم",
+            foot_contact_h: "اتصل بنا", foot_copy: "© 2026 MA Services™", foot_stamp: "تطوير MH Studios"
+        }
+    };
+
+    window.switchLang = function(lang) {
+        localStorage.setItem('sys-lang', lang);
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.querySelectorAll('.lang-orb').forEach(orb => orb.classList.remove('active'));
+        document.getElementById(`lang-${lang}`).classList.add('active');
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                if (el.tagName === 'INPUT' && el.placeholder !== undefined) el.placeholder = translations[lang][key];
+                else if (el.tagName === 'SMALL') el.innerText = translations[lang][key];
+                else el.innerHTML = translations[lang][key];
+            }
+        });
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('sys-lang') || 'en';
+        switchLang(savedLang);
+    });
+
+    // ========== CUSTOM CURSOR & HEX CANVAS ==========
+    (function setupEffects() {
+        const dot = document.getElementById('cur-dot'), ring = document.getElementById('cur-ring');
+        let mx=0,my=0,rx=0,ry=0;
+        document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.cssText=`left:${mx}px;top:${my}px;`; });
+        (function anim(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.cssText=`left:${rx}px;top:${ry}px;`; requestAnimationFrame(anim); })();
+        document.querySelectorAll('a,button,.auth-card').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-big'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-big'));
+        });
+        if ('ontouchstart' in window) { dot.style.display='none'; ring.style.display='none'; }
+
+        const canvas = document.getElementById('hex-canvas');
+        if(canvas){
+            const ctx = canvas.getContext('2d');
+            let hexes = [];
+            const S=42, W=S*2, H=Math.sqrt(3)*S;
+            function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; init(); }
+            function hex(cx,cy,r){ ctx.beginPath(); for(let i=0;i<6;i++){ let a=Math.PI/180*(60*i-30), x=cx+r*Math.cos(a), y=cy+r*Math.sin(a); i?ctx.lineTo(x,y):ctx.moveTo(x,y); } ctx.closePath(); }
+            function init(){ hexes=[]; let cols=Math.ceil(canvas.width/(W*.75))+3, rows=Math.ceil(canvas.height/H)+3; for(let c=-1;c<cols;c++) for(let r=-1;r<rows;r++) hexes.push({ cx:c*W*.75, cy:r*H+(c%2?H/2:0), p:Math.random()*Math.PI*2, sp:.004+Math.random()*.009, br:.15+Math.random()*.85 }); }
+            function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(let h of hexes){ h.p+=h.sp; let a=(Math.sin(h.p)*.5+.5)*h.br; hex(h.cx,h.cy,S-1.5); ctx.strokeStyle=`rgba(255,107,43,${a*.55})`; ctx.lineWidth=.7; ctx.stroke(); if(a>.82){ hex(h.cx,h.cy,S-1.5); ctx.fillStyle=`rgba(255,107,43,${(a-.82)*.18})`; ctx.fill(); } } requestAnimationFrame(draw); }
+            window.addEventListener('resize',resize); resize(); draw();
+        }
+    })();
+
+    // Header scroll effect
+    const hdr = document.getElementById('hdr');
+    window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 55));
+</script>
+</body>
+</html>

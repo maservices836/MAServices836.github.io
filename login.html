@@ -491,34 +491,100 @@ body {
 }
 
 /* ================================================
-   FOOTER
-================================================ */
-footer {
-    background: var(--darker);
-    border-top: 1px solid var(--border);
-    padding: 40px 0 28px;
-    margin-top: auto;
-}
-.foot-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 14px;
-}
-.copy {
-    font-family: var(--fn-sub);
-    font-size: .78rem;
-    letter-spacing: 1px;
-    color: var(--muted);
-}
-.foot-stamp {
-    font-family: var(--fn-sub);
-    font-size: .75rem;
-    letter-spacing: 2px;
-    color: var(--muted);
-}
-.foot-stamp em { color: var(--orange); font-style: normal; }
+		   FOOTER
+		================================================ */
+		footer {
+			background:var(--darker);
+			border-top:1px solid var(--border);
+			padding:62px 0 28px;
+		}
+		.foot-grid {
+			display:grid; grid-template-columns:2fr 1fr 1fr 1.5fr;
+			gap:48px; padding-bottom:48px;
+			border-bottom:1px solid var(--border); margin-bottom:28px;
+		}
+		.foot-desc { font-size:.84rem; line-height:1.82; color:var(--muted); margin:18px 0 22px; }
+		.socials { display:flex; gap:10px; }
+		.soc-btn {
+			width:36px; height:36px;
+			border:1px solid var(--border);
+			display:flex; align-items:center; justify-content:center;
+			color:var(--muted); text-decoration:none; font-size:.88rem;
+			transition: all .3s var(--ease);
+			clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+		}
+		.soc-btn:hover { background:var(--orange); color:#000; border-color:var(--orange); }
+		.foot-col h4 {
+			font-family:var(--fn-sub); font-size:.8rem;
+			font-weight:600; letter-spacing:3px;
+			text-transform:uppercase; color:var(--orange);
+			margin-bottom:18px; padding-bottom:9px;
+			border-bottom:1px solid var(--border);
+		}
+		.foot-links { list-style:none; display:flex; flex-direction:column; gap:9px; }
+		.foot-links a {
+			font-size:.84rem; color:var(--muted);
+			text-decoration:none; transition: all .25s;
+			display:flex; align-items:center; gap:6px;
+		}
+		.foot-links a::before { content:'›'; color:var(--orange); opacity:0; transition:.25s; }
+		.foot-links a:hover { color:var(--white); padding-left:5px; }
+		.foot-links a:hover::before { opacity:1; }
+		.foot-contact-row {
+			display:flex; gap:11px; align-items:flex-start; margin-bottom:13px;
+		}
+		.foot-contact-row i { color:var(--orange); margin-top:2px; font-size:.88rem; flex-shrink:0; }
+		.foot-contact-row span { font-size:.84rem; color:var(--muted); line-height:1.6; }
+		.foot-bottom {
+			display:flex; justify-content:space-between; align-items:center;
+			flex-wrap:wrap; gap:14px;
+		}
+		.copy { font-family:var(--fn-sub); font-size:.78rem; letter-spacing:1px; color:var(--muted); }
+		.foot-stamp { font-family:var(--fn-sub); font-size:.75rem; letter-spacing:2px; color:var(--muted); }
+		.foot-stamp em { color:var(--orange); font-style:normal; }
+
+		/* ================================================
+		   MOBILE SIDE-MENU
+		================================================ */
+		#mob-overlay {
+			position:fixed; inset:0;
+			background:rgba(0,0,0,.78);
+			z-index:198; opacity:0; pointer-events:none;
+			transition:opacity .38s;
+		}
+		#mob-overlay.on { opacity:1; pointer-events:all; }
+		#mob-menu {
+			position:fixed; top:0; right:-100%;
+			width:82vw; max-width:340px; height:100vh;
+			background:var(--card);
+			border-left:1px solid var(--border-b);
+			z-index:199; padding:28px;
+			transition:right .38s var(--ease);
+			overflow-y:auto;
+		}
+		#mob-menu.on { right:0; }
+		.mob-head {
+			display:flex; justify-content:space-between; align-items:center;
+			margin-bottom:36px; padding-bottom:18px;
+			border-bottom:1px solid var(--border);
+		}
+		.mob-close {
+			background:none; border:none;
+			color:var(--muted); font-size:1.45rem;
+			cursor:pointer; transition:color .2s;
+		}
+		.mob-close:hover { color:var(--orange); }
+		.mob-links { list-style:none; display:flex; flex-direction:column; gap:3px; margin-bottom:28px; }
+		.mob-links a {
+			display:block;
+			font-family:var(--fn-display); font-size:2.1rem;
+			letter-spacing:2px; color:var(--light);
+			text-decoration:none; padding:7px 0;
+			border-bottom:1px solid var(--border);
+			transition: all .25s;
+		}
+		.mob-links a:hover { color:var(--orange); padding-left:10px; }
+		.mob-socials { display:flex; gap:10px; justify-content:center; margin-top:28px; }
 
 /* ================================================
    MOBILE MENU
@@ -691,7 +757,7 @@ footer {
                 <label class="remember">
                     <input type="checkbox"> <span data-i18n="remember_me">Remember Me</span>
                 </label>
-                <a href="#" class="forgot-link" data-i18n="forgot_pass">Forgot Password?</a>
+                <a href="forgot_password.html" class="forgot-link" data-i18n="forgot_pass">Forgot Password?</a>
             </div>
 
             <button type="submit" class="btn-auth" data-i18n="login_btn">LOGIN</button>
@@ -706,13 +772,83 @@ footer {
         </div>
 
         <div class="auth-footer">
-            <span data-i18n="no_account">Don't have an account?</span> <a href="signup.html" data-i18n="signup_link">Sign Up</a>
+            <span data-i18n="no_account">Don't have an account?</span> <a href="signup.html" data-i18n="signup_link">Create account</a>
         </div>
     </div>
 </section>
 
-<footer>
+<!-- ====================================================
+     FOOTER
+==================================================== -->
+<footer id="contact">
     <div class="container">
+        <div class="foot-grid">
+            <div>
+                <a href="#" class="logo-link" style="margin-bottom:0;">
+                    <img src="media/images/Logo_1.png" alt="Logo" style="height:46px;filter:drop-shadow(0 0 10px var(--orange-glow-s));">
+                    <div class="logo-texts">
+                        <span class="logo-name"><em>MA</em> STUDIOS<sup style="font-size:.45em;color:var(--muted);vertical-align:super;">™</sup></span>
+                        <span class="logo-sub">Academic E-Solutions</span>
+                    </div>
+                </a>
+                <p class="foot-desc" data-i18n="foot_desc">Your best partner for academic success. Professional solutions delivered by verified experts across all subjects and academic levels.</p>
+                <div class="socials">
+                    <a href="https://facebook.com/mh.studios.836" class="soc-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/mhstudios.836" class="soc-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/MHStudios836" class="soc-btn" title="X / Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://youtube.com/@mhstudios.836" class="soc-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/962797852640" class="soc-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="foot-col">
+                <h4 data-i18n="foot_ql_h">Quick Links</h4>
+                <ul class="foot-links">
+                    <li><a href="#" data-i18n="foot_ql1">Home</a></li>
+                    <li><a href="#services" data-i18n="foot_ql2">Services</a></li>
+                    <li><a href="#process" data-i18n="foot_ql3">How It Works</a></li>
+                    <li><a href="#why" data-i18n="foot_ql4">Why Us</a></li>
+                    <li><a href="javascript:void(0)" onclick="openModal()" data-i18n="foot_ql5">Get Started</a></li>
+                </ul>
+            </div>
+
+            <div class="foot-col">
+                <h4 data-i18n="foot_svc_h">Our Services</h4>
+                <ul class="foot-links">
+                    <li><a href="#" data-i18n="svc1_title">Assignments</a></li>
+                    <li><a href="#" data-i18n="svc2_title">Research Assays</a></li>
+                    <li><a href="#" data-i18n="svc3_title">Project Solutions</a></li>
+                    <li><a href="#" data-i18n="svc4_title">Exam Scoring</a></li>
+                    <li><a href="#" data-i18n="svc5_title">Thesis Writing</a></li>
+                    <li><a href="#" data-i18n="svc6_title">Technical Reports</a></li>
+                </ul>
+            </div>
+
+            <div class="foot-col">
+                <h4 data-i18n="foot_contact_h">Contact Us</h4>
+                <div class="foot-contact-row">
+                    <i class="fas fa-globe"></i>
+                    <span>mhstudios836.github.io</span>
+                </div>
+                <div class="foot-contact-row">
+                    <i class="fab fa-instagram"></i>
+                    <span>@mhstudios.836</span>
+                </div>
+                <div class="foot-contact-row">
+                    <i class="fab fa-facebook"></i>
+                    <span>@mhstudios.836</span>
+                </div>
+                <div class="foot-contact-row">
+                    <i class="fab fa-youtube"></i>
+                    <span>@mhstudios.836</span>
+                </div>
+                <div class="foot-contact-row">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Available on WhatsApp</span>
+                </div>
+            </div>
+
+        </div>
         <div class="foot-bottom">
             <span class="copy" data-i18n="foot_copy">&copy; 2026 MA Services™ · Academic E-Solutions · All Rights Reserved</span>
             <span class="foot-stamp" data-i18n="foot_stamp">Developed by <em>MH Studios</em></span>
@@ -744,6 +880,65 @@ footer {
         <a href="#" class="soc-btn"><i class="fab fa-whatsapp"></i></a>
     </div>
 </div>
+
+<script type="module">
+  import { auth, db } from './assets/js/firebase-config.js';
+  import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+  const loginForm = document.getElementById('loginForm');
+  const emailInput = document.getElementById('loginEmail');
+  const passwordInput = document.getElementById('loginPassword');
+  const submitBtn = loginForm?.querySelector('.btn-auth');
+
+  window.handleLogin = async function(e) {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email || !password) {
+      alert('Please enter both email and password.');
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Signing in...';
+    }
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      const userDocRef = doc(db, 'users', user.uid);
+      const userDoc = await getDoc(userDocRef);
+      const role = userDoc.exists() ? userDoc.data().role : 'student';
+
+      if (role === 'admin') {
+        window.location.href = 'admin_dashboard.html';
+      } else {
+        window.location.href = 'student_dashboard.html';
+      }
+    } catch (error) {
+      console.error(error);
+      let errorMsg = 'Login failed. ';
+      if (error.code === 'auth/user-not-found') errorMsg += 'No account found.';
+      else if (error.code === 'auth/wrong-password') errorMsg += 'Incorrect password.';
+      else if (error.code === 'auth/invalid-email') errorMsg += 'Invalid email.';
+      else errorMsg += error.message;
+      alert(errorMsg);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'LOGIN';
+      }
+    }
+  };
+
+  loginForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    window.handleLogin(e);
+  });
+</script>
 
 <script>
 // Custom Cursor
@@ -827,24 +1022,6 @@ function toggleMob() {
     const menu = document.getElementById('mob-menu'), ov = document.getElementById('mob-overlay'), hbg = document.getElementById('hbg');
     menu.classList.toggle('on'); ov.classList.toggle('on'); hbg.classList.toggle('open');
     document.body.style.overflow = menu.classList.contains('on') ? 'hidden' : '';
-}
-
-// Handle Login
-function handleLogin(e) {
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    
-    if (!email || !password) {
-        alert('Please fill in all fields');
-        return;
-    }
-    
-    // Simple demo login - In production, connect to backend
-    alert(`Welcome back! (Demo: Logged in as ${email})`);
-    
-    // Redirect to dashboard or home
-    // window.location.href = 'dashboard.html';
 }
 
 // Multilingual Engine

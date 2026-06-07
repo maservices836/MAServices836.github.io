@@ -1,0 +1,23 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Service requests (unchanged)
+    match /service_requests/{userId}/{fileName} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null 
+                     && request.resource.size < 10 * 1024 * 1024
+                     && request.resource.contentType.matches('application/pdf|application/msword|image/.*');
+    }
+    match /service_requests/{allPaths=**} {
+      allow read: if request.auth != null 
+                   && request.auth.token.admin == true;   // <-- use custom claim
+    }
+
+    // Product images (new)
+    match /products/{fileName} {
+      allow read: if true;   // public
+      allow create, update, delete: if request.auth != null;   // any logged-in user
+    }
+  }
+}
