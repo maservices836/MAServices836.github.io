@@ -517,112 +517,110 @@ function renderOrders(orders){
 
 <!-- ── FIREBASE MODULE ── -->
 <script type="module">
-    import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { auth, db } from './assets/js/firebase-config.js';
+  import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+  import { collection, query, where, getDocs, doc, getDoc, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyDT5mqFBwSBea1_5RMXv3_59V4Y5LUy5to",
-        authDomain: "al-khat-backend.firebaseapp.com",
-        projectId: "al-khat-backend",
-        storageBucket: "al-khat-backend.firebasestorage.app",
-        messagingSenderId: "310033181926",
-        appId: "1:310033181926:web:9a028807fa7c7ab31c5f27"
-    };
-    const ADMIN_UID = "EOQEt04azKTTWcmNXVtpgSVsRxt2";
+  // Admin check – you can set this in Firestore instead of hardcoding UID
+  let isAdmin = false;
 
-    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-    const auth = getAuth(app);
-    const db   = getFirestore(app);
-
-    /* ── AUTH GUARD ── */
-    onAuthStateChanged(auth, async (user) => {
-        if (!user) { window.location.href = "login.html"; return; }
-
-        /* Basic info */
-        document.getElementById('nav-display-name').textContent = user.displayName || "Agent";
-        document.getElementById('dash-name').textContent  = user.displayName || "Unknown Agent";
-        document.getElementById('dash-email').textContent = user.email;
-        document.getElementById('panel-uid-display').textContent = "UID: " + user.uid.substring(0,8).toUpperCase();
-        document.getElementById('email-verified').textContent = user.emailVerified ? "✓ Verified" : "✗ Not Verified";
-        document.getElementById('email-verified').style.color = user.emailVerified ? "var(--green)" : "var(--red)";
-        document.getElementById('dash-since').textContent = user.metadata.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString('en-GB',{year:'numeric',month:'short',day:'numeric'}) : "—";
-
-        /* Avatar */
-        if(user.photoURL){ document.getElementById('avatar-img').src=user.photoURL; document.getElementById('avatar-img').style.display='block'; document.getElementById('avatar-icon').style.display='none'; }
-
-        /* Rank + Admin override */
-        if(user.uid===ADMIN_UID){
-            const badge=document.getElementById('dash-rank');
-            badge.innerHTML='<i class="fas fa-crown"></i> ALPHA COMMANDER';
-            badge.className='rank-badge rank-admin';
-            const adminBtn=document.getElementById('btn-admin');
-            adminBtn.style.display='flex';
-        }
-
-        /* Extended profile from Firestore */
-        try {
-            const profileSnap = await getDoc(doc(db,"users",user.uid));
-            if(profileSnap.exists()){
-                const p=profileSnap.data();
-                if(p.phone) document.getElementById('dash-phone').textContent=p.phone;
-                if(p.university) document.getElementById('dash-uni').textContent=p.university;
-                if(p.rank==='vip'){const b=document.getElementById('dash-rank');b.innerHTML='<i class="fas fa-star"></i> VIP CLIENT';b.className='rank-badge rank-vip';}
-            }
-        } catch(e){}
-
-        /* Fetch orders */
-        await loadOrders(user.uid);
-    });
-
-    async function loadOrders(uid){
-        const list=document.getElementById('order-list');
-        try {
-            const q=query(collection(db,"orders"),where("userId","==",uid));
-            const snap=await getDocs(q);
-            allOrders=[];
-
-            let total=0,done=0,active=0;
-            snap.forEach(docSnap=>{
-                const d=docSnap.data();
-                const date=d.timestamp?d.timestamp.toDate().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):'—';
-                const status=d.status||'Pending Review';
-                total++; if(status==='Completed')done++; else active++;
-                allOrders.push({
-                    id: docSnap.id.substring(0,8).toUpperCase(),
-                    service:  d.service||d.serviceType||'—',
-                    subject:  d.subject||'—',
-                    name:     d.customerName||d.name||'',
-                    date,
-                    deadline: d.deadline||null,
-                    status,
-                    fileUrl:  d.translatedFileUrl||d.fileUrl||null
-                });
-            });
-
-            /* Tab counts */
-            document.getElementById('tc-all').textContent=total;
-            document.getElementById('tc-pending').textContent=allOrders.filter(o=>o.status==='Pending Review'||o.status==='Under Review').length;
-            document.getElementById('tc-progress').textContent=allOrders.filter(o=>o.status==='In Progress').length;
-            document.getElementById('tc-done').textContent=done;
-            document.getElementById('qs-total').textContent=total;
-            document.getElementById('qs-done').textContent=done;
-            document.getElementById('qs-pending').textContent=active;
-
-            if(!allOrders.length){
-                list.innerHTML=`<div class="empty-state"><div class="empty-hex"><i class="fas fa-inbox"></i></div><h4>NO REQUESTS YET</h4><p>Submit your first request and it will appear here.</p><a href="index.html#services" class="btn-primary"><i class="fas fa-bolt"></i> Submit a Request</a></div>`;
-                return;
-            }
-            renderOrders(allOrders);
-        } catch(e){
-            list.innerHTML=`<p style="color:var(--red);padding:20px;font-size:.85rem;"><i class="fas fa-exclamation-triangle"></i> Error loading records: ${e.message}</p>`;
-        }
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+      return;
     }
 
-    window.handleLogout=function(){
-        signOut(auth).then(()=>window.location.href="index.html");
-    };
-</script>
+    // Update UI with basic info
+    document.getElementById('nav-display-name').textContent = user.displayName || "Agent";
+    document.getElementById('dash-name').textContent = user.displayName || "Unknown Agent";
+    document.getElementById('dash-email').textContent = user.email;
+    document.getElementById('panel-uid-display').textContent = "UID: " + user.uid.substring(0,8).toUpperCase();
+    document.getElementById('email-verified').textContent = user.emailVerified ? "✓ Verified" : "✗ Not Verified";
+    document.getElementById('email-verified').style.color = user.emailVerified ? "var(--green)" : "var(--red)";
+    document.getElementById('dash-since').textContent = user.metadata.creationTime
+      ? new Date(user.metadata.creationTime).toLocaleDateString('en-GB',{year:'numeric',month:'short',day:'numeric'})
+      : "—";
 
+    // Avatar
+    if (user.photoURL) {
+      document.getElementById('avatar-img').src = user.photoURL;
+      document.getElementById('avatar-img').style.display = 'block';
+      document.getElementById('avatar-icon').style.display = 'none';
+    }
+
+    // Fetch user profile from Firestore (MA Services users collection)
+    try {
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists()) {
+        const profile = userDoc.data();
+        if (profile.phone) document.getElementById('dash-phone').textContent = profile.phone;
+        if (profile.university) document.getElementById('dash-uni').textContent = profile.university;
+        // Check for admin role
+        if (profile.role === 'admin') {
+          isAdmin = true;
+          const badge = document.getElementById('dash-rank');
+          badge.innerHTML = '<i class="fas fa-crown"></i> ADMIN';
+          badge.className = 'rank-badge rank-admin';
+          const adminBtn = document.getElementById('btn-admin');
+          adminBtn.style.display = 'flex';
+          adminBtn.onclick = () => window.location.href = 'admin_dashboard.html'; // or your admin page
+        }
+      }
+    } catch (e) { console.warn(e); }
+
+    // Load orders (service requests) from MA Services Firestore
+    await loadOrders(user.uid);
+  });
+
+  async function loadOrders(uid) {
+    const list = document.getElementById('order-list');
+    try {
+      const q = query(collection(db, 'service_requests'), where('userId', '==', uid), orderBy('createdAt', 'desc'));
+      const snapshot = await getDocs(q);
+      const orders = [];
+      let total = 0, done = 0, active = 0;
+
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const date = data.createdAt ? data.createdAt.toDate().toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'}) : '—';
+        const status = data.status || 'Pending Review';
+        total++;
+        if (status === 'Completed') done++;
+        else active++;
+        orders.push({
+          id: docSnap.id.substring(0,8).toUpperCase(),
+          service: data.service || '—',
+          subject: data.subject || '—',
+          name: data.name || '',
+          date: date,
+          deadline: data.deadline || null,
+          status: status,
+          fileUrl: data.fileUrl || null
+        });
+      });
+
+      // Update tab counts and stats
+      document.getElementById('tc-all').textContent = total;
+      document.getElementById('tc-pending').textContent = orders.filter(o => o.status === 'Pending Review' || o.status === 'Under Review').length;
+      document.getElementById('tc-progress').textContent = orders.filter(o => o.status === 'In Progress').length;
+      document.getElementById('tc-done').textContent = done;
+      document.getElementById('qs-total').textContent = total;
+      document.getElementById('qs-done').textContent = done;
+      document.getElementById('qs-pending').textContent = active;
+
+      if (!orders.length) {
+        list.innerHTML = `<div class="empty-state"><div class="empty-hex"><i class="fas fa-inbox"></i></div><h4>NO REQUESTS YET</h4><p>Submit your first request and it will appear here.</p><a href="index.html#services" class="btn-primary"><i class="fas fa-bolt"></i> Submit a Request</a></div>`;
+        return;
+      }
+      // Reuse your existing filter/render functions
+      window.allOrders = orders;
+      filterOrders('all', document.querySelector('.otab.active'));
+    } catch (e) {
+      list.innerHTML = `<p style="color:var(--red);padding:20px;"><i class="fas fa-exclamation-triangle"></i> Error: ${e.message}</p>`;
+    }
+  }
+
+  window.handleLogout = () => signOut(auth).then(() => window.location.href = "login.html");
+</script>
 </body>
 </html>

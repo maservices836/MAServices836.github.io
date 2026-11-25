@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MA Services™ – About Us: Who we are, our mission, and the expert team behind your academic success.">
+    <title>MA Services™ | About Us</title>
+
+    <!-- Unified Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- Page‑specific styles (only what's unique to this page) -->
+    <style>
+        /* Hero */
+        #page-hero {
+            position:relative; padding:160px 0 90px;
+            overflow:hidden;
+            background:var(--darker);
+            border-bottom:1px solid var(--border);
+        }
+        .hero-decoration {
+            position:absolute; right:5%; top:50%; transform:translateY(-50%);
+            z-index:1; opacity:.08;
+            animation:floatY 6s ease-in-out infinite;
+        }
+        .hero-decoration img { width:340px; }
+        @keyframes floatY {
+            0%,100% { transform:translateY(-50%) translateY(0); }
+            50%      { transform:translateY(-50%) translateY(-18px); }
+        }
+        .page-hero-content { position:relative; z-index:2; }
+        .breadcrumb {
+            display:flex; align-items:center; gap:8px;
+            font-family:var(--fn-s); font-size:.8rem;
+            letter-spacing:2px; color:var(--muted); text-transform:uppercase;
+            margin-bottom:22px;
+        }
+        .breadcrumb a { color:var(--muted); text-decoration:none; transition:color .25s; }
+        .breadcrumb a:hover { color:var(--orange); }
+        .breadcrumb i { font-size:.6rem; color:var(--border-b); }
+        .page-title {
+            font-family:var(--fn-d);
+            font-size:clamp(4rem,11vw,9rem);
+            line-height:.88; letter-spacing:3px;
+            margin-bottom:22px;
+            animation:fadeUp .7s ease .2s both;
+        }
+        .page-sub {
+            font-family:var(--fn-s); font-size:clamp(1rem,2vw,1.25rem);
+            font-weight:300; letter-spacing:3px; color:var(--light);
+            max-width:560px;
+            animation:fadeUp .7s ease .4s both;
+        }
+        @keyframes fadeUp {
+            from { opacity:0; transform:translateY(28px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+
+        /* About sections */
+        .about-section {
+            padding:80px 0;
+        }
+        .about-grid {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:60px;
+            align-items:center;
+        }
+        .about-image img {
+            width:100%;
+            border-radius:6px;
+            border:1px solid var(--border);
+        }
+        .about-text h2 {
+            font-family:var(--fn-d);
+            font-size:2.4rem;
+            margin-bottom:20px;
+            letter-spacing:1px;
+        }
+        .about-text p {
+            font-size:1rem;
+            line-height:1.8;
+            color:var(--muted);
+            margin-bottom:20px;
+        }
+        .mission-points {
+            list-style:none;
+            margin-top:30px;
+        }
+        .mission-points li {
+            display:flex;
+            align-items:flex-start;
+            gap:14px;
+            margin-bottom:16px;
+            font-size:1rem;
+            color:var(--light);
+        }
+        .mission-points li i {
+            color:var(--orange);
+            font-size:1.2rem;
+            margin-top:2px;
+            flex-shrink:0;
+        }
+
+        /* Team section */
+        .team-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
+            gap:30px;
+            margin-top:50px;
+        }
+        .team-card {
+            background:var(--card);
+            border:1px solid var(--border);
+            border-radius:6px;
+            padding:30px 20px;
+            text-align:center;
+            transition:all .3s var(--ease);
+        }
+        .team-card:hover {
+            border-color:var(--border-b);
+            transform:translateY(-5px);
+            box-shadow:0 16px 40px rgba(0,0,0,.4);
+        }
+        .team-avatar {
+            width:90px;
+            height:90px;
+            border-radius:50%;
+            object-fit:cover;
+            border:3px solid var(--orange);
+            margin-bottom:15px;
+            filter:drop-shadow(0 0 10px var(--orange-glow));
+        }
+        .team-name {
+            font-family:var(--fn-d);
+            font-size:1.4rem;
+            margin-bottom:5px;
+        }
+        .team-role {
+            font-family:var(--fn-s);
+            font-size:.8rem;
+            text-transform:uppercase;
+            letter-spacing:2px;
+            color:var(--orange);
+            margin-bottom:10px;
+        }
+        .team-bio {
+            font-size:.85rem;
+            color:var(--muted);
+            line-height:1.6;
+        }
+		#user-profile-section {
+			display: flex; align-items: center; gap: 12px; margin-left: 20px;
+		}
+		#user-profile-section.user-status-hidden { display: none; }
+
+		.user-orb {
+			display: flex; align-items: center; gap: 8px;
+			text-decoration: none; color: var(--white);
+			font-family: var(--fn-s); font-size: 0.9rem; font-weight: 600;
+			transition: color 0.2s;
+		}
+		.user-orb:hover { color: var(--orange); }
+
+		.logout-link {
+			background: none; border: 1px solid var(--border);
+			color: var(--muted); padding: 4px 12px; border-radius: 3px;
+			font-family: var(--fn-s); font-size: 0.7rem; text-transform: uppercase;
+			cursor: pointer; transition: all 0.2s;
+		}
+		.logout-link:hover { border-color: var(--orange); color: var(--orange); }
+		
+        @media (max-width:768px) {
+            .about-grid {
+                grid-template-columns:1fr;
+                gap:30px;
+            }
+            .about-image {
+                order:-1;
+            }
+            .hero-decoration { display:none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Cursor -->
+    <div id="cur-dot"></div>
+    <div id="cur-ring"></div>
+
+    <!-- ====================================================
+         UNIFIED HEADER (with user orb & language switcher)
+    ===================================================== -->
+    <header id="hdr">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo-link">
+                    <img src="media/images/Logo_1.png" alt="MA Services" class="logo-img">
+                    <div class="logo-texts">
+                        <span class="logo-name"><em>MA</em> SERVICES<sup style="font-size:.45em;color:var(--muted);vertical-align:super;">™</sup></span>
+                        <span class="logo-sub" data-i18n="logo_sub">Academic E-Solutions</span>
+                    </div>
+                </a>
+                <ul class="nav-list">
+                    <li><a href="index.html#services" data-i18n="nav_services">Services</a></li>
+                    <li><a href="index.html#process" data-i18n="nav_process">Process</a></li>
+                    <li><a href="index.html#why" data-i18n="nav_why">Why Us</a></li>
+                    <li><a href="store.html" data-i18n="nav_store">Store</a></li>
+                    <li><a href="about_us.html" class="active" data-i18n="nav_about">About</a></li>
+                    <li><a href="index.html#contact" data-i18n="nav_contact">Contact</a></li>
+                    <li><a href="javascript:void(0)" onclick="openModal()" class="nav-cta" data-i18n="nav_cta">Get Started <i class="fas fa-bolt"></i></a></li>
+                </ul>
+
+                <div class="lang-switcher">
+                    <div class="lang-orb" onclick="switchLang('en')" id="lang-en" title="English">
+                        <img src="media/images/GB.png" alt="EN">
+                    </div>
+                    <div class="lang-orb" onclick="switchLang('ar')" id="lang-ar" title="Arabic">
+                        <img src="media/images/Ar.png" alt="AR">
+                    </div>
+                </div>
+
+                <!-- User Profile Section (hidden for guests) -->
+                <div id="user-profile-section" class="user-status-hidden">
+                    <a href="profile.html" class="user-orb">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="user-display-name">Client</span>
+                    </a>
+                    <button onclick="handleLogout()" class="logout-link">Logout</button>
+                </div>
+
+                <div class="hamburger" id="hbg" onclick="toggleMob()">
+                    <span></span><span></span><span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ====================================================
+         PAGE HERO
+    ===================================================== -->
+    <section id="page-hero">
+        <div class="hero-decoration">
+            <img src="media/images/Logo_1.png" alt="">
+        </div>
+        <div class="container page-hero-content">
+            <div class="breadcrumb">
+                <a href="index.html" data-i18n="breadcrumb_home">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <span style="color:var(--orange);" data-i18n="breadcrumb_about">About Us</span>
+            </div>
+            <h1 class="page-title">
+                <span class="orange">WHO</span> WE<br>
+                <span class="outlined">ARE</span>
+            </h1>
+            <p class="page-sub" data-i18n="about_sub">A team of academic specialists, engineers, and designers dedicated to your success.</p>
+        </div>
+    </section>
+
+    <!-- ====================================================
+         ABOUT SECTION
+    ===================================================== -->
+    <section class="about-section" style="background:var(--dark);">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <div class="section-tag" data-i18n="about_tag">Our Mission</div>
+                    <h2 data-i18n="about_heading">Empowering Students <span class="orange">Worldwide</span></h2>
+                    <p data-i18n="about_para1">MA Services™ was founded with a single goal: to provide high‑quality, confidential academic support to students at every level. We combine subject‑matter expertise with a deep understanding of university requirements to deliver work that consistently meets the highest standards.</p>
+                    <p data-i18n="about_para2">Our specialists come from over 15 countries and cover 50+ disciplines. Every team member is rigorously vetted, and we match each request to the most qualified expert available — ensuring your work is always handled by someone who truly understands the topic.</p>
+                    <ul class="mission-points">
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="mission_point1">100% original, plagiarism‑free content</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="mission_point2">Unlimited free revisions until you’re satisfied</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="mission_point3">Complete confidentiality — your identity is never shared</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="mission_point4">On‑time delivery, every time — even for urgent deadlines</span></li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <img src="media/images/about_team.jpg" alt="MA Services Team" onerror="this.src='https://via.placeholder.com/600x400/1D1D1D/FF6B2B?text=Our+Team'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================================================
+         TEAM SECTION
+    ===================================================== -->
+    <section style="background:var(--darker); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:80px 0;">
+        <div class="container">
+            <div style="text-align:center; margin-bottom:40px;">
+                <div class="section-tag" style="justify-content:center;" data-i18n="team_tag">Meet The Team</div>
+                <h2 class="section-title" style="text-align:center;"><span data-i18n="team_title">SPECIALISTS</span> <span class="orange" data-i18n="team_title_orange">BEHIND THE SCENES</span></h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="media/images/team_1.jpg" alt="Dr. Ahmed" class="team-avatar" onerror="this.src='https://via.placeholder.com/90/161616/FF6B2B?text=A'">
+                    <h3 class="team-name">Dr. Ahmed K.</h3>
+                    <p class="team-role">Lead Academic Writer</p>
+                    <p class="team-bio">PhD in Mechanical Engineering with 8+ years of tutoring and academic writing experience.</p>
+                </div>
+                <div class="team-card">
+                    <img src="media/images/team_2.jpg" alt="Sarah M." class="team-avatar" onerror="this.src='https://via.placeholder.com/90/161616/FF6B2B?text=S'">
+                    <h3 class="team-name">Sarah M.</h3>
+                    <p class="team-role">Research Specialist</p>
+                    <p class="team-bio">MSc in Biomedical Sciences. Expert in literature reviews, data analysis, and clinical research.</p>
+                </div>
+                <div class="team-card">
+                    <img src="media/images/team_3.jpg" alt="Omar R." class="team-avatar" onerror="this.src='https://via.placeholder.com/90/161616/FF6B2B?text=O'">
+                    <h3 class="team-name">Omar R.</h3>
+                    <p class="team-role">Software & CS Projects</p>
+                    <p class="team-bio">Full‑stack developer and computer science tutor. Builds code, diagrams, and full project documentation.</p>
+                </div>
+                <div class="team-card">
+                    <img src="media/images/team_4.jpg" alt="Lina H." class="team-avatar" onerror="this.src='https://via.placeholder.com/90/161616/FF6B2B?text=L'">
+                    <h3 class="team-name">Lina H.</h3>
+                    <p class="team-role">Design & Presentations</p>
+                    <p class="team-bio">Graphic designer with a passion for turning complex ideas into stunning, professional slide decks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================================================
+         CTA BAND
+    ===================================================== -->
+    <section style="padding:80px 0; background:radial-gradient(ellipse 80% 50% at 50% 50%,rgba(255,107,43,.1) 0%,transparent 65%), linear-gradient(135deg,#140700 0%,var(--darker) 50%,#140700 100%); border-top:1px solid var(--border);">
+        <div class="container" style="text-align:center;">
+            <div class="section-tag" style="justify-content:center;" data-i18n="cta_tag">Let's Work Together</div>
+            <h2 style="font-family:var(--fn-d); font-size:clamp(3rem,7vw,6rem); line-height:1; margin-bottom:20px;">
+                <span class="orange" data-i18n="cta_title">READY TO EXCEL?</span>
+            </h2>
+            <p style="color:var(--muted); font-size:1rem; margin-bottom:30px;" data-i18n="cta_sub">Join thousands of students who trust MA Services™ for their academic journey.</p>
+            <a href="javascript:void(0)" onclick="openModal()" class="btn-primary" style="font-size:1.1rem; padding:17px 48px;">
+                <i class="fas fa-paper-plane"></i> <span data-i18n="cta_btn">Get Started Now</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ====================================================
+         FOOTER (unified)
+    ===================================================== -->
+    <footer id="contact" style="background:var(--darker); border-top:1px solid var(--border); padding:62px 0 28px;">
+        <div class="container">
+            <div class="foot-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr 1.5fr; gap:48px; padding-bottom:48px; border-bottom:1px solid var(--border); margin-bottom:28px;">
+                <div>
+                    <a href="index.html" class="logo-link">
+                        <img src="media/images/Logo_1.png" alt="Logo" style="height:46px;filter:drop-shadow(0 0 10px var(--orange-glow-s));">
+                        <div class="logo-texts">
+                            <span class="logo-name"><em>MA</em> SERVICES<sup style="font-size:.45em;color:var(--muted);vertical-align:super;">™</sup></span>
+                            <span class="logo-sub" data-i18n="logo_sub">Academic E-Solutions</span>
+                        </div>
+                    </a>
+                    <p class="foot-desc" style="font-size:.84rem; line-height:1.82; color:var(--muted); margin:18px 0 22px;" data-i18n="foot_desc">Your best partner for academic success. Professional solutions delivered by verified experts across all subjects and academic levels.</p>
+                    <div class="socials" style="display:flex; gap:10px;">
+                        <a href="https://facebook.com/mhstudios.836" class="soc-btn" style="width:36px; height:36px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--muted); text-decoration:none; font-size:.88rem; transition:all .3s; clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/mhstudios.836" class="soc-btn" style="width:36px; height:36px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--muted); text-decoration:none; font-size:.88rem; transition:all .3s; clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/mhstudios836" class="soc-btn" style="width:36px; height:36px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--muted); text-decoration:none; font-size:.88rem; transition:all .3s; clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);"><i class="fab fa-twitter"></i></a>
+                        <a href="https://youtube.com/@mhstudios.836" class="soc-btn" style="width:36px; height:36px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--muted); text-decoration:none; font-size:.88rem; transition:all .3s; clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);"><i class="fab fa-youtube"></i></a>
+                        <a href="https://wa.me/" class="soc-btn" style="width:36px; height:36px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--muted); text-decoration:none; font-size:.88rem; transition:all .3s; clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="foot-col">
+                    <h4 style="font-family:var(--fn-s); font-size:.8rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--orange); margin-bottom:18px; padding-bottom:9px; border-bottom:1px solid var(--border);" data-i18n="foot_ql_h">Quick Links</h4>
+                    <ul class="foot-links" style="list-style:none; display:flex; flex-direction:column; gap:9px;">
+                        <li><a href="index.html" style="font-size:.84rem; color:var(--muted); text-decoration:none; transition:all .25s; display:flex; align-items:center; gap:6px;" data-i18n="foot_ql1">Home</a></li>
+                        <li><a href="services.html" style="font-size:.84rem; color:var(--muted); text-decoration:none; transition:all .25s; display:flex; align-items:center; gap:6px;" data-i18n="foot_ql2">Services</a></li>
+                        <li><a href="store.html" style="font-size:.84rem; color:var(--muted); text-decoration:none; transition:all .25s; display:flex; align-items:center; gap:6px;" data-i18n="nav_store">Store</a></li>
+                        <li><a href="about_us.html" style="font-size:.84rem; color:var(--muted); text-decoration:none; transition:all .25s; display:flex; align-items:center; gap:6px;" data-i18n="foot_ql4">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="foot-col">
+                    <h4 style="font-family:var(--fn-s); font-size:.8rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--orange); margin-bottom:18px; padding-bottom:9px; border-bottom:1px solid var(--border);" data-i18n="foot_svc_h">Our Services</h4>
+                    <ul class="foot-links" style="list-style:none; display:flex; flex-direction:column; gap:9px;">
+                        <li><a href="services.html" style="font-size:.84rem; color:var(--muted); text-decoration:none; transition:all .25s; display:flex; align-items:center; gap:6px;">Assignments</a></li>
+                        <li><a href="services.html" style="font-size:.84rem; color:var(--muted); text-decoration:none; transition:all .25s; display:flex; align-items:center; gap:6px;">Research Assays</a></li>
+                        <li><a href="services.html" style="font-size:.84rem; color:var(--muted); text-decoration:none; transition:all .25s; display:flex; align-items:center; gap:6px;">Project Solutions</a></li>
+                        <li><a href="services.html" style="font-size:.84rem; color:var(--muted); text-decoration:none; transition:all .25s; display:flex; align-items:center; gap:6px;">Thesis Writing</a></li>
+                    </ul>
+                </div>
+                <div class="foot-col">
+                    <h4 style="font-family:var(--fn-s); font-size:.8rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--orange); margin-bottom:18px; padding-bottom:9px; border-bottom:1px solid var(--border);" data-i18n="foot_contact_h">Contact Us</h4>
+                    <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:12px;">
+                        <i class="fas fa-globe" style="color:var(--orange); margin-top:2px;"></i>
+                        <span style="font-size:.84rem; color:var(--muted);">mhstudios836.github.io</span>
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:12px;">
+                        <i class="fab fa-instagram" style="color:var(--orange); margin-top:2px;"></i>
+                        <span style="font-size:.84rem; color:var(--muted);">@mhstudios.836</span>
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:12px;">
+                        <i class="fab fa-whatsapp" style="color:var(--orange); margin-top:2px;"></i>
+                        <span style="font-size:.84rem; color:var(--muted);" data-i18n="whatsapp_available">Available on WhatsApp</span>
+                    </div>
+                </div>
+            </div>
+            <div class="foot-cr" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+                <span style="font-family:var(--fn-s); font-size:.78rem; letter-spacing:1px; color:var(--muted);" data-i18n="foot_copy">© 2026 MA Services™ · Academic E-Solutions · All Rights Reserved</span>
+                <span style="font-family:var(--fn-s); font-size:.78rem; letter-spacing:1px; color:var(--muted);" data-i18n="foot_stamp">Developed by <em style="color:var(--orange);">MH Studios</em></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (simplified) -->
+    <div id="mob-overlay" onclick="toggleMob()" style="position:fixed; inset:0; background:rgba(0,0,0,.78); z-index:198; opacity:0; pointer-events:none; transition:opacity .38s;"></div>
+    <div id="mob-menu" style="position:fixed; top:0; right:-100%; width:82vw; max-width:340px; height:100vh; background:var(--card); border-left:1px solid var(--border-b); z-index:199; padding:28px; transition:right .38s var(--ease); overflow-y:auto;">
+        <div class="mob-head" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:36px; padding-bottom:18px; border-bottom:1px solid var(--border);">
+            <a href="index.html" class="logo-link">
+                <img src="media/images/Logo_1.png" style="height:38px;" alt="Logo">
+                <span class="logo-name"><em>MA</em> SERVICES</span>
+            </a>
+            <button class="mob-close" onclick="toggleMob()" style="background:none; border:none; color:var(--muted); font-size:1.45rem; cursor:pointer;"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="mob-links" style="list-style:none; display:flex; flex-direction:column; gap:3px; margin-bottom:28px;">
+            <li><a href="index.html" style="display:block; font-family:var(--fn-d); font-size:2.1rem; letter-spacing:2px; color:var(--light); text-decoration:none; padding:7px 0; border-bottom:1px solid var(--border); transition:all .25s;">Home</a></li>
+            <li><a href="services.html" style="display:block; font-family:var(--fn-d); font-size:2.1rem; letter-spacing:2px; color:var(--light); text-decoration:none; padding:7px 0; border-bottom:1px solid var(--border); transition:all .25s;">Services</a></li>
+            <li><a href="store.html" style="display:block; font-family:var(--fn-d); font-size:2.1rem; letter-spacing:2px; color:var(--light); text-decoration:none; padding:7px 0; border-bottom:1px solid var(--border); transition:all .25s;">Store</a></li>
+            <li><a href="about_us.html" class="active" style="color:var(--orange); display:block; font-family:var(--fn-d); font-size:2.1rem; letter-spacing:2px; text-decoration:none; padding:7px 0; border-bottom:1px solid var(--border); transition:all .25s;">About</a></li>
+        </ul>
+        <a href="javascript:void(0)" onclick="openModal();toggleMob();" class="btn-primary" style="width:100%; justify-content:center;"><i class="fas fa-bolt"></i> Get Started</a>
+    </div>
+
+    <!-- Scripts (Unified) -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBZ1HdW2wBXZ4sP4YxeMH6HG8H_zvKBxRU",
+        authDomain: "ma-services-80545.firebaseapp.com",
+        projectId: "ma-services-80545",
+        storageBucket: "ma-services-80545.firebasestorage.app",
+        messagingSenderId: "822071246752",
+        appId: "1:822071246752:web:16c5fb421501b34149eec5"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ========== MULTILINGUAL DICTIONARY ==========
+    const dict = {
+        en: {
+            // Header & General
+            logo_sub: "Academic E-Solutions",
+            nav_services: "Services",
+            nav_process: "Process",
+            nav_why: "Why Us",
+            nav_store: "Store",
+            nav_about: "About",
+            nav_contact: "Contact",
+            nav_cta: "Get Started <i class='fas fa-bolt'></i>",
+            breadcrumb_home: "Home",
+            breadcrumb_about: "About Us",
+
+            // Hero
+            about_sub: "A team of academic specialists, engineers, and designers dedicated to your success.",
+
+            // About section
+            about_tag: "Our Mission",
+            about_heading: "Empowering Students <span class='orange'>Worldwide</span>",
+            about_para1: "MA Services™ was founded with a single goal: to provide high‑quality, confidential academic support to students at every level. We combine subject‑matter expertise with a deep understanding of university requirements to deliver work that consistently meets the highest standards.",
+            about_para2: "Our specialists come from over 15 countries and cover 50+ disciplines. Every team member is rigorously vetted, and we match each request to the most qualified expert available — ensuring your work is always handled by someone who truly understands the topic.",
+            mission_point1: "100% original, plagiarism‑free content",
+            mission_point2: "Unlimited free revisions until you’re satisfied",
+            mission_point3: "Complete confidentiality — your identity is never shared",
+            mission_point4: "On‑time delivery, every time — even for urgent deadlines",
+
+            // Team section
+            team_tag: "Meet The Team",
+            team_title: "SPECIALISTS",
+            team_title_orange: "BEHIND THE SCENES",
+
+            // CTA
+            cta_tag: "Let's Work Together",
+            cta_title: "READY TO EXCEL?",
+            cta_sub: "Join thousands of students who trust MA Services™ for their academic journey.",
+            cta_btn: "Get Started Now",
+
+            // Footer
+            foot_desc: "Your best partner for academic success. Professional solutions delivered by verified experts across all subjects and academic levels.",
+            foot_ql_h: "Quick Links",
+            foot_ql1: "Home",
+            foot_ql2: "Services",
+            foot_ql3: "Store",
+            foot_ql4: "About Us",
+            foot_svc_h: "Our Services",
+            foot_contact_h: "Contact Us",
+            whatsapp_available: "Available on WhatsApp",
+            foot_copy: "© 2026 MA Services™ · Academic E-Solutions · All Rights Reserved",
+            foot_stamp: "Developed by <em style='color:var(--orange);'>MH Studios</em>"
+        },
+        ar: {
+            // Header & General
+            logo_sub: "الحلول الأكاديمية الإلكترونية",
+            nav_services: "الخدمات",
+            nav_process: "آلية العمل",
+            nav_why: "لماذا نحن",
+            nav_store: "المتجر",
+            nav_about: "عن الشركة",
+            nav_contact: "اتصل بنا",
+            nav_cta: "ابدأ الآن <i class='fas fa-bolt'></i>",
+            breadcrumb_home: "الرئيسية",
+            breadcrumb_about: "عن الشركة",
+
+            // Hero
+            about_sub: "فريق من المتخصصين الأكاديميين والمهندسين والمصممين المكرسين لنجاحك.",
+
+            // About section
+            about_tag: "مهمتنا",
+            about_heading: "تمكين الطلاب <span class='orange'>حول العالم</span>",
+            about_para1: "تأسست MA Services™ بهدف واحد: تقديم دعم أكاديمي عالي الجودة وسري للطلاب في جميع المستويات. نجمع بين الخبرة في المواد وفهم متطلبات الجامعة لتقديم عمل يفي بأعلى المعايير باستمرار.",
+            about_para2: "يأتي المتخصصون لدينا من أكثر من 15 دولة ويغطون أكثر من 50 تخصصًا. يتم فحص كل عضو بدقة، ونقوم بمطابقة كل طلب مع الخبير الأكثر كفاءة المتاح — مما يضمن أن عملك دائمًا في أيدي شخص يفهم الموضوع حقًا.",
+            mission_point1: "محتوى أصلي 100% خالٍ من الانتحال",
+            mission_point2: "تعديلات مجانية غير محدودة حتى ترضى",
+            mission_point3: "سرية تامة — لا تتم مشاركة هويتك أبدًا",
+            mission_point4: "التسليم في الوقت المحدد، في كل مرة — حتى للمواعيد النهائية العاجلة",
+
+            // Team section
+            team_tag: "تعرف على الفريق",
+            team_title: "المتخصصون",
+            team_title_orange: "وراء الكواليس",
+
+            // CTA
+            cta_tag: "لنعمل معًا",
+            cta_title: "هل أنت مستعد للتفوق؟",
+            cta_sub: "انضم إلى آلاف الطلاب الذين يثقون بـ MA Services™ في رحلتهم الأكاديمية.",
+            cta_btn: "ابدأ الآن",
+
+            // Footer
+            foot_desc: "شريكك الأفضل للنجاح الأكاديمي. حلول احترافية يقدمها خبراء موثوقون في جميع التخصصات والمستويات الأكاديمية.",
+            foot_ql_h: "روابط سريعة",
+            foot_ql1: "الرئيسية",
+            foot_ql2: "الخدمات",
+            foot_ql3: "المتجر",
+            foot_ql4: "عن الشركة",
+            foot_svc_h: "خدماتنا",
+            foot_contact_h: "اتصل بنا",
+            whatsapp_available: "متاح على واتساب",
+            foot_copy: "© 2026 MA Services™ · الحلول الأكاديمية الإلكترونية · جميع الحقوق محفوظة",
+            foot_stamp: "تطوير <em style='color:var(--orange);'>MH Studios</em>"
+        }
+    };
+
+    // ========== LANGUAGE SWITCHER ==========
+    window.switchLang = function(lang) {
+        localStorage.setItem('sys-lang', lang);
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+        // Active orb highlight
+        document.querySelectorAll('.lang-orb').forEach(orb => orb.classList.remove('active'));
+        const activeOrb = document.getElementById(`lang-${lang}`);
+        if (activeOrb) activeOrb.classList.add('active');
+
+        // Translate all data-i18n elements
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[lang] && dict[lang][key]) {
+                el.innerHTML = dict[lang][key];
+            }
+        });
+
+        // Translate placeholders
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (dict[lang] && dict[lang][key]) {
+                el.placeholder = dict[lang][key];
+            }
+        });
+    };
+
+    // ========== INITIAL LANGUAGE LOAD ==========
+    const savedLang = localStorage.getItem('sys-lang') || 'en';
+    window.switchLang(savedLang);
+
+    // ========== USER AUTH STATE ==========
+    onAuthStateChanged(auth, (user) => {
+        const profileSection = document.getElementById('user-profile-section');
+        const userName = document.getElementById('user-display-name');
+        if (profileSection && userName) {
+            if (user) {
+                profileSection.classList.remove('user-status-hidden');
+                userName.textContent = user.displayName || user.email || 'User';
+            } else {
+                profileSection.classList.add('user-status-hidden');
+            }
+        }
+    });
+
+    window.handleLogout = async () => {
+        await signOut(auth);
+        window.location.href = 'index.html';
+    };
+
+    // ========== MOBILE MENU ==========
+    window.toggleMob = function() {
+        const menu = document.getElementById('mob-menu');
+        const overlay = document.getElementById('mob-overlay');
+        if (menu && overlay) {
+            const isOpen = menu.style.right === '0px';
+            menu.style.right = isOpen ? '-100%' : '0px';
+            overlay.style.opacity = isOpen ? '0' : '1';
+            overlay.style.pointerEvents = isOpen ? 'none' : 'all';
+            document.body.style.overflow = isOpen ? '' : 'hidden';
+        }
+    };
+
+    // ========== DUMMY MODAL ==========
+    window.openModal = function() {
+        alert('Request modal coming soon – for now, use the Services page.');
+    };
+
+    // ========== CURSOR ==========
+    (function() {
+        const dot = document.getElementById('cur-dot');
+        const ring = document.getElementById('cur-ring');
+        if (!dot || !ring) return;
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.cssText = `left:${mx}px;top:${my}px;`; });
+        (function anim() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.cssText = `left:${rx}px;top:${ry}px;`; requestAnimationFrame(anim); })();
+        document.querySelectorAll('a, button, .team-card').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-big'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-big'));
+        });
+        if ('ontouchstart' in window) { dot.style.display = 'none'; ring.style.display = 'none'; document.body.style.cursor = 'auto'; }
+    })();
+
+    // ========== HEADER SCROLL ==========
+    window.addEventListener('scroll', () => {
+        const hdr = document.getElementById('hdr');
+        if (hdr) hdr.classList.toggle('scrolled', window.scrollY > 55);
+    });
+</script>
+</body>
+</html>

@@ -446,7 +446,28 @@
             text-align:center; padding:40px 20px; color:var(--muted);
             font-family:var(--fn-s); letter-spacing:1px;
         }
+		
+		#user-profile-section {
+			display: flex; align-items: center; gap: 12px; margin-left: 20px;
+		}
+		#user-profile-section.user-status-hidden { display: none; }
 
+		.user-orb {
+			display: flex; align-items: center; gap: 8px;
+			text-decoration: none; color: var(--white);
+			font-family: var(--fn-s); font-size: 0.9rem; font-weight: 600;
+			transition: color 0.2s;
+		}
+		.user-orb:hover { color: var(--orange); }
+
+		.logout-link {
+			background: none; border: 1px solid var(--border);
+			color: var(--muted); padding: 4px 12px; border-radius: 3px;
+			font-family: var(--fn-s); font-size: 0.7rem; text-transform: uppercase;
+			cursor: pointer; transition: all 0.2s;
+		}
+		.logout-link:hover { border-color: var(--orange); color: var(--orange); }
+		
         /* Responsive */
         @media (max-width:768px) {
             .nav-list { display:none; }
