@@ -861,6 +861,10 @@ footer { background:var(--darker); border-top:1px solid var(--border); padding:6
             <div class="h-stat"><strong>98%</strong><span data-i18n="stat_success">Success Rate</span></div>
             <div class="h-stat"><strong>24H</strong><span data-i18n="stat_express">Express Option</span></div>
             <div class="h-stat"><strong>∞</strong><span data-i18n="stat_revisions">Free Revisions</span></div>
+			<div style="margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="#ma-hybrid-studio" class="btn-primary"><i class="fas fa-microchip"></i> Launch Split-Custody Hybrid AI</a>
+            <a href="#catalog" class="btn-ghost"><i class="fas fa-th-large"></i> Browse Catalog</a>
+        </div>
         </div>
     </div>
 </section>
@@ -1267,6 +1271,322 @@ footer { background:var(--darker); border-top:1px solid var(--border); padding:6
     </div>
 </section>
 
+<!-- ====================================================
+     SPLIT-CUSTODY HYBRID AI STUDIO (#BuildHybridAI 2026)
+==================================================== -->
+<style>
+  #ma-hybrid-studio {
+    background: var(--darker);
+    border-top: 1px solid var(--border-b);
+    border-bottom: 1px solid var(--border-b);
+    padding: 84px 0;
+    position: relative;
+  }
+  .ma-hai-shell {
+    background: var(--card);
+    border: 1px solid var(--border-b);
+    border-radius: 6px;
+    padding: 30px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px var(--border);
+  }
+  .ma-hai-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 22px;
+  }
+  .ma-hai-hud { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .ma-hai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    border-radius: 3px;
+    font-family: var(--fn-s);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .ma-hai-badge--local { background: rgba(74, 222, 128, 0.12); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.35); }
+  .ma-hai-badge--cloud { background: var(--orange-glow); color: var(--orange); border: 1px solid var(--border-b); }
+  .ma-hai-badge--airgap { background: rgba(239, 68, 68, 0.14); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.35); }
+  .ma-hai-badge--warn { background: rgba(251, 191, 36, 0.14); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.35); }
+  .ma-hai-badge--neutral { background: var(--card-light); color: var(--light); border: 1px solid var(--border); }
+  .ma-hai-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .ma-hai-dot--online { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+  .ma-hai-dot--offline { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+  .ma-hai-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .ma-hai-presets { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .ma-hai-mini-btn {
+    background: var(--card-light);
+    color: var(--light);
+    border: 1px solid var(--border);
+    padding: 7px 14px;
+    border-radius: 3px;
+    font-family: var(--fn-s);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s var(--ease);
+  }
+  .ma-hai-mini-btn:hover { border-color: var(--orange); color: var(--orange); }
+  .ma-hai-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--fn-s);
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--light);
+    cursor: pointer;
+    background: var(--card-light);
+    padding: 7px 13px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+  .ma-hai-switch input { accent-color: var(--orange); }
+  .ma-hai-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  @media (max-width: 992px) { .ma-hai-grid { grid-template-columns: 1fr; } }
+  .ma-hai-pane {
+    background: var(--card-light);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ma-hai-pane-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+  .ma-hai-pane-head h3 {
+    margin: 0;
+    font-family: var(--fn-d);
+    font-size: 1.25rem;
+    letter-spacing: 1.5px;
+    color: var(--white);
+  }
+  .ma-hai-latency { font-family: monospace; font-size: 0.78rem; color: var(--orange); margin-left: 6px; }
+  #ma-hai-input {
+    width: 100%;
+    min-height: 230px;
+    background: var(--darker);
+    color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    resize: vertical;
+    outline: none;
+  }
+  #ma-hai-input:focus { border-color: var(--orange); box-shadow: 0 0 12px var(--orange-glow); }
+  .ma-hai-pre {
+    background: var(--darker);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--light);
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 240px;
+    overflow-y: auto;
+    margin: 0;
+  }
+  .ma-hai-vault-box { border-top: 1px dashed var(--border-b); padding-top: 10px; }
+  .ma-hai-vault-box h4 {
+    margin: 0 0 8px 0;
+    font-family: var(--fn-s);
+    font-size: 0.76rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .ma-hai-vault-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.76rem;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .ma-hai-token { color: var(--orange); font-weight: 700; }
+  .ma-hai-vault-cat { color: var(--muted); font-size: 0.7rem; }
+  .ma-hai-vault-val { color: var(--light); max-width: 135px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ma-hai-pill {
+    display: inline-block;
+    background: var(--darker);
+    border: 1px solid var(--border);
+    color: var(--light);
+    padding: 2px 9px;
+    border-radius: 2px;
+    font-family: var(--fn-s);
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+  .ma-hai-pill--redacted { background: var(--orange-glow); border-color: var(--border-b); color: var(--orange); }
+  .ma-hai-status {
+    margin-top: 18px;
+    padding: 11px 15px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    background: var(--darker);
+    border: 1px solid var(--border);
+    color: var(--light);
+  }
+  .ma-hai-status--success { border-color: rgba(74, 222, 128, 0.45); color: #4ade80; }
+  .ma-hai-status--error { border-color: rgba(239, 68, 68, 0.55); color: #f87171; }
+  .ma-hai-status--working { border-color: var(--border-b); color: var(--orange); }
+  .ma-hai-history-strip { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px; }
+  .ma-hai-history-strip h4 {
+    margin: 0 0 10px 0;
+    font-family: var(--fn-s);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  #ma-hai-mini-history {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
+  }
+  .ma-hai-history-item {
+    background: var(--darker);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+  .ma-hai-history-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; font-size: 0.74rem; color: var(--muted); }
+  .ma-hai-empty { color: var(--muted); font-size: 0.8rem; }
+</style>
+
+<section id="ma-hybrid-studio" aria-label="MA Services Hybrid AI Scope Studio">
+  <div class="container">
+    <div class="ma-hai-shell">
+      <div class="ma-hai-header">
+        <div>
+          <div class="section-tag">Firebase AI Logic · #BuildHybridAI 2026</div>
+          <h2 class="section-title" style="font-size:clamp(2rem,4vw,3.4rem);">SPLIT-CUSTODY <span class="orange">HYBRID AI</span> STUDIO</h2>
+          <p style="color:var(--muted);font-size:.88rem;margin-top:8px;">Stage 1 Local Gemini Nano PII Redaction &amp; Service Triage &rarr; Stage 2 Cloud Gemini Sanitized Roadmap</p>
+        </div>
+        <div class="ma-hai-hud">
+          <span id="ma-hai-net-status" class="ma-hai-badge ma-hai-badge--neutral">Checking network...</span>
+          <span id="ma-hai-nano-cap" class="ma-hai-badge ma-hai-badge--neutral">Probing Gemini Nano...</span>
+        </div>
+      </div>
+
+      <div class="ma-hai-toolbar">
+        <div class="ma-hai-presets">
+          <span style="font-family:var(--fn-s);font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Demo Briefs:</span>
+          <button type="button" class="ma-hai-mini-btn" data-preset="project">Capstone Project</button>
+          <button type="button" class="ma-hai-mini-btn" data-preset="technical">Technical Report</button>
+          <button type="button" class="ma-hai-mini-btn" data-preset="security">Systems Security</button>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+          <label class="ma-hai-switch" title="Forces InferenceMode.ONLY_ON_DEVICE and blocks all cloud API egress">
+            <input type="checkbox" id="ma-hai-airgap" />
+            <span>Air-Gapped Local (<code>ONLY_ON_DEVICE</code>)</span>
+          </label>
+          <button type="button" id="ma-hai-clear-btn" class="ma-hai-mini-btn">Clear</button>
+          <button type="button" id="ma-hai-run-btn" class="btn-primary" style="padding:10px 22px;"><i class="fas fa-bolt"></i> Run Hybrid AI</button>
+        </div>
+      </div>
+
+      <div class="ma-hai-grid">
+        <!-- PANE 1: Raw Input -->
+        <div class="ma-hai-pane">
+          <div class="ma-hai-pane-head">
+            <h3>1. Raw Brief (Local RAM)</h3>
+            <span class="ma-hai-badge ma-hai-badge--neutral">Zero Egress</span>
+          </div>
+          <textarea id="ma-hai-input" placeholder="Paste sensitive project specs, server IPs, API keys, or student/client details..."></textarea>
+          <div id="ma-hai-s1-meta"></div>
+        </div>
+
+        <!-- PANE 2: Stage 1 On-Device Redaction -->
+        <div class="ma-hai-pane">
+          <div class="ma-hai-pane-head">
+            <h3>2. Stage 1: Clean-Room Vault</h3>
+            <div>
+              <span id="ma-hai-s1-source"></span>
+              <span id="ma-hai-s1-latency" class="ma-hai-latency"></span>
+            </div>
+          </div>
+          <pre id="ma-hai-masked" class="ma-hai-pre">Awaiting Stage 1 local redaction...</pre>
+          <div class="ma-hai-vault-box">
+            <h4>Local Memory Vault (Never Sent to Cloud)</h4>
+            <div id="ma-hai-vault-list"><div class="ma-hai-empty">No tokens vaulted yet.</div></div>
+          </div>
+        </div>
+
+        <!-- PANE 3: Stage 2 Cloud Synthesis + Local Re-Hydration -->
+        <div class="ma-hai-pane">
+          <div class="ma-hai-pane-head">
+            <h3>3. Stage 2: Technical Roadmap</h3>
+            <div>
+              <span id="ma-hai-s2-source"></span>
+              <span id="ma-hai-s2-latency" class="ma-hai-latency"></span>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+            <label class="ma-hai-switch">
+              <input type="checkbox" id="ma-hai-rehydrate-toggle" checked />
+              <span>Re-hydrate local secrets</span>
+            </label>
+            <button type="button" id="ma-hai-apply-modal-btn" class="ma-hai-mini-btn"><i class="fas fa-paper-plane"></i> Use in Request</button>
+          </div>
+          <pre id="ma-hai-final-output" class="ma-hai-pre">Awaiting Stage 2 cloud synthesis...</pre>
+        </div>
+      </div>
+
+      <div id="ma-hai-status" class="ma-hai-status">
+        Select a demo preset or paste a brief, then click <strong>Run Hybrid AI</strong>.
+      </div>
+
+      <div class="ma-hai-history-strip">
+        <h4>Firestore Hybrid Inference Audit Log (<code>/artifacts/ma-services-80545/users/{uid}/hybrid_briefs</code>)</h4>
+        <div id="ma-hai-mini-history"><div class="ma-hai-empty">Initializing telemetry...</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="module" src="assets/js/hybrid-ui.js"></script>
 
 <!-- ====================================================
      PRICING TIERS (with i18n)

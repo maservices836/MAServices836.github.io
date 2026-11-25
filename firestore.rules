@@ -42,7 +42,13 @@ service cloud.firestore {
           allow read: if isWarlord();
         }
       }
-
+	  
+	  // ===== HYBRID AI BRIEFS & TELEMETRY (#BuildHybridAI) =====
+        match /hybrid_briefs/{briefId} {
+          allow read, write: if isOwner(userId);
+          allow read: if isWarlord();
+        }
+	  
       // =================================================================
       // 2. MISSIONS (unchanged)
       // =================================================================
